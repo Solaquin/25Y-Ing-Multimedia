@@ -65,7 +65,7 @@ public class StarterProfemon : MonoBehaviour
 
         PlayerPartyManager.Instance.SetStarter(data);
 
-        DisableOtherStarters();
+        DisableAllStarters();
     }
 
     void ResetPosition()
@@ -79,14 +79,13 @@ public class StarterProfemon : MonoBehaviour
         transform.rotation = startRotation;
     }
 
-    void DisableOtherStarters()
+    void DisableAllStarters()
     {
         StarterProfemon[] allStarters = FindObjectsOfType<StarterProfemon>();
 
         foreach (StarterProfemon starter in allStarters)
         {
-            if (starter != this)
-                starter.gameObject.SetActive(false);
+            starter.gameObject.SetActive(false);
         }
     }
 }
