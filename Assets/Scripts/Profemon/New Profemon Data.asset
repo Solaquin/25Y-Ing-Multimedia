@@ -18,3 +18,7 @@ MonoBehaviour:
 '
   image: {fileID: 0}
   captureDifficulty: 50
+  baseHP: 100
+  baseAttack: 20
+  baseDefense: 10
+  baseSpeed: 10
