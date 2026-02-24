@@ -12,6 +12,9 @@ public class MoveSO : ScriptableObject
     public int accuracy;
     public int maxPP;
 
+    [Header("Crit")]
+    public float baseCritChance = 5f;
+
     [Header("Behaviour")]
     public MoveEffectSO effect;
 

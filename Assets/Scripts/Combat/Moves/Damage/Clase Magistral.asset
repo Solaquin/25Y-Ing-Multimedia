@@ -15,8 +15,9 @@ MonoBehaviour:
   moveName: Clase Magistral
   moveType: {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
   power: 40
-  accuracy: 70
+  accuracy: 100
   maxPP: 20
+  baseCritChance: 0
   effect: {fileID: 11400000, guid: ee0892abcfcf0f3418ffc8666f5f2713, type: 2}
   affectedStat: 0
   amount: 0

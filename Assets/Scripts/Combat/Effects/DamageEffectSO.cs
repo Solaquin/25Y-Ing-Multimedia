@@ -18,6 +18,9 @@ public class DamageEffectSO : MoveEffectSO
 
         float rawDamage = context.move.power * ((float)attack / defense) * typeMultiplier;
 
+        if (context.isCritical)
+            rawDamage *= 1.5f;
+
         int finalDamage = Mathf.RoundToInt(rawDamage);
         finalDamage = Mathf.Max(1, finalDamage);
 

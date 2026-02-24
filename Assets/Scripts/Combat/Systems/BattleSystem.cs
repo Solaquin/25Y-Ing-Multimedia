@@ -10,11 +10,14 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
+        bool isCritical = CheckCritical(user, target, move);
+
         MoveContext context = new MoveContext
         {
             move = move,
             user = user,
-            target = target
+            target = target,
+            isCritical = isCritical
         };
 
         move.effect.Execute(user, target, context);
@@ -42,5 +45,27 @@ public class BattleSystem : MonoBehaviour
         Debug.Log($"Accuracy Roll: {roll} vs {finalAccuracy}");
 
         return roll <= finalAccuracy;
+    }
+
+    private bool CheckCritical(CombatUnit user, CombatUnit target, MoveSO move)
+    {
+        float userSpeed =
+            user.GetStat(StatType.Speed);
+
+        float targetSpeed =
+            target.GetStat(StatType.Speed);
+
+        if (targetSpeed <= 0)
+            targetSpeed = 1;
+
+        float critChance = move.baseCritChance * (userSpeed / targetSpeed);
+
+        critChance = Mathf.Clamp(critChance, 0f, 100f);
+
+        float roll = Random.Range(0f, 100f);
+
+        Debug.Log($"Crit Roll: {roll} vs {critChance} = Crit: {roll <= critChance}");
+
+        return roll <= critChance;
     }
 }
