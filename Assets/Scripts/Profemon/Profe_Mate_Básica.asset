@@ -10,15 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: New Profemon Data
+  m_Name: "Profe_Mate_B\xE1sica"
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Profe_x
-  description: 'Test
-
-'
+  professorName: MateBasica
+  description: 
   image: {fileID: 0}
   captureDifficulty: 50
-  baseHP: 100
-  baseAttack: 20
-  baseDefense: 10
-  baseSpeed: 10
