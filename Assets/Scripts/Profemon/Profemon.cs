@@ -12,9 +12,13 @@ public class Profemon : MonoBehaviour
     public int minLevel = 1;
     public int maxLevel = 5;
 
+    [Header("Despawn Settings")]
+    public float despawnDistance = 30f;
+
     public bool isCaptured = false;
 
     private ProfemonInstance instance;
+    private Transform player;
 
     private void Awake()
     {
@@ -33,9 +37,29 @@ public class Profemon : MonoBehaviour
 
         instance = new ProfemonInstance(data, level);
 
+        // 🔥 Buscar jugador por Tag
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
+
         Debug.Log(data.professorName + " salvaje generado nivel " + level);
     }
 
+    private void Update()
+    {
+        if (player == null)
+            return;
+
+        if (isCaptured)
+            return;
+
+        float sqrDistance = (transform.position - player.position).sqrMagnitude;
+
+        if (sqrDistance > despawnDistance * despawnDistance)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public ProfemonInstance GetInstance()
     {
@@ -98,7 +122,6 @@ public class Profemon : MonoBehaviour
         }
 
         isCaptured = true;
-
-        HideProfessor();
+        Destroy(gameObject);
     }
 }
