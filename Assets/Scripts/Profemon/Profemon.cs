@@ -2,9 +2,45 @@
 
 public class Profemon : MonoBehaviour
 {
+    [Header("Base Data")]
     public ProfemonData data;
 
+    [Header("Wild Settings")]
+    public int level = 1;
+
+    [Header("Wild Level Range")]
+    public int minLevel = 1;
+    public int maxLevel = 5;
+
     public bool isCaptured = false;
+
+    private ProfemonInstance instance;
+
+    private void Awake()
+    {
+        if (data == null)
+        {
+            Debug.LogError("ProfemonData no asignado en " + gameObject.name);
+            return;
+        }
+
+        // 🔥 Seguridad por si alguien pone mal los valores
+        if (maxLevel < minLevel)
+            maxLevel = minLevel;
+
+        // 🔥 Nivel aleatorio dentro del rango
+        level = Random.Range(minLevel, maxLevel + 1);
+
+        instance = new ProfemonInstance(data, level);
+
+        Debug.Log(data.professorName + " salvaje generado nivel " + level);
+    }
+
+
+    public ProfemonInstance GetInstance()
+    {
+        return instance;
+    }
 
     public void HideProfessor()
     {
@@ -38,11 +74,20 @@ public class Profemon : MonoBehaviour
             return;
         }
 
-        // 🔥 Verificar espacio en party
+        if (instance == null)
+        {
+            Debug.LogError("INSTANCE ES NULL");
+            return;
+        }
+
+        // Verificar espacio en party
         if (PlayerPartyManager.Instance.HasSpaceInParty())
         {
-            PlayerPartyManager.Instance.AddToParty(data);
-            Debug.Log(data.professorName + " añadido a la Party.");
+            PlayerPartyManager.Instance.AddToParty(instance);
+
+            Debug.Log(data.professorName +
+                " nivel " + instance.level +
+                " añadido a la Party.");
         }
         else
         {
@@ -54,7 +99,6 @@ public class Profemon : MonoBehaviour
 
         isCaptured = true;
 
-        // Ocultar del mundo
         HideProfessor();
     }
-    }
+}
