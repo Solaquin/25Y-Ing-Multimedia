@@ -9,7 +9,7 @@ public class WildProfemonSpawner : MonoBehaviour
     public float spawnInterval = 5f;
 
     [Header("Lifetime Settings")]
-    public float lifetime = 20f; // Tiempo antes de desaparecer
+    public float lifetime = 20f;
 
     [Header("Spawn Area")]
     public Vector3 spawnAreaSize = new Vector3(10, 0, 10);
@@ -49,9 +49,15 @@ public class WildProfemonSpawner : MonoBehaviour
 
         GameObject spawned = Instantiate(prefab, randomPosition, Quaternion.identity);
 
+        // 🔥 PASARLE EL ÁREA DE SPAWN
+        Profemon profemon = spawned.GetComponent<Profemon>();
+        if (profemon != null)
+        {
+            profemon.SetSpawnArea(transform.position, spawnAreaSize);
+        }
+
         currentAlive.Add(spawned);
 
-        // 🔥 Iniciar autodestrucción
         StartCoroutine(DestroyAfterTime(spawned, lifetime));
     }
 

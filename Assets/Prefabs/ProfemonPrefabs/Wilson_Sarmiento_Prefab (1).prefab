@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7967570427541705745}
   - component: {fileID: 8124025357508705710}
   - component: {fileID: 8144146316186662017}
+  - component: {fileID: 2668624103712118074}
   m_Layer: 0
   m_Name: Wilson_Sarmiento_Prefab (1)
   m_TagString: Untagged
@@ -158,4 +159,28 @@ MonoBehaviour:
   level: 1
   minLevel: 1
   maxLevel: 5
+  despawnDistance: 30
   isCaptured: 0
+  wanderInterval: 4
+--- !u!195 &2668624103712118074
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5340448239996433398}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
