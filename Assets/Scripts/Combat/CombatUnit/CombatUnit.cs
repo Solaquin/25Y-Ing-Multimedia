@@ -7,20 +7,23 @@ public class CombatUnit : MonoBehaviour
     public List<TypeSO> types;
 
     [Header("Stats")]
-    public int maxHP;
     public StatBlockSO baseStatsSO;
     public StatBlock baseStats;
 
+    private int maxHP;
     [SerializeField]private int currentHP;
+
 
     private List<StatModifier> activeModifiers =
     new List<StatModifier>();
 
     private void Awake()
     {
-        currentHP = maxHP;
 
         baseStats.InitializeFromSO(baseStatsSO);
+
+        maxHP = baseStats.GetStat(StatType.Health);
+        currentHP = maxHP;
 
         Debug.Log($"{name} Accuracy Base: " + baseStats.GetStat(StatType.Accuracy));
 

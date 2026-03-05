@@ -9,6 +9,6 @@ public class HealEffectSO : MoveEffectSO
     MoveContext context
 )
     {
-        user.Heal(context.move.healAmount);
+        user.Heal(context.move.amount);
     }
 }

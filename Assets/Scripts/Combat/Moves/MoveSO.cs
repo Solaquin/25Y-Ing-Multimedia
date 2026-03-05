@@ -12,6 +12,9 @@ public class MoveSO : ScriptableObject
     public int accuracy;
     public int maxPP;
 
+    [Header("Turn Order")]
+    public int priority = 0;
+
     [Header("Crit")]
     public float baseCritChance = 5f;
 
@@ -22,5 +25,4 @@ public class MoveSO : ScriptableObject
     public StatType affectedStat;
     public int amount;
     public int duration;
-    public int healAmount;
 }
