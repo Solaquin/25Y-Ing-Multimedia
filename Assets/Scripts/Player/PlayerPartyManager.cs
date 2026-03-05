@@ -19,36 +19,60 @@ public class PlayerPartyManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetStarter(ProfemonData chosen)
+    // ===============================
+    // STARTER
+    // ===============================
+    public void SetStarter(ProfemonData chosen, int level = 5)
     {
-        if (starterChosen) return;
+        if (starterChosen)
+        {
+            Debug.Log("Starter ya fue elegido.");
+            return;
+        }
 
-        AddToParty(chosen);
+        if (!HasSpaceInParty())
+        {
+            Debug.Log("No hay espacio para el starter.");
+            return;
+        }
+
+        ProfemonInstance starterInstance = new ProfemonInstance(chosen, level);
+        party.Add(starterInstance);
+
         starterChosen = true;
 
         Debug.Log("Starter elegido: " + chosen.professorName);
+
+        if (ProfedexManager.Instance != null)
+        {
+            ProfedexManager.Instance.RegisterProfessor(chosen);
+        }
     }
 
-    public void AddToParty(ProfemonData data)
+    // ===============================
+    // MÉTODO NUEVO (RECOMENDADO)
+    // ===============================
+    public void AddToParty(ProfemonInstance instance)
     {
-        if (party.Count >= maxPartySize)
+        if (!HasSpaceInParty())
         {
             Debug.Log("Party llena.");
             return;
         }
 
-        ProfemonInstance newProfemon = new ProfemonInstance(data);
-        party.Add(newProfemon);
+        party.Add(instance);
 
-        Debug.Log(data.professorName + " agregado a la Party.");
-        Debug.Log("Cantidad en party: " + PlayerPartyManager.Instance.party.Count);
+        Debug.Log(instance.data.professorName +
+                  " nivel " + instance.level +
+                  " agregado a la Party.");
 
-        // 🔥 Registrar automáticamente en la Profedex
         if (ProfedexManager.Instance != null)
         {
-            ProfedexManager.Instance.RegisterProfessor(data);
+            ProfedexManager.Instance.RegisterProfessor(instance.data);
         }
     }
+
+
     public bool HasSpaceInParty()
     {
         return party.Count < maxPartySize;
