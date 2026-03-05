@@ -6,6 +6,7 @@ public class ProfemonInstance
 {
     public ProfemonData data;
 
+
     public int level;
 
     // Vida
@@ -37,13 +38,13 @@ public class ProfemonInstance
 
     private void GenerateStats()
     {
-        maxHP = data.baseHP + level * 5;
+        maxHP = data.baseStats.baseHealth.value + level * 5;
 
-        attack = data.baseAttack + level * 2;
-        defense = data.baseDefense + level * 2;
-        speed = data.baseSpeed + level * 2;
+        attack = data.baseStats.baseAttack.value + level * 2;
+        defense = data.baseStats.baseDefense.value + level * 2;
+        speed = data.baseStats.baseSpeed.value + level * 2;
 
-        accuracy = data.baseAccuracy;
-        evasion = data.baseEvasion;
+        accuracy = data.baseStats.baseAccuracy.value;
+        evasion = data.baseStats.baseEvasion.value;
     }
 }

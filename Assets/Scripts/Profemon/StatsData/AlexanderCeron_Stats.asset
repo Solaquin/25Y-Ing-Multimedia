@@ -10,18 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e79cc63a6435649adc12c53d269793, type: 3}
-  m_Name: Profemon_A_Test
+  m_Name: AlexanderCeron_Stats
   m_EditorClassIdentifier: Assembly-CSharp::StatBlockSO
-  stats:
-  - stat: 0
-    value: 100
-  - stat: 1
-    value: 80
-  - stat: 2
-    value: 40
-  - stat: 3
-    value: 200
-  - stat: 4
-    value: 100
-  - stat: 5
-    value: 100
+  stats: []

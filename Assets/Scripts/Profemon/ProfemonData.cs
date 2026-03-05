@@ -13,14 +13,7 @@ public class ProfemonData : ScriptableObject
     public List<TypeSO> types;
 
     [Header("Base Stats")]
-    public int baseHP = 100;
-    public int baseAttack = 20;
-    public int baseDefense = 10;
-    public int baseSpeed = 10;
-
-    [Header("Base Combat")]
-    public int baseAccuracy = 100;
-    public int baseEvasion = 100;
+    public StatBlockSO baseStats;
 
     [Header("Captura")]
     [Range(0, 100)]

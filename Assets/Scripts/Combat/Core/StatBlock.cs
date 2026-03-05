@@ -40,9 +40,12 @@ public class StatBlock
     {
         stats.Clear();
 
-        foreach (var entry in so.stats)
-        {
-            stats[entry.stat] = entry.value;
-        }
+        stats[StatType.Health] = so.baseHealth.value;
+        stats[StatType.Attack] = so.baseAttack.value;
+        stats[StatType.Defense] = so.baseDefense.value;
+        stats[StatType.Speed] = so.baseSpeed.value;
+        stats[StatType.Accuracy] = so.baseAccuracy.value;
+        stats[StatType.Evasion] = so.baseEvasion.value;
+
     }
 }
