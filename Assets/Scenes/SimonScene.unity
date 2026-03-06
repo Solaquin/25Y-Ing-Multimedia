@@ -362,11 +362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389b771b21bc8d341b8cb20b47628343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUnit
-  types:
-  - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
-  maxHP: 200
-  baseStatsSO: {fileID: 11400000, guid: b95780b27a421ad48973a70a59625212, type: 2}
-  currentHP: 0
+  data: {fileID: 0}
+  level: 1
 --- !u!1 &299639867
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -6.28
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -721,7 +718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -2.84
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -857,7 +854,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Profemon
   data: {fileID: 11400000, guid: 0e56d5fc672ae1244b76aa852fdac3b1, type: 2}
+  level: 1
+  minLevel: 1
+  maxLevel: 5
+  despawnDistance: 30
   isCaptured: 0
+  wanderInterval: 4
 --- !u!54 &471623946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1444,7 +1446,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Profemon
   data: {fileID: 11400000, guid: 0e56d5fc672ae1244b76aa852fdac3b1, type: 2}
+  level: 1
+  minLevel: 1
+  maxLevel: 5
+  despawnDistance: 30
   isCaptured: 0
+  wanderInterval: 4
 --- !u!54 &792486177
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2636,11 +2643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389b771b21bc8d341b8cb20b47628343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUnit
-  types:
-  - {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
-  maxHP: 100
-  baseStatsSO: {fileID: 11400000, guid: fee7accdf74125b4f860241278ee6fd6, type: 2}
-  currentHP: 0
+  data: {fileID: 0}
+  level: 1
 --- !u!1 &1645516322
 GameObject:
   m_ObjectHideFlags: 0
@@ -3239,7 +3243,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Profemon
   data: {fileID: 11400000, guid: 0e56d5fc672ae1244b76aa852fdac3b1, type: 2}
+  level: 1
+  minLevel: 1
+  maxLevel: 5
+  despawnDistance: 30
   isCaptured: 0
+  wanderInterval: 4
 --- !u!54 &1704360800
 Rigidbody:
   m_ObjectHideFlags: 0

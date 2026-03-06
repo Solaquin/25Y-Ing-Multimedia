@@ -16,10 +16,5 @@ MonoBehaviour:
   description: 
   image: {fileID: 0}
   types: []
-  baseHP: 100
-  baseAttack: 20
-  baseDefense: 10
-  baseSpeed: 10
-  baseAccuracy: 100
-  baseEvasion: 100
+  baseStats: {fileID: 11400000, guid: 9ad88f789d811e54998cf541c8cbe291, type: 2}
   captureDifficulty: 50
