@@ -21,11 +21,6 @@ public class BattleSystem : MonoBehaviour
     BattleCommand playerCommand;
     BattleCommand enemyCommand;
 
-    void Start()
-    {
-        StartBattle();
-    }
-
     void StartBattle()
     {
         Debug.Log("Battle started");
@@ -233,5 +228,73 @@ public class BattleSystem : MonoBehaviour
 
         ResolveCommands();
     }
+
+    bool CheckBattleEnd()
+    {
+        bool playerAlive = allUnits[0].IsAlive();
+        bool enemyAlive = allUnits[1].IsAlive();
+
+        if (!playerAlive || !enemyAlive)
+            return true;
+
+        return false;
+    }
+
+    void EndBattle()
+    {
+        currentState = BattleState.EndBattle;
+
+        CombatUnit player = allUnits[0];
+        CombatUnit enemy = allUnits[1];
+
+        if (player.IsAlive())
+            Debug.Log("Player wins!");
+        else
+            Debug.Log("Enemy wins!");
+    }
+
+    // TEST FUNCTIONS
+
+    public void RunBattleLoop()
+    {
+        StartBattle();
+
+        while (currentState != BattleState.EndBattle)
+        {
+            SimulatePlayerInput();
+            SimulateEnemyInput();
+
+            ResolveCommands();
+
+            if (CheckBattleEnd())
+            {
+                EndBattle();
+                break;
+            }
+        }
+    }
+
+    void SimulatePlayerInput()
+    {
+        CombatUnit player = allUnits[0];
+        CombatUnit enemy = allUnits[1];
+
+        MoveSO move = player.GetRandomMove();
+
+        playerCommand =
+            BattleCommand.CreateMoveCommand(player, enemy, move);
+    }
+    void SimulateEnemyInput()
+    {
+        CombatUnit enemy = allUnits[1];
+        CombatUnit player = allUnits[0];
+
+        MoveSO move = enemy.GetRandomMove();
+
+        enemyCommand =
+            BattleCommand.CreateMoveCommand(enemy, player, move);
+    }
+
+
 
 }

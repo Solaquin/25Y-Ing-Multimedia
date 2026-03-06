@@ -13,6 +13,7 @@ public class BattleCommand
 
     private BattleCommand() { }
 
+    //Command for execute movements
     public static BattleCommand CreateMoveCommand(
         CombatUnit user,
         CombatUnit target,
@@ -27,6 +28,7 @@ public class BattleCommand
         };
     }
 
+    //Commando for use items
     public static BattleCommand CreateItemCommand(
         CombatUnit user,
         CombatUnit target,
@@ -41,6 +43,7 @@ public class BattleCommand
         };
     }
 
+    //Command for Switch current BattleUnit
     public static BattleCommand CreateSwitchCommand(
         CombatUnit user,
         CombatUnit switchTarget)

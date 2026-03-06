@@ -15,6 +15,14 @@ public class TestMoveExecution : MonoBehaviour
         battleSystem.allUnits.Add(player);
         battleSystem.allUnits.Add(enemy);
 
+        battleSystem.RunBattleLoop();
+    }
+
+    public void testRandonMoveExecution()
+    {
+        battleSystem.allUnits.Add(player);
+        battleSystem.allUnits.Add(enemy);
+
         if (player.GetMoves().Count == 0 || enemy.GetMoves().Count == 0)
         {
             Debug.LogError("Uno de los CombatUnit no tiene movimientos.");
