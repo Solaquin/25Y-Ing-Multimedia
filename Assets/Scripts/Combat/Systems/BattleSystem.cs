@@ -99,8 +99,11 @@ public class BattleSystem : MonoBehaviour
 
         foreach (var action in ordered)
         {
-            if (!action.user.IsAlive())
+            if (!BattleActionValidator.IsActionValid(action))
+            {
+                Debug.Log("Action inválida, se omite.");
                 continue;
+            }
 
             ExecuteAction(action);
         }
@@ -134,6 +137,12 @@ public class BattleSystem : MonoBehaviour
 
     public void UseMove(CombatUnit user, CombatUnit target, MoveSO move)
     {
+        if (!target.IsAlive())
+        {
+            Debug.Log($"{user.name} no tiene objetivo válido.");
+            return;
+        }
+
         if (!CheckAccuracy(user, target, move))
         {
             Debug.Log($"{move.moveName} falló");

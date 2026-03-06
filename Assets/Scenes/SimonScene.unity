@@ -4158,6 +4158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
   debugUI: {fileID: 628829227}
+  currentState: 0
+  turnNumber: 0
+  allUnits: []
 --- !u!114 &1977257738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4173,7 +4176,7 @@ MonoBehaviour:
   player: {fileID: 1535212922}
   enemy: {fileID: 298216845}
   playerMove: {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
-  enemyMove: {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
+  enemyMove: {fileID: 11400000, guid: a2d380b42d296bc4691d5766d036ac68, type: 2}
   battleSystem: {fileID: 1977257737}
 --- !u!1 &2092139007
 GameObject:
