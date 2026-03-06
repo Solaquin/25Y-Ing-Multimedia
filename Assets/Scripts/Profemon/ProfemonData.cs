@@ -15,6 +15,9 @@ public class ProfemonData : ScriptableObject
     [Header("Base Stats")]
     public StatBlockSO baseStats;
 
+    [Header("Movements")]
+    public List<MoveSO> learnableMoves;
+
     [Header("Captura")]
     [Range(0, 100)]
     public int captureDifficulty = 50;

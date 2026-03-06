@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class TestMoveExecution : MonoBehaviour
 {
@@ -9,13 +10,26 @@ public class TestMoveExecution : MonoBehaviour
     public MoveSO enemyMove;
     public BattleSystem battleSystem;
 
-    private void Start()
+    void Start()
     {
-        List<TurnAction> actions = new List<TurnAction>(){
-            new TurnAction(player, enemy, playerMove),
-            new TurnAction(enemy, player, enemyMove)
+        battleSystem.allUnits.Add(player);
+        battleSystem.allUnits.Add(enemy);
+
+        if (player.GetMoves().Count == 0 || enemy.GetMoves().Count == 0)
+        {
+            Debug.LogError("Uno de los CombatUnit no tiene movimientos.");
+            return;
+        }
+
+        MoveSO playerMove = player.GetRandomMove();
+        MoveSO enemyMove = enemy.GetRandomMove();
+
+        List<BattleCommand> commands = new List<BattleCommand>()
+        {
+            BattleCommand.CreateMoveCommand(player, enemy, playerMove),
+            BattleCommand.CreateMoveCommand(enemy, player, enemyMove)
         };
 
-        battleSystem.ExecuteTurn(actions);
+        battleSystem.ResolveTurn(commands);
     }
 }

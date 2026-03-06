@@ -1,9 +1,94 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BattleState
+{
+    StartBattle,
+    PlayerInput,
+    EnemyInput,
+    ResolvingTurn,
+    Busy,
+    EndBattle
+}
+
 public class BattleSystem : MonoBehaviour
 {
     public TurnOrderDebugUI debugUI;
+    public BattleState currentState;
+    public int turnNumber = 0;
+
+    public List<CombatUnit> allUnits = new List<CombatUnit>();
+    BattleCommand playerCommand;
+    BattleCommand enemyCommand;
+
+    void Start()
+    {
+        StartBattle();
+    }
+
+    void StartBattle()
+    {
+        Debug.Log("Battle started");
+
+        currentState = BattleState.PlayerInput;
+    }
+
+    public void StartTurn()
+    {
+        turnNumber++;
+
+        Debug.Log($"---- TURN {turnNumber} START ----");
+
+        // aquí luego irán efectos de inicio de turno
+    }
+
+    public void ResolveTurn(List<BattleCommand> commands)
+    {
+        StartTurn();
+
+        List<TurnAction> actions = new List<TurnAction>();
+
+        foreach (var command in commands)
+        {
+            TurnAction action = CommandResolver.CreateAction(command);
+
+            if (action != null)
+                actions.Add(action);
+        }
+
+        ExecuteTurn(actions);
+
+        EndTurn();
+    }
+
+    public void EndTurn()
+    {
+        Debug.Log($"---- TURN {turnNumber} END ----");
+
+        foreach (var unit in allUnits)
+        {
+            unit.TickModifiers();
+        }
+    }
+
+    void ExecuteAction(TurnAction action)
+    {
+        switch (action.actionType)
+        {
+            case BattleActionType.Move:
+                UseMove(action.user, action.target, action.move);
+                break;
+
+            case BattleActionType.Item:
+                UseItem(action);
+                break;
+
+            case BattleActionType.Switch:
+                SwitchUnit(action);
+                break;
+        }
+    }
+
     public void ExecuteTurn(List<TurnAction> actions)
     {
         List<TurnAction> ordered =
@@ -17,12 +102,34 @@ public class BattleSystem : MonoBehaviour
             if (!action.user.IsAlive())
                 continue;
 
-            UseMove(
-                action.user,
-                action.target,
-                action.move
-            );
+            ExecuteAction(action);
         }
+    }
+
+    public void UseItem(TurnAction action)
+    {
+
+    }
+
+    public void SwitchUnit(TurnAction action)
+    {
+
+    }
+
+    void ResolveCommands()
+    {
+        currentState = BattleState.ResolvingTurn;
+
+        List<BattleCommand> commands =
+            new List<BattleCommand>()
+            {
+            playerCommand,
+            enemyCommand
+            };
+
+        ResolveTurn(commands);
+
+        currentState = BattleState.PlayerInput;
     }
 
     public void UseMove(CombatUnit user, CombatUnit target, MoveSO move)
@@ -91,4 +198,31 @@ public class BattleSystem : MonoBehaviour
 
         return roll <= critChance;
     }
+
+    public void PlayerChooseMove(CombatUnit player, CombatUnit target, MoveSO move)
+    {
+        if (currentState != BattleState.PlayerInput)
+            return;
+
+        playerCommand =
+            BattleCommand.CreateMoveCommand(player, target, move);
+
+        currentState = BattleState.EnemyInput;
+
+        EnemyChooseMove();
+    }
+
+    void EnemyChooseMove()
+    {
+        CombatUnit enemy = allUnits[1];
+        CombatUnit player = allUnits[0];
+
+        MoveSO move = enemy.GetRandomMove();
+
+        enemyCommand =
+            BattleCommand.CreateMoveCommand(enemy, player, move);
+
+        ResolveCommands();
+    }
+
 }

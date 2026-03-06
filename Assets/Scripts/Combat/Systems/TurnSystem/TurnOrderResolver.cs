@@ -16,8 +16,8 @@ public static class TurnOrderResolver
         }
 
         return actions
-            .OrderByDescending(a => a.move.priority)
-            .ThenByDescending(a => a.user.GetStat(StatType.Speed))
+            .OrderByDescending(a => a.priority)
+            .ThenByDescending(a => a.speed)
             .ThenByDescending(a => Random.value)
             .ToList();
     }

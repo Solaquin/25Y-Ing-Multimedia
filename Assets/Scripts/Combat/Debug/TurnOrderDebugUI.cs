@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -15,8 +15,7 @@ public class TurnOrderDebugUI : MonoBehaviour
             var action = actions[i];
 
             text +=
-                $"{i + 1}. " +
-                action + "\n";
+            $"{i + 1}. {action}\n";
         }
 
         debugText.text = text;

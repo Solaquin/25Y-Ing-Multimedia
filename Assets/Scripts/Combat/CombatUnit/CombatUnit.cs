@@ -8,6 +8,7 @@ public class CombatUnit : MonoBehaviour
     public int level = 1;
 
     private ProfemonInstance instance;
+    public ProfemonInstance Instance => instance;
 
     private List<StatModifier> activeModifiers =
         new List<StatModifier>();
@@ -148,4 +149,23 @@ public class CombatUnit : MonoBehaviour
 
         return multiplier;
     }
+
+    // ================================
+    // MOVIMIENTOS
+    // ================================
+    public List<MoveSO> GetMoves()
+    {
+        return instance.currentMoves;
+    }
+
+    public MoveSO GetRandomMove()
+    {
+        var moves = instance.currentMoves;
+
+        if (moves == null || moves.Count == 0)
+            return null;
+
+        return moves[Random.Range(0, moves.Count)];
+    }
+
 }

@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUnit
   data: {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
-  level: 5
+  level: 1
   currentHPDebug: 0
 --- !u!1 &299639867
 GameObject:
@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 628829228}
   - component: {fileID: 628829227}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: TurnOrderDebug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class ProfemonInstance
@@ -23,6 +24,9 @@ public class ProfemonInstance
     // Tipos
     public List<TypeSO> types;
 
+    //Movimientos actuales
+    public List<MoveSO> currentMoves = new List<MoveSO>();
+
     public ProfemonInstance(ProfemonData baseData, int level)
     {
         data = baseData;
@@ -34,6 +38,8 @@ public class ProfemonInstance
 
         // Copiamos los tipos del Data
         types = new List<TypeSO>(baseData.types);
+
+        InitializeMoves();
     }
 
     private void GenerateStats()
@@ -46,5 +52,15 @@ public class ProfemonInstance
 
         accuracy = data.baseStats.baseAccuracy.value;
         evasion = data.baseStats.baseEvasion.value;
+    }
+
+    private void InitializeMoves()
+    {
+        int maxMoves = Mathf.Min(4, data.learnableMoves.Count);
+
+        for (int i = 0; i < maxMoves; i++)
+        {
+            currentMoves.Add(data.learnableMoves[i]);
+        }
     }
 }
