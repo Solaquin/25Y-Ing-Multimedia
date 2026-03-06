@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ebbec4cb94f7a409c633c462947d52, type: 3}
-  m_Name: Clase Magistral
-  m_EditorClassIdentifier: Assembly-CSharp::MovesSO
-  moveName: Clase Magistral
-  moveType: {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
-  power: 40
+  m_Name: "Tomar Caf\xE9"
+  m_EditorClassIdentifier: Assembly-CSharp::MoveSO
+  moveName: "Tomar Caf\xE9"
+  moveType: {fileID: 11400000, guid: bf75f44c9eb85b642af05ab88ebf9355, type: 2}
+  power: 0
   accuracy: 100
-  maxPP: 20
-  priority: 1
+  maxPP: 5
+  priority: 0
   baseCritChance: 0
-  effect: {fileID: 11400000, guid: ee0892abcfcf0f3418ffc8666f5f2713, type: 2}
+  effect: {fileID: 11400000, guid: 60a161d8821c62a4f83b8e35cd4e05de, type: 2}
   affectedStat: 0
-  amount: 0
+  amount: 50
   duration: 0

@@ -1,18 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TestMoveExecution : MonoBehaviour
 {
-    public CombatUnit attacker;
-    public CombatUnit defender;
-    public MoveSO move;
+    public CombatUnit player;
+    public CombatUnit enemy;
+    public MoveSO playerMove;
+    public MoveSO enemyMove;
     public BattleSystem battleSystem;
 
     private void Start()
     {
-        battleSystem.UseMove(
-            attacker,
-            defender,
-            move
-        );
+        List<TurnAction> actions = new List<TurnAction>(){
+            new TurnAction(player, enemy, playerMove),
+            new TurnAction(enemy, player, enemyMove)
+        };
+
+        battleSystem.ExecuteTurn(actions);
     }
 }

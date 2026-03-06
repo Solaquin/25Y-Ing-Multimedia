@@ -1,8 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
 {
-    public void UseMove(CombatUnit user, CombatUnit target,MoveSO move)
+    public TurnOrderDebugUI debugUI;
+    public void ExecuteTurn(List<TurnAction> actions)
+    {
+        List<TurnAction> ordered =
+            TurnOrderResolver.Resolve(actions);
+
+        // Debug turn
+        debugUI.ShowTurnOrder(ordered);
+
+        foreach (var action in ordered)
+        {
+            if (!action.user.IsAlive())
+                continue;
+
+            UseMove(
+                action.user,
+                action.target,
+                action.move
+            );
+        }
+    }
+
+    public void UseMove(CombatUnit user, CombatUnit target, MoveSO move)
     {
         if (!CheckAccuracy(user, target, move))
         {

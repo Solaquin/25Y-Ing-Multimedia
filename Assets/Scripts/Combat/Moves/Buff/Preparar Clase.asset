@@ -17,7 +17,9 @@ MonoBehaviour:
   power: 0
   accuracy: 100
   maxPP: 5
+  priority: 0
+  baseCritChance: 5
   effect: {fileID: 11400000, guid: 53b2bd302a1cee1448328a3e24041463, type: 2}
-  affectedStat: 0
+  affectedStat: 1
   amount: 50
-  healAmount: 0
+  duration: 1

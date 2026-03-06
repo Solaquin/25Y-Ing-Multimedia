@@ -12,9 +12,12 @@ public class CombatUnit : MonoBehaviour
     private List<StatModifier> activeModifiers =
         new List<StatModifier>();
 
+    [SerializeField] int currentHPDebug;
+
     private void Awake()
     {
         instance = new ProfemonInstance(data, level);
+        currentHPDebug = instance.currentHP;
 
         Debug.Log($"{name} Attack Base: {instance.attack}");
     }
@@ -33,6 +36,7 @@ public class CombatUnit : MonoBehaviour
         );
 
         Debug.Log($"{name} recibió {amount} de daño. HP: {instance.currentHP}");
+        currentHPDebug = instance.currentHP;
     }
 
     public void Heal(int amount)
@@ -43,6 +47,9 @@ public class CombatUnit : MonoBehaviour
             0,
             instance.maxHP
         );
+
+        Debug.Log($"{name} se curó {amount}. New HP:{instance.currentHP}");
+        currentHPDebug = instance.currentHP;
     }
 
     public bool IsAlive()
