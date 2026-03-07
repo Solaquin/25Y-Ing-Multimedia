@@ -21,8 +21,10 @@ public class MoveSO : ScriptableObject
     [Header("Behaviour")]
     public MoveEffectSO effect;
 
-    [Header("Effect Parameters")]
+    [Header("Stat Effect")]
     public StatType affectedStat;
-    public int amount;
-    public int duration;
+    public int stageChange;
+
+    [Header("Healing")]
+    public int healAmount;
 }

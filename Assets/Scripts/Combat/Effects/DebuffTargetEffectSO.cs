@@ -10,6 +10,6 @@ public class DebuffTargetEffectSO : MoveEffectSO
         MoveContext context
     )
     {
-        target.AddModifier(context.move.affectedStat, -context.move.amount, context.move.duration);
+        target.AddStageModifier(context.move.affectedStat, -Mathf.Abs(context.move.stageChange));
     }
 }

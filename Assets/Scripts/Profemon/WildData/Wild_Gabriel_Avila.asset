@@ -15,7 +15,8 @@ MonoBehaviour:
   professorName: Gabriel Avila
   description: 
   image: {fileID: 0}
-  types: []
+  types:
+  - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
   baseStats: {fileID: 11400000, guid: fa47f488663d145409573a67a7f4aee5, type: 2}
   learnableMoves:
   - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}

@@ -9,6 +9,6 @@ public class BuffSelfEffectSO : MoveEffectSO
         MoveContext context
     )
     {
-        user.AddModifier(context.move.affectedStat, context.move.amount, context.move.duration);
+        user.AddStageModifier(context.move.affectedStat, context.move.stageChange);
     }
 }

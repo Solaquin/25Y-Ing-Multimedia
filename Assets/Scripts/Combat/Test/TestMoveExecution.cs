@@ -10,34 +10,16 @@ public class TestMoveExecution : MonoBehaviour
     public MoveSO enemyMove;
     public BattleSystem battleSystem;
 
+    public bool makeTest = false;
+
     void Start()
     {
-        battleSystem.allUnits.Add(player);
-        battleSystem.allUnits.Add(enemy);
-
-        battleSystem.RunBattleLoop();
-    }
-
-    public void testRandonMoveExecution()
-    {
-        battleSystem.allUnits.Add(player);
-        battleSystem.allUnits.Add(enemy);
-
-        if (player.GetMoves().Count == 0 || enemy.GetMoves().Count == 0)
+        if(makeTest)
         {
-            Debug.LogError("Uno de los CombatUnit no tiene movimientos.");
-            return;
+            battleSystem.allUnits.Add(player);
+            battleSystem.allUnits.Add(enemy);
+
+            battleSystem.RunBattleTest();
         }
-
-        MoveSO playerMove = player.GetRandomMove();
-        MoveSO enemyMove = enemy.GetRandomMove();
-
-        List<BattleCommand> commands = new List<BattleCommand>()
-        {
-            BattleCommand.CreateMoveCommand(player, enemy, playerMove),
-            BattleCommand.CreateMoveCommand(enemy, player, enemyMove)
-        };
-
-        battleSystem.ResolveTurn(commands);
     }
 }

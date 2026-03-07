@@ -10,17 +10,26 @@ public class CombatUnit : MonoBehaviour
     private ProfemonInstance instance;
     public ProfemonInstance Instance => instance;
 
-    private List<StatModifier> activeModifiers =
-        new List<StatModifier>();
+    Dictionary<StatType, int> statStages = new Dictionary<StatType, int>();
 
     [SerializeField] int currentHPDebug;
 
     private void Awake()
     {
         instance = new ProfemonInstance(data, level);
+
+        foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
+        {
+            statStages[stat] = 0;
+        }
+
         currentHPDebug = instance.currentHP;
 
         Debug.Log($"{name} Attack Base: {instance.attack}");
+        Debug.Log($"{name} Defense Base: {instance.defense}");
+        Debug.Log($"{name} Speed Base: {instance.speed}");
+        Debug.Log($"{name} Accuracy Base: {instance.accuracy}");
+        Debug.Log($"{name} Evasion Base: {instance.evasion}");
     }
 
     // ================================
@@ -36,6 +45,8 @@ public class CombatUnit : MonoBehaviour
             instance.maxHP
         );
 
+        BattleEvents.OnHPChanged?.Invoke();
+
         Debug.Log($"{name} recibió {amount} de daño. HP: {instance.currentHP}");
         currentHPDebug = instance.currentHP;
     }
@@ -48,6 +59,8 @@ public class CombatUnit : MonoBehaviour
             0,
             instance.maxHP
         );
+
+        BattleEvents.OnHPChanged?.Invoke();
 
         Debug.Log($"{name} se curó {amount}. New HP:{instance.currentHP}");
         currentHPDebug = instance.currentHP;
@@ -72,62 +85,64 @@ public class CombatUnit : MonoBehaviour
     // STATS
     // ================================
 
-    public int GetStat(StatType stat)
+    int GetBaseStat(StatType stat)
     {
-        int baseValue = 0;
-
         switch (stat)
         {
-            case StatType.Attack:
-                baseValue = instance.attack;
-                break;
-
-            case StatType.Defense:
-                baseValue = instance.defense;
-                break;
-
-            case StatType.Speed:
-                baseValue = instance.speed;
-                break;
-
-            case StatType.Accuracy:
-                baseValue = instance.accuracy;
-                break;
-
-            case StatType.Evasion:
-                baseValue = instance.evasion;
-                break;
+            case StatType.Attack: return instance.attack;
+            case StatType.Defense: return instance.defense;
+            case StatType.Speed: return instance.speed;
+            case StatType.Accuracy: return instance.accuracy;
+            case StatType.Evasion: return instance.evasion;
         }
 
-        int modifierSum = 0;
-
-        foreach (var mod in activeModifiers)
-        {
-            if (mod.stat == stat)
-                modifierSum += mod.amount;
-        }
-
-        return baseValue + modifierSum;
+        return 0;
     }
 
-    public void AddModifier(StatType stat, int amount, int duration)
+    public int GetStat(StatType stat)
     {
-        StatModifier modifier =
-            new StatModifier(stat, amount, duration);
+        int baseValue = GetBaseStat(stat);
 
-        activeModifiers.Add(modifier);
+        int stage = statStages[stat];
 
-        Debug.Log($"{name} recibió {stat} {amount} por {duration} turnos.");
+        float multiplier = GetStageMultiplier(stage);
+
+        return Mathf.RoundToInt(baseValue * multiplier);
     }
 
-    public void TickModifiers()
+    public void AddStageModifier(StatType stat, int amount)
     {
-        for (int i = activeModifiers.Count - 1; i >= 0; i--)
-        {
-            activeModifiers[i].remainingTurns--;
+        int currentStage = statStages[stat];
 
-            if (activeModifiers[i].remainingTurns <= 0)
-                activeModifiers.RemoveAt(i);
+        currentStage += amount;
+
+        currentStage = Mathf.Clamp(currentStage, -6, 6);
+
+        statStages[stat] = currentStage;
+
+        Debug.Log($"{name} {stat} stage ahora es {currentStage}");
+    }
+
+    public int GetStage(StatType stat)
+    {
+        return statStages[stat];
+    }
+
+    float GetStageMultiplier(int stage)
+    {
+        if (stage >= 0)
+            return (2f + stage) / 2f;
+
+        return 2f / (2f - stage);
+    }
+
+    public void ResetStages()
+    {
+        statStages.Clear();
+
+        foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
+        {
+            statStages[stat] = 0;
         }
     }
 

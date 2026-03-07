@@ -21,5 +21,5 @@ MonoBehaviour:
   baseCritChance: 0
   effect: {fileID: 11400000, guid: 60a161d8821c62a4f83b8e35cd4e05de, type: 2}
   affectedStat: 0
-  amount: 50
-  duration: 0
+  stageChange: 0
+  healAmount: 50
