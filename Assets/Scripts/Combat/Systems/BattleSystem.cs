@@ -141,6 +141,11 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log($"---- TURN {turnNumber} END ----");
 
+        foreach (var unit in allUnits)
+        {
+            unit.TickStatus();
+        }
+
         BattleEvents.OnTurnEnd?.Invoke();
     }
 
@@ -295,7 +300,7 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log(
             $"Accuracy {moveAccuracy} | AStage:{accuracyStage} " +
-            $"EStage:{evasionStage} | Final:{finalAccuracy}"
+            $"EStage:{evasionStage} | Final:{finalAccuracy} VS Roll:{roll}" 
         );
 
         return roll <= finalAccuracy;

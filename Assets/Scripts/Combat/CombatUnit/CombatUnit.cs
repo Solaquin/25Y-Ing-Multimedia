@@ -11,6 +11,7 @@ public class CombatUnit : MonoBehaviour
     public ProfemonInstance Instance => instance;
 
     Dictionary<StatType, int> statStages = new Dictionary<StatType, int>();
+    StatusInstance currentStatus;
 
     [SerializeField] int currentHPDebug;
 
@@ -143,6 +144,40 @@ public class CombatUnit : MonoBehaviour
         foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
         {
             statStages[stat] = 0;
+        }
+    }
+
+    // ================================
+    // ESTADOS
+    // ================================
+    public void ApplyStatus(StatusEffectSO status, int duration)
+    {
+        if (currentStatus != null)
+        {
+            Debug.Log($"{name} ya tiene un estado.");
+            return;
+        }
+
+        currentStatus = new StatusInstance(status, duration);
+
+        status.OnApply(this);
+
+        Debug.Log($"{name} ahora tiene {status.statusType}");
+    }
+
+    public void TickStatus()
+    {
+        if (currentStatus == null)
+            return;
+
+        currentStatus.effect.OnTurnEnd(this);
+
+        currentStatus.remainingTurns--;
+
+        if (currentStatus.remainingTurns <= 0)
+        {
+            Debug.Log($"{name} ya no está {currentStatus.effect.statusType}");
+            currentStatus = null;
         }
     }
 

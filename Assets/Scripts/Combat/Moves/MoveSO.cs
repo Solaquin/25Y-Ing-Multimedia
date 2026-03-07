@@ -27,4 +27,8 @@ public class MoveSO : ScriptableObject
 
     [Header("Healing")]
     public int healAmount;
+
+    [Header("Status Effect")]
+    public StatusEffectSO statusEffect;
+    public int duration;
 }
