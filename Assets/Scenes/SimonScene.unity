@@ -2527,6 +2527,64 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &740722392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 740722394}
+  - component: {fileID: 740722393}
+  m_Layer: 0
+  m_Name: PlayerPartyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &740722393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740722392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb454d5e62b408a44975ddf34039e550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPartyManager
+  party:
+  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 0
+    maxHP: 0
+    currentHP: 0
+    attack: 0
+    defense: 0
+    speed: 0
+    accuracy: 0
+    evasion: 0
+    types: []
+    currentMoves: []
+  maxPartySize: 6
+  starterChosen: 1
+--- !u!4 &740722394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740722392}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.93696, y: 0.0005, z: 2.08454}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &756192406
 GameObject:
   m_ObjectHideFlags: 0
@@ -6165,24 +6223,8 @@ MonoBehaviour:
   turnNumber: 0
   allUnits: []
   textBox: {fileID: 900468271}
---- !u!114 &1977257738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977257734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5a1cdca9cacab4daa26f1be9f3e4bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestMoveExecution
-  player: {fileID: 1535212922}
-  enemy: {fileID: 298216845}
-  playerMove: {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
-  enemyMove: {fileID: 11400000, guid: a2d380b42d296bc4691d5766d036ac68, type: 2}
-  battleSystem: {fileID: 1977257737}
-  makeTest: 0
+  playerUnit: {fileID: 0}
+  enemyUnit: {fileID: 0}
 --- !u!114 &1977257741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6192,12 +6234,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1977257734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d2deb59e26a11498b6f69d907492da, type: 3}
+  m_Script: {fileID: 11500000, guid: 7468a5479c4e32f478b4729d5bd04327, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestInitalizeBattle
+  m_EditorClassIdentifier: Assembly-CSharp::BattleStarter
   battleSystem: {fileID: 1977257737}
-  player: {fileID: 1535212922}
-  enemy: {fileID: 298216845}
+  enemyParty: {fileID: 0}
 --- !u!1 &2042788610
 GameObject:
   m_ObjectHideFlags: 0
@@ -6494,9 +6535,6 @@ PrefabInstance:
       addedObject: {fileID: 1977257737}
     - targetCorrespondingSourceObject: {fileID: 1786670844886749046, guid: 7ef547b39bc52aa4b85b5c54b2821896, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1977257738}
-    - targetCorrespondingSourceObject: {fileID: 1786670844886749046, guid: 7ef547b39bc52aa4b85b5c54b2821896, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1977257741}
   m_SourcePrefab: {fileID: 100100000, guid: 7ef547b39bc52aa4b85b5c54b2821896, type: 3}
 --- !u!1660057539 &9223372036854775807
@@ -6524,3 +6562,4 @@ SceneRoots:
   - {fileID: 1535212921}
   - {fileID: 298216844}
   - {fileID: 628829231}
+  - {fileID: 740722394}

@@ -25,6 +25,37 @@ public class BattleSystem : MonoBehaviour
 
     public BattleTextBox textBox;
 
+    NPCParty enemyParty;
+
+    public CombatUnit playerUnit;
+    public CombatUnit enemyUnit;
+
+    public void SetupBattle(NPCParty enemyParty)
+    {
+        this.enemyParty = enemyParty;
+
+        ProfemonInstance playerInstance =
+            PlayerPartyManager.Instance.GetFirstAlive();
+
+        ProfemonInstance enemyInstance =
+            enemyParty.GetFirstAlive();
+
+        SpawnUnits(playerInstance, enemyInstance);
+
+        StartBattle();
+    }
+
+    void SpawnUnits(ProfemonInstance playerInstance, ProfemonInstance enemyInstance)
+    {
+        playerUnit.InitializeFromInstance(playerInstance);
+        enemyUnit.InitializeFromInstance(enemyInstance);
+
+        allUnits.Clear();
+
+        allUnits.Add(playerUnit);
+        allUnits.Add(enemyUnit);
+    }
+
     public void StartBattle()
     {
         if (allUnits.Count < 2)
@@ -75,8 +106,8 @@ public class BattleSystem : MonoBehaviour
     {
         currentState = BattleState.EnemyInput;
 
-        CombatUnit enemy = allUnits[1];
-        CombatUnit player = allUnits[0];
+        CombatUnit enemy = enemyUnit;
+        CombatUnit player = playerUnit;
 
         MoveSO move = enemy.GetRandomMove();
 
@@ -260,7 +291,14 @@ public class BattleSystem : MonoBehaviour
 
     public void SwitchUnit(TurnAction action)
     {
-
+        if (action.user == playerUnit)
+        {
+            playerUnit.InitializeFromInstance(action.switchTarget);
+        }
+        else
+        {
+            enemyUnit.InitializeFromInstance(action.switchTarget);
+        }
     }
 
     public void PlayerChooseMove(CombatUnit player, CombatUnit target, MoveSO move)
@@ -274,20 +312,15 @@ public class BattleSystem : MonoBehaviour
         playerCommandSelected = true;
     }
 
-    void ResolveCommands()
+    public void PlayerChooseSwitch(ProfemonInstance instance)
     {
-        currentState = BattleState.ResolvingTurn;
+        if (currentState != BattleState.PlayerInput &&
+            currentState != BattleState.Busy)
+            return;
 
-        List<BattleCommand> commands =
-            new List<BattleCommand>()
-            {
-            playerCommand,
-            enemyCommand
-            };
+        playerCommand = BattleCommand.CreateSwitchCommand(playerUnit, instance);
 
-        ResolveTurn(commands);
-
-        currentState = BattleState.PlayerInput;
+        playerCommandSelected = true;
     }
 
     private bool CheckAccuracy(CombatUnit user, CombatUnit target, MoveSO move)
@@ -341,10 +374,29 @@ public class BattleSystem : MonoBehaviour
 
     bool CheckBattleEnd()
     {
-        bool playerAlive = allUnits[0].IsAlive();
-        bool enemyAlive = allUnits[1].IsAlive();
+        if (!playerUnit.IsAlive())
+        {
+            if (PlayerPartyManager.Instance.HasAvailable())
+            {
+                StartCoroutine(HandlePlayerKO());
+                return false;
+            }
 
-        return !playerAlive || !enemyAlive;
+            return true;
+        }
+
+        if (!enemyUnit.IsAlive())
+        {
+            if (enemyParty.HasAvailable())
+            {
+                StartCoroutine(HandleEnemyKO());
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     void EndBattle()
@@ -363,6 +415,34 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("Player wins!");
         else
             Debug.Log("Enemy wins!");
+    }
+
+    IEnumerator HandlePlayerKO()
+    {
+        yield return StartCoroutine(
+            textBox.ShowMessage($"{playerUnit.name} se debilitó")
+        );
+
+        BattleEvents.OnPlayerSwitchRequired?.Invoke();
+    }
+
+    IEnumerator HandleEnemyKO()
+    {
+        yield return StartCoroutine(
+            textBox.ShowMessage($"{enemyUnit.name} se debilitó")
+        );
+
+        ProfemonInstance next =
+            enemyParty.GetFirstAlive();
+
+        if (next != null)
+        {
+            enemyUnit.InitializeFromInstance(next);
+
+            yield return StartCoroutine(
+                textBox.ShowMessage($"El enemigo envía {next.data.professorName}")
+            );
+        }
     }
 
     IEnumerator ShowEffectivenessMessage(float multiplier)
@@ -393,82 +473,4 @@ public class BattleSystem : MonoBehaviour
     {
         StartBattle();
     }
-
-    //DEPRECATED
-    void SimulatePlayerInput()
-    {
-        CombatUnit player = allUnits[0];
-        CombatUnit enemy = allUnits[1];
-
-        MoveSO move = player.GetRandomMove();
-
-        playerCommand =
-            BattleCommand.CreateMoveCommand(player, enemy, move);
-    }
-    void SimulateEnemyInput()
-    {
-        CombatUnit enemy = allUnits[1];
-        CombatUnit player = allUnits[0];
-
-        MoveSO move = enemy.GetRandomMove();
-
-        enemyCommand =
-            BattleCommand.CreateMoveCommand(enemy, player, move);
-    }
-
-    public void RunBattleLoop() //Deprecated test function without corutines
-    {
-        StartBattle();
-
-        while (currentState != BattleState.EndBattle)
-        {
-            SimulatePlayerInput();
-            SimulateEnemyInput();
-
-            ResolveCommands();
-
-            if (CheckBattleEnd())
-            {
-                EndBattle();
-                break;
-            }
-        }
-    }
-
-    public void UseMove(CombatUnit user, CombatUnit target, MoveSO move)
-    {
-        StartCoroutine(textBox.ShowMessage($"{user.name} usó {move.moveName}"));
-
-
-        if (!target.IsAlive())
-        {
-            Debug.Log($"{user.name} no tiene objetivo válido.");
-            return;
-        }
-
-        if (!CheckAccuracy(user, target, move))
-        {
-            Debug.Log($"{move.moveName} falló");
-            StartCoroutine(textBox.ShowMessage("El ataque falló"));
-            return;
-        }
-
-        bool isCritical = CheckCritical(user, target, move);
-
-        if (isCritical)
-        {
-            StartCoroutine(textBox.ShowMessage("¡Golpe crítico!"));
-        }
-
-        MoveContext context = new MoveContext
-        {
-            move = move,
-            user = user,
-            target = target,
-            isCritical = isCritical
-        };
-
-        move.effect.Execute(user, target, context);
-    }
-
 }

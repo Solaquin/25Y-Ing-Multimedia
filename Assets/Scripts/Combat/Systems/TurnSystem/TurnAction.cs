@@ -16,7 +16,7 @@ public class TurnAction
 
     public MoveSO move;
     public ItemSO item;
-    public CombatUnit switchTarget;
+    public ProfemonInstance switchTarget;
 
     public int priority;
     public int speed;
@@ -59,7 +59,7 @@ public class TurnAction
                 return $"{user.name} uses item {item.name}";
 
             case BattleActionType.Switch:
-                return $"{user.name} switches to {switchTarget.name}";
+                return $"{user.name} switches to {switchTarget.data.professorName}";
 
             default:
                 return $"{user.name} unknown action";

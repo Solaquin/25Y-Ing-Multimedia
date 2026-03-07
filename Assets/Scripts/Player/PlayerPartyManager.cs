@@ -77,4 +77,30 @@ public class PlayerPartyManager : MonoBehaviour
     {
         return party.Count < maxPartySize;
     }
+
+    // ===============================
+    // COMBAT INTEGRATION
+    // ===============================
+
+    public ProfemonInstance GetFirstAlive()
+    {
+        foreach (var p in party)
+        {
+            if (p.currentHP > 0)
+                return p;
+        }
+
+        return null;
+    }
+
+    public bool HasAvailable()
+    {
+        foreach (var p in party)
+        {
+            if (p.currentHP > 0)
+                return true;
+        }
+
+        return false;
+    }
 }

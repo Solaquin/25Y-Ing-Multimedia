@@ -9,7 +9,7 @@ public class BattleCommand
 
     public MoveSO move;
     public ItemSO item;
-    public CombatUnit switchTarget;
+    public ProfemonInstance switchTarget;
 
     private BattleCommand() { }
 
@@ -44,9 +44,10 @@ public class BattleCommand
     }
 
     //Command for Switch current BattleUnit
+    //Command for Switch current BattleUnit
     public static BattleCommand CreateSwitchCommand(
         CombatUnit user,
-        CombatUnit switchTarget)
+        ProfemonInstance switchTarget)
     {
         return new BattleCommand
         {

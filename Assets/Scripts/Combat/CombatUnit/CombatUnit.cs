@@ -32,6 +32,13 @@ public class CombatUnit : MonoBehaviour
         Debug.Log($"{name} Accuracy Base: {instance.accuracy}");
         Debug.Log($"{name} Evasion Base: {instance.evasion}");
     }
+    // ================================
+    // INICIALIZAR
+    // ================================
+    public void InitializeFromInstance(ProfemonInstance instance)
+    {
+        this.instance = instance;
+    }
 
     // ================================
     // VIDA

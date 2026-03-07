@@ -11,4 +11,6 @@ public static class BattleEvents
     public static Action OnHPChanged;
 
     public static Action<string> OnBattleMessage;
+
+    public static Action OnPlayerSwitchRequired;
 }
