@@ -165,6 +165,24 @@ public class CombatUnit : MonoBehaviour
         Debug.Log($"{name} ahora tiene {status.statusType}");
     }
 
+    public bool TryPreventAction(BattleActionType actionType, out string message)
+    {
+        message = "";
+
+        if (currentStatus == null)
+            return false;
+
+        if (currentStatus.effect.PreventAction(actionType))
+        {
+            message =
+                $"{name} está {currentStatus.effect.statusType} y no puede moverse.";
+
+            return true;
+        }
+
+        return false;
+    }
+
     public void TickStatus()
     {
         if (currentStatus == null)

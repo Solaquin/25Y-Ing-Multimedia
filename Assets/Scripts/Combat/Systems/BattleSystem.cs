@@ -170,6 +170,17 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ExecuteAction(TurnAction action)
     {
+        string statusMessage;
+
+        if (action.user.TryPreventAction(action.actionType, out statusMessage))
+        {
+            yield return StartCoroutine(
+                textBox.ShowMessage(statusMessage)
+            );
+
+            yield break;
+        }
+
         switch (action.actionType)
         {
             case BattleActionType.Move:

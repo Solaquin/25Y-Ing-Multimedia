@@ -2,7 +2,7 @@ public enum StatusType
 {
     None,
     BurnOut,
-    Stress,
-    Sleep,
-    Paralysis
+    Estrés,
+    Dormido,
+    Paralisís
 }
