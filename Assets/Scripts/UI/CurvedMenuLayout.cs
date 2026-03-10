@@ -9,13 +9,15 @@ public class CurvedMenuLayout : MonoBehaviour
     {
         int count = transform.childCount;
 
+        if (count <= 1) return;
+
+        float step = angle / (count - 1);
+
         for (int i = 0; i < count; i++)
         {
             Transform button = transform.GetChild(i);
 
-            float step = angle / (count - 1);
             float currentAngle = -angle / 2 + step * i;
-
             float rad = currentAngle * Mathf.Deg2Rad;
 
             Vector3 pos = new Vector3(
@@ -25,7 +27,9 @@ public class CurvedMenuLayout : MonoBehaviour
             );
 
             button.localPosition = pos;
+
             button.LookAt(Camera.main.transform);
+            button.Rotate(0, 180, 0);
         }
     }
 }

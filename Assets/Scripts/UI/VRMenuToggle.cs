@@ -3,12 +3,20 @@ using UnityEngine;
 public class VRMenuToggle : MonoBehaviour
 {
     public GameObject menuRoot;
+    public VRMenuManager menuManager;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            menuRoot.SetActive(!menuRoot.activeSelf);
+            bool isActive = menuRoot.activeSelf;
+
+            menuRoot.SetActive(!isActive);
+
+            if (!isActive)
+            {
+                menuManager.ResetMenu();
+            }
         }
     }
 }
