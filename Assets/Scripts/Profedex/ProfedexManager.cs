@@ -41,4 +41,8 @@ public class ProfedexManager : MonoBehaviour
             Debug.Log(prof.professorName + " - " + prof.description);
         }
     }
+    public bool IsRegistered(ProfemonData data)
+    {
+        return capturedProfessors.Contains(data);
+    }
 }
