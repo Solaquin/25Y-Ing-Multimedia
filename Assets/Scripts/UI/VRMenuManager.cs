@@ -48,6 +48,14 @@ public class VRMenuManager : MonoBehaviour
     public Sprite unknownSprite;
     public Sprite unknownLocationSprite;
 
+    [Header("Progreso Profedex")]
+    public TMP_Text registradosText;
+    public TMP_Text registradosArea1;
+    public TMP_Text registradosArea2;
+    public TMP_Text registradosArea3;
+    public TMP_Text registradosArea4;
+    public TMP_Text registradosDetalle;
+
     void Start()
     {
         ResetMenu();
@@ -87,6 +95,7 @@ public class VRMenuManager : MonoBehaviour
 
         if (menuAreas != null)
             menuAreas.SetActive(true);
+        UpdateProfedexProgress();
     }
 
     public void OpenInventario()
@@ -219,5 +228,24 @@ public class VRMenuManager : MonoBehaviour
     {
         CanvasProfemonDetalle.SetActive(false);
         VolverAreas();
+    }
+
+    void UpdateProfedexProgress()
+    {
+        int total = database.allProfemons.Count;
+        int registrados = 0;
+
+        foreach (var prof in database.allProfemons)
+        {
+            if (ProfedexManager.Instance.IsRegistered(prof))
+                registrados++;
+        }
+
+        registradosText.text = "Registrados: " + registrados + " / " + total;
+        registradosArea1.text = "Registrados: " + registrados + " / " + total;
+        registradosArea2.text = "Registrados: " + registrados + " / " + total;
+        registradosArea3.text = "Registrados: " + registrados + " / " + total;
+        registradosArea4.text = "Registrados: " + registrados + " / " + total;
+        registradosDetalle.text = "Registrados: " + registrados + " / " + total;
     }
 }

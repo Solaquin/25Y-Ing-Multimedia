@@ -25,6 +25,7 @@ public class ProfedexManager : MonoBehaviour
         {
             capturedProfessors.Add(data);
             Debug.Log("Registrado en la Profedex: " + data.professorName);
+
         }
         else
         {
