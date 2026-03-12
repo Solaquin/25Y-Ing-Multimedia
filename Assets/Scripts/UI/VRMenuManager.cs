@@ -14,6 +14,9 @@ public class VRMenuManager : MonoBehaviour
     public GameObject mapaCanvas;
     public GameObject ajustesCanvas;
 
+    [Header("Profedex Database")]
+    public ProfedexDatabase database;
+
     [Header("Profedex Areas")]
     public GameObject menuAreas;
     public GameObject area1Canvas;
@@ -23,9 +26,27 @@ public class VRMenuManager : MonoBehaviour
 
     [Header("Profemon Detalles")]
     public GameObject CanvasProfemonDetalle;
+
     public Image detalleImagen;
+
     public TMP_Text detalleNombre;
+    public TMP_Text detalleFrase;
     public TMP_Text detalleDescripcion;
+    public TMP_Text detalleAnecdota;
+
+    public Image detalleDonde;
+    public TMP_Text detalleDondeTexto;
+
+    [Header("Navegación Profedex")]
+    public TMP_Text numeroProfesor;
+
+    private ProfemonData[] allProfessors;
+    private int currentIndex;
+    private ProfemonData currentData;
+
+    [Header("Profedex Unknown")]
+    public Sprite unknownSprite;
+    public Sprite unknownLocationSprite;
 
     void Start()
     {
@@ -143,9 +164,55 @@ public class VRMenuManager : MonoBehaviour
         DisableAreas();
         CanvasProfemonDetalle.SetActive(true);
 
-        detalleImagen.sprite = data.image;
-        detalleNombre.text = data.professorName;
-        detalleDescripcion.text = data.description;
+        currentData = data;
+        currentIndex = database.allProfemons.IndexOf(data);
+
+        bool discovered = ProfedexManager.Instance.IsRegistered(data);
+
+        // Número estilo pokedex
+        numeroProfesor.text = "#" + (currentIndex + 1).ToString("000");
+
+        if (discovered)
+        {
+            detalleImagen.sprite = data.image;
+            detalleNombre.text = data.professorName;
+            detalleFrase.text = data.phrase;
+            detalleDescripcion.text = data.description;
+            detalleAnecdota.text = data.anecdote;
+
+            detalleDonde.sprite = data.whereToFindImage;
+            detalleDondeTexto.text = data.whereToFind;
+        }
+        else
+        {
+            detalleImagen.sprite = unknownSprite;
+
+            detalleNombre.text = "????";
+            detalleFrase.text = "????";
+            detalleDescripcion.text = "????";
+            detalleAnecdota.text = "????";
+
+            detalleDonde.sprite = unknownLocationSprite;
+            detalleDondeTexto.text = "????";
+        }
+    }
+    public void NextProfessor()
+    {
+        currentIndex++;
+
+        if (currentIndex >= database.allProfemons.Count)
+            currentIndex = 0;
+
+        OpenProfesorDetalle(database.allProfemons[currentIndex]);
+    }
+    public void PreviousProfessor()
+    {
+        currentIndex--;
+
+        if (currentIndex < 0)
+            currentIndex = database.allProfemons.Count - 1;
+
+        OpenProfesorDetalle(database.allProfemons[currentIndex]);
     }
 
     public void CloseProfesorDetalle()

@@ -31,7 +31,6 @@ public class ProfedexSlot : MonoBehaviour
 
     public void OnClick()
     {
-        if (!discovered) return;
 
         FindObjectOfType<VRMenuManager>().OpenProfesorDetalle(data);
     }
