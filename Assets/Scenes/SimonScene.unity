@@ -4574,8 +4574,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleUIController
   battleSystem: {fileID: 1977257737}
-  player: {fileID: 1535212922}
-  enemy: {fileID: 298216845}
+  playerProfemonName: {fileID: 821439646}
+  enemyProfemonName: {fileID: 614189361}
   playerHP: {fileID: 2042788612}
   enemyHP: {fileID: 1620389141}
   moveButtons:
@@ -6496,12 +6496,11 @@ MonoBehaviour:
   partySlots:
   - profemon: {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
     level: 5
-  - profemon: {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
-    level: 5
   - profemon: {fileID: 11400000, guid: 1221ece12d1b3f94b9f55ed0dce6ab7a, type: 2}
     level: 5
   - profemon: {fileID: 11400000, guid: ee96ff64b56bcf1429165d18290f05fa, type: 2}
     level: 5
+  party: []
 --- !u!136 &2129257388
 CapsuleCollider:
   m_ObjectHideFlags: 0

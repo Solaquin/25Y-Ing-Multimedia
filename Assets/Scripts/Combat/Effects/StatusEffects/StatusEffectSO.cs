@@ -10,6 +10,8 @@ public abstract class StatusEffectSO : ScriptableObject
 
     public virtual void OnTurnEnd(CombatUnit unit) { }
 
+    public virtual void OnRemove(CombatUnit unit) { }
+
     public virtual bool PreventAction(BattleActionType actionType)
     {
         return false;

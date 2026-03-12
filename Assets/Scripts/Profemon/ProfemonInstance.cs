@@ -27,7 +27,7 @@ public class ProfemonInstance
     public List<MoveSO> currentMoves = new List<MoveSO>();
 
     // Status persistente
-    public StatusEffectSO persistentStatus;
+    public StatusInstance activeStatus;
 
     public ProfemonInstance(ProfemonData baseData, int level)
     {

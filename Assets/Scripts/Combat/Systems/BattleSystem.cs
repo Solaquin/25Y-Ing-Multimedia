@@ -190,12 +190,22 @@ public class BattleSystem : MonoBehaviour
         foreach (var action in ordered)
         {
             if (!BattleActionValidator.IsActionValid(action))
-            {
-                Debug.Log("Action inválida, se omite.");
                 continue;
-            }
 
             yield return StartCoroutine(ExecuteAction(action));
+
+            // comprobar KO inmediatamente
+            if (!playerUnit.IsAlive())
+            {
+                yield return StartCoroutine(HandlePlayerKO());
+                yield break;
+            }
+
+            if (!enemyUnit.IsAlive())
+            {
+                yield return StartCoroutine(HandleEnemyKO());
+                yield break;
+            }
         }
     }
 
@@ -395,27 +405,13 @@ public class BattleSystem : MonoBehaviour
 
     bool CheckBattleEnd()
     {
-        if (!playerUnit.IsAlive())
-        {
-            if (PlayerPartyManager.Instance.HasAvailable())
-            {
-                StartCoroutine(HandlePlayerKO());
-                return false;
-            }
-
+        if (!playerUnit.IsAlive() &&
+            !PlayerPartyManager.Instance.HasAvailable())
             return true;
-        }
 
-        if (!enemyUnit.IsAlive())
-        {
-            if (enemyParty.HasAvailable())
-            {
-                StartCoroutine(HandleEnemyKO());
-                return false;
-            }
-
+        if (!enemyUnit.IsAlive() &&
+            !enemyParty.HasAvailable())
             return true;
-        }
 
         return false;
     }

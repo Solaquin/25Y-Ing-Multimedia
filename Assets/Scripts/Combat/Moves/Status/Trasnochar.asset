@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ebbec4cb94f7a409c633c462947d52, type: 3}
-  m_Name: Papeleo Infinito
+  m_Name: Trasnochar
   m_EditorClassIdentifier: Assembly-CSharp::MoveSO
-  moveName: Papeleo Infinito
+  moveName: Trasnochar
   moveType: {fileID: 11400000, guid: bf75f44c9eb85b642af05ab88ebf9355, type: 2}
   power: 0
   accuracy: 100
   maxPP: 5
   priority: 0
-  baseCritChance: 0
+  baseCritChance: 5
   effect: {fileID: 11400000, guid: 45a6758de3b93bf4095e7977e97c621a, type: 2}
   affectedStat: 0
   stageChange: 0
   healAmount: 0
-  statusEffect: {fileID: 11400000, guid: 6c0ff0d74279308479b021336688595b, type: 2}
-  duration: -1
+  statusEffect: {fileID: 11400000, guid: 627512447397a25409c00818c84c2db0, type: 2}
+  duration: 3
