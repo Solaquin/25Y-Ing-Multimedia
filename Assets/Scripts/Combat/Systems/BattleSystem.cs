@@ -437,7 +437,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator HandlePlayerKO()
     {
         yield return StartCoroutine(
-            textBox.ShowMessage($"{playerUnit.name} se debilitó")
+            textBox.ShowMessage($"{playerUnit.Instance.data.professorName} se debilitó")
         );
 
         BattleEvents.OnPlayerSwitchRequired?.Invoke();
@@ -446,7 +446,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator HandleEnemyKO()
     {
         yield return StartCoroutine(
-            textBox.ShowMessage($"{enemyUnit.name} se debilitó")
+            textBox.ShowMessage($"{enemyUnit.Instance.data.professorName} se debilitó")
         );
 
         ProfemonInstance next =
