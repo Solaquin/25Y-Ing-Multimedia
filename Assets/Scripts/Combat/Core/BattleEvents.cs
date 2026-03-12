@@ -13,4 +13,6 @@ public static class BattleEvents
     public static Action<string> OnBattleMessage;
 
     public static Action OnPlayerSwitchRequired;
+
+    public static System.Action OnActiveUnitChanged;
 }

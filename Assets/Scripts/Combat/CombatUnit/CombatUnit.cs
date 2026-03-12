@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CombatUnit : MonoBehaviour
 {
-    [Header("Setup")]
+    [Header("Setup for editor debug")]
     public ProfemonData data;
     public int level = 1;
 
@@ -13,31 +13,36 @@ public class CombatUnit : MonoBehaviour
     Dictionary<StatType, int> statStages = new Dictionary<StatType, int>();
     StatusInstance currentStatus;
 
+    [SerializeField] bool startOnAwake;
     [SerializeField] int currentHPDebug;
 
     private void Awake()
     {
-        instance = new ProfemonInstance(data, level);
-
-        foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
+        if(startOnAwake)
         {
-            statStages[stat] = 0;
+            instance = new ProfemonInstance(data, level);
+
+            ResetStages();
+
+            currentHPDebug = instance.currentHP;
+
+            PrintStats();
         }
 
-        currentHPDebug = instance.currentHP;
-
-        Debug.Log($"{name} Attack Base: {instance.attack}");
-        Debug.Log($"{name} Defense Base: {instance.defense}");
-        Debug.Log($"{name} Speed Base: {instance.speed}");
-        Debug.Log($"{name} Accuracy Base: {instance.accuracy}");
-        Debug.Log($"{name} Evasion Base: {instance.evasion}");
     }
+
     // ================================
     // INICIALIZAR
     // ================================
     public void InitializeFromInstance(ProfemonInstance instance)
     {
         this.instance = instance;
+
+        ResetStages();
+
+        currentHPDebug = instance.currentHP;
+
+        PrintStats();
     }
 
     // ================================
@@ -152,6 +157,15 @@ public class CombatUnit : MonoBehaviour
         {
             statStages[stat] = 0;
         }
+    }
+
+    void PrintStats()
+    {
+        Debug.Log($"{name} Attack Base: {instance.attack}");
+        Debug.Log($"{name} Defense Base: {instance.defense}");
+        Debug.Log($"{name} Speed Base: {instance.speed}");
+        Debug.Log($"{name} Accuracy Base: {instance.accuracy}");
+        Debug.Log($"{name} Evasion Base: {instance.evasion}");
     }
 
     // ================================

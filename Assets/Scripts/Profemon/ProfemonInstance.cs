@@ -7,7 +7,6 @@ public class ProfemonInstance
 {
     public ProfemonData data;
 
-
     public int level;
 
     // Vida
@@ -26,6 +25,9 @@ public class ProfemonInstance
 
     //Movimientos actuales
     public List<MoveSO> currentMoves = new List<MoveSO>();
+
+    // Status persistente
+    public StatusEffectSO persistentStatus;
 
     public ProfemonInstance(ProfemonData baseData, int level)
     {
@@ -62,5 +64,10 @@ public class ProfemonInstance
         {
             currentMoves.Add(data.learnableMoves[i]);
         }
+    }
+
+    public bool IsAlive()
+    {
+        return currentHP > 0;
     }
 }

@@ -794,7 +794,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Alexander uso Clase Magistral
+  m_text: BATTLE TEXT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 298216840}
   - component: {fileID: 298216845}
   m_Layer: 0
-  m_Name: Profemon_B_Test_Combat
+  m_Name: EnemyCombatUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,8 +1148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389b771b21bc8d341b8cb20b47628343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUnit
-  data: {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
-  level: 1
+  data: {fileID: 0}
+  level: 0
+  startOnAwake: 0
   currentHPDebug: 0
 --- !u!1 &299639867
 GameObject:
@@ -2331,7 +2332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gabriel Avila
+  m_text: NAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2422,7 +2423,6 @@ GameObject:
   - component: {fileID: 628829230}
   - component: {fileID: 628829229}
   - component: {fileID: 628829228}
-  - component: {fileID: 628829227}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2430,19 +2430,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &628829227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628829226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e08f40de9d1534e8758585060629c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TurnOrderDebugUI
-  debugText: {fileID: 866248909}
 --- !u!114 &628829228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2556,18 +2543,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb454d5e62b408a44975ddf34039e550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPartyManager
-  party:
-  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
-    level: 0
-    maxHP: 0
-    currentHP: 0
-    attack: 0
-    defense: 0
-    speed: 0
-    accuracy: 0
-    evasion: 0
-    types: []
-    currentMoves: []
+  startingParty:
+  - profemon: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 5
+  - profemon: {fileID: 11400000, guid: 738a28948e01bc440b53e16a2bf2fa06, type: 2}
+    level: 5
+  - profemon: {fileID: 11400000, guid: cd29da2f5f7b1834689132b11418397b, type: 2}
+    level: 5
+  party: []
+  storage: []
   maxPartySize: 6
   starterChosen: 1
 --- !u!4 &740722394
@@ -2849,7 +2833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Alexander Ceron
+  m_text: NAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3075,6 +3059,7 @@ GameObject:
   - component: {fileID: 866248911}
   - component: {fileID: 866248910}
   - component: {fileID: 866248909}
+  - component: {fileID: 866248912}
   m_Layer: 5
   m_Name: TurnOrderDebugLog
   m_TagString: Untagged
@@ -3200,6 +3185,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &866248912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866248908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e08f40de9d1534e8758585060629c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurnOrderDebugUI
+  debugText: {fileID: 866248909}
 --- !u!1 &900468267
 GameObject:
   m_ObjectHideFlags: 0
@@ -4605,7 +4603,7 @@ GameObject:
   - component: {fileID: 1535212917}
   - component: {fileID: 1535212922}
   m_Layer: 0
-  m_Name: Profemon_A_Test_Combat
+  m_Name: PlayerCombatUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4744,8 +4742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389b771b21bc8d341b8cb20b47628343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUnit
-  data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
-  level: 1
+  data: {fileID: 0}
+  level: 0
+  startOnAwake: 0
   currentHPDebug: 0
 --- !u!1 &1571403828
 GameObject:
@@ -6218,13 +6217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2343167df71084fa1fda66c38ead1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
-  debugUI: {fileID: 628829227}
+  debugUI: {fileID: 866248912}
   currentState: 0
   turnNumber: 0
   allUnits: []
   textBox: {fileID: 900468271}
-  playerUnit: {fileID: 0}
-  enemyUnit: {fileID: 0}
+  playerUnit: {fileID: 1535212922}
+  enemyUnit: {fileID: 298216845}
 --- !u!114 &1977257741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6238,7 +6237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleStarter
   battleSystem: {fileID: 1977257737}
-  enemyParty: {fileID: 0}
+  enemyParty: {fileID: 2129257387}
 --- !u!1 &2042788610
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,6 +6461,141 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2129257386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129257391}
+  - component: {fileID: 2129257390}
+  - component: {fileID: 2129257389}
+  - component: {fileID: 2129257388}
+  - component: {fileID: 2129257387}
+  m_Layer: 0
+  m_Name: Enemy Trainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2129257387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129257386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054af57527eadc143bd1ab604998712d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCParty
+  partySlots:
+  - profemon: {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
+    level: 5
+  - profemon: {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
+    level: 5
+  - profemon: {fileID: 11400000, guid: 1221ece12d1b3f94b9f55ed0dce6ab7a, type: 2}
+    level: 5
+  - profemon: {fileID: 11400000, guid: ee96ff64b56bcf1429165d18290f05fa, type: 2}
+    level: 5
+--- !u!136 &2129257388
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129257386}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2129257389
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129257386}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2129257390
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129257386}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2129257391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129257386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.79, y: 0.879, z: -4.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2189373312343660185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6563,3 +6697,4 @@ SceneRoots:
   - {fileID: 298216844}
   - {fileID: 628829231}
   - {fileID: 740722394}
+  - {fileID: 2129257391}

@@ -229,7 +229,10 @@ public class BattleSystem : MonoBehaviour
 
             case BattleActionType.Switch:
 
-                SwitchUnit(action);
+                yield return StartCoroutine(
+                    SwitchUnit(action)
+                );
+
                 break;
         }
     }
@@ -242,7 +245,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return StartCoroutine(
             textBox.ShowMessage(
-                $"{user.name} usó {move.moveName}"
+                $"{user.Instance.data.professorName} usó {move.moveName}"
             )
         );
 
@@ -289,16 +292,34 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    public void SwitchUnit(TurnAction action)
+    public IEnumerator SwitchUnit(TurnAction action)
     {
-        if (action.user == playerUnit)
+        CombatUnit unit = action.user;
+
+        ProfemonInstance newInstance = action.switchTarget;
+
+        yield return StartCoroutine(
+            textBox.ShowMessage($"{unit.Instance.data.professorName} vuelve.")
+        );
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (unit == playerUnit)
         {
-            playerUnit.InitializeFromInstance(action.switchTarget);
+            playerUnit.InitializeFromInstance(newInstance);
         }
         else
         {
-            enemyUnit.InitializeFromInstance(action.switchTarget);
+            enemyUnit.InitializeFromInstance(newInstance);
         }
+
+        yield return StartCoroutine(
+            textBox.ShowMessage($"{newInstance.data.professorName} entra al combate.")
+        );
+
+        BattleEvents.OnActiveUnitChanged?.Invoke();
+
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void PlayerChooseMove(CombatUnit player, CombatUnit target, MoveSO move)
@@ -442,6 +463,8 @@ public class BattleSystem : MonoBehaviour
             yield return StartCoroutine(
                 textBox.ShowMessage($"El enemigo envía {next.data.professorName}")
             );
+
+            BattleEvents.OnActiveUnitChanged?.Invoke();
         }
     }
 
