@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class VRMenuManager : MonoBehaviour
 {
@@ -19,6 +21,12 @@ public class VRMenuManager : MonoBehaviour
     public GameObject area3Canvas;
     public GameObject area4Canvas;
 
+    [Header("Profemon Detalles")]
+    public GameObject CanvasProfemonDetalle;
+    public Image detalleImagen;
+    public TMP_Text detalleNombre;
+    public TMP_Text detalleDescripcion;
+
     void Start()
     {
         ResetMenu();
@@ -30,11 +38,12 @@ public class VRMenuManager : MonoBehaviour
         inventarioCanvas.SetActive(false);
         mapaCanvas.SetActive(false);
         ajustesCanvas.SetActive(false);
+        CanvasProfemonDetalle.SetActive(false);
 
         menuPrincipal.SetActive(true);
 
-        // 🔹 Reset de áreas
         DisableAreas();
+
         if (menuAreas != null)
             menuAreas.SetActive(false);
     }
@@ -54,6 +63,7 @@ public class VRMenuManager : MonoBehaviour
         profedexCanvas.SetActive(true);
 
         DisableAreas();
+
         if (menuAreas != null)
             menuAreas.SetActive(true);
     }
@@ -90,7 +100,7 @@ public class VRMenuManager : MonoBehaviour
         menuRoot.SetActive(false);
     }
 
-    // 🔹 AREAS PROFEDEx
+    // AREAS PROFEDEx
 
     public void OpenArea1()
     {
@@ -124,5 +134,23 @@ public class VRMenuManager : MonoBehaviour
     {
         DisableAreas();
         menuAreas.SetActive(true);
+    }
+
+    // DETALLE PROFESOR
+
+    public void OpenProfesorDetalle(ProfemonData data)
+    {
+        DisableAreas();
+        CanvasProfemonDetalle.SetActive(true);
+
+        detalleImagen.sprite = data.image;
+        detalleNombre.text = data.professorName;
+        detalleDescripcion.text = data.description;
+    }
+
+    public void CloseProfesorDetalle()
+    {
+        CanvasProfemonDetalle.SetActive(false);
+        VolverAreas();
     }
 }
