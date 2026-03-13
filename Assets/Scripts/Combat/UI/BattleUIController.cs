@@ -13,8 +13,11 @@ public class BattleUIController : MonoBehaviour
     public TextMeshProUGUI playerHP;
     public TextMeshProUGUI enemyHP;
 
+    public GameObject movesPanel;
     public Button[] moveButtons;
     public TextMeshProUGUI[] moveTexts;
+
+    public PartyMenuBattleController partyMenu;
 
 
     void OnEnable()
@@ -22,6 +25,7 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnHPChanged += UpdateHP;
         BattleEvents.OnBattleStarted += InitializeUI;
         BattleEvents.OnActiveUnitChanged += RefreshUI;
+        BattleEvents.OnPlayerSwitchRequired += OnSwitchPressed;
 
     }
 
@@ -30,6 +34,7 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnHPChanged -= UpdateHP;
         BattleEvents.OnBattleStarted -= InitializeUI;
         BattleEvents.OnActiveUnitChanged -= RefreshUI;
+        BattleEvents.OnPlayerSwitchRequired -= OnSwitchPressed;
     }
 
 
@@ -45,6 +50,7 @@ public class BattleUIController : MonoBehaviour
         SetupNames();
         SetupMoves();
         UpdateHP();
+        ShowMovesPanel();
     }
 
     void SetupNames()
@@ -67,25 +73,38 @@ public class BattleUIController : MonoBehaviour
 
         for (int i = 0; i < moveButtons.Length; i++)
         {
-            if (i < moves.Count)
+            bool hasMove = i < moves.Count;
+
+            moveButtons[i].gameObject.SetActive(hasMove);
+
+            if (!hasMove)
             {
-                MoveSO move = moves[i];
-
-                moveTexts[i].text = move.moveName;
-
-                int index = i;
-
-                moveButtons[i].onClick.RemoveAllListeners();
-                moveButtons[i].onClick.AddListener(() =>
-                {
-                    OnMoveSelected(moves[index]);
-                });
+                moveTexts[i].text = "";
+                continue;
             }
-            else
+
+            MoveSO move = moves[i];
+
+            moveTexts[i].text = move.moveName;
+
+            int index = i;
+
+            moveButtons[i].onClick.RemoveAllListeners();
+            moveButtons[i].onClick.AddListener(() =>
             {
-                moveButtons[i].gameObject.SetActive(i < moves.Count);
-            }
+                OnMoveSelected(moves[index]);
+            });
         }
+    }
+
+    void ShowMovesPanel()
+    {
+        movesPanel.SetActive(true);
+    }
+
+    void HideMovesPanel()
+    {
+        movesPanel.SetActive(false);
     }
 
     void OnMoveSelected(MoveSO move)
@@ -106,5 +125,12 @@ public class BattleUIController : MonoBehaviour
 
         enemyHP.text =
             $"HP: {enemyUnit.GetCurrentHP()} / {enemyUnit.GetMaxHP()}";
+    }
+
+    public void OnSwitchPressed()
+    {
+        HideMovesPanel();
+
+        partyMenu.Open();
     }
 }

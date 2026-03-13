@@ -14,5 +14,5 @@ public static class BattleEvents
 
     public static Action OnPlayerSwitchRequired;
 
-    public static System.Action OnActiveUnitChanged;
+    public static Action OnActiveUnitChanged;
 }

@@ -197,13 +197,13 @@ public class BattleSystem : MonoBehaviour
             // comprobar KO inmediatamente
             if (!playerUnit.IsAlive())
             {
-                yield return StartCoroutine(HandlePlayerKO());
+                yield return StartCoroutine(HandleUnitKO(playerUnit));
                 yield break;
             }
 
             if (!enemyUnit.IsAlive())
             {
-                yield return StartCoroutine(HandleEnemyKO());
+                yield return StartCoroutine(HandleUnitKO(enemyUnit));
                 yield break;
             }
         }
@@ -345,11 +345,8 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerChooseSwitch(ProfemonInstance instance)
     {
-        if (currentState != BattleState.PlayerInput &&
-            currentState != BattleState.Busy)
-            return;
-
-        playerCommand = BattleCommand.CreateSwitchCommand(playerUnit, instance);
+        playerCommand =
+            BattleCommand.CreateSwitchCommand(playerUnit, instance);
 
         playerCommandSelected = true;
     }
@@ -434,26 +431,43 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("Enemy wins!");
     }
 
-    IEnumerator HandlePlayerKO()
+    IEnumerator HandleUnitKO(CombatUnit unit)
     {
         yield return StartCoroutine(
-            textBox.ShowMessage($"{playerUnit.Instance.data.professorName} se debilitó")
+            textBox.ShowMessage($"{unit.Instance.data.professorName} se debilitó")
         );
 
-        BattleEvents.OnPlayerSwitchRequired?.Invoke();
-    }
-
-    IEnumerator HandleEnemyKO()
-    {
-        yield return StartCoroutine(
-            textBox.ShowMessage($"{enemyUnit.Instance.data.professorName} se debilitó")
-        );
-
-        ProfemonInstance next =
-            enemyParty.GetFirstAlive();
-
-        if (next != null)
+        // PLAYER KO
+        if (unit == playerUnit)
         {
+            if (!PlayerPartyManager.Instance.HasAvailable())
+            {
+                EndBattle();
+                yield break;
+            }
+
+            BattleEvents.OnPlayerSwitchRequired?.Invoke();
+
+            playerCommandSelected = false;
+
+            yield return new WaitUntil(() => playerCommandSelected);
+
+            TurnAction switchAction = CommandResolver.CreateAction(playerCommand);
+
+            yield return StartCoroutine(SwitchUnit(switchAction));
+        }
+
+        // ENEMY KO
+        else if (unit == enemyUnit)
+        {
+            if (!enemyParty.HasAvailable())
+            {
+                EndBattle();
+                yield break;
+            }
+
+            ProfemonInstance next = enemyParty.GetFirstAlive();
+
             enemyUnit.InitializeFromInstance(next);
 
             yield return StartCoroutine(
