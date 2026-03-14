@@ -13,6 +13,7 @@ public class VRMenuManager : MonoBehaviour
     public GameObject inventarioCanvas;
     public GameObject mapaCanvas;
     public GameObject ajustesCanvas;
+    public GameObject storageCanvas;
 
     [Header("Profedex Database")]
     public ProfedexDatabase database;
@@ -68,6 +69,7 @@ public class VRMenuManager : MonoBehaviour
         mapaCanvas.SetActive(false);
         ajustesCanvas.SetActive(false);
         CanvasProfemonDetalle.SetActive(false);
+        storageCanvas.SetActive(false);
 
         menuPrincipal.SetActive(true);
 
@@ -158,6 +160,13 @@ public class VRMenuManager : MonoBehaviour
         DisableAreas();
         menuAreas.SetActive(false);
         area4Canvas.SetActive(true);
+    }
+
+    public void OpenStorage()
+    {
+        ResetMenu();
+        menuPrincipal.SetActive(false);
+        storageCanvas.SetActive(true);
     }
 
     public void VolverAreas()
