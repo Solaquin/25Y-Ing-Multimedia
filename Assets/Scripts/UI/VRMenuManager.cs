@@ -57,6 +57,12 @@ public class VRMenuManager : MonoBehaviour
     public TMP_Text registradosArea4;
     public TMP_Text registradosDetalle;
 
+    [Header("Party UI")]
+    public PartyMenuManager partyMenuManager;
+
+    [Header("Storage UI")]
+    public StorageMenuManager storageMenuManager;
+
     void Start()
     {
         ResetMenu();
@@ -105,6 +111,9 @@ public class VRMenuManager : MonoBehaviour
         ResetMenu();
         menuPrincipal.SetActive(false);
         inventarioCanvas.SetActive(true);
+
+        if (partyMenuManager != null)
+            partyMenuManager.RefreshParty();
     }
 
     public void OpenMapa()
@@ -168,6 +177,10 @@ public class VRMenuManager : MonoBehaviour
         ResetMenu();
         menuPrincipal.SetActive(false);
         storageCanvas.SetActive(true);
+
+        if (storageMenuManager != null)
+            storageMenuManager.Refresh();
+
     }
 
     public void VolverAreas()
