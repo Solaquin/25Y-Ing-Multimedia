@@ -155,6 +155,11 @@ public class Profemon : MonoBehaviour
         // Siempre intentar agregar
         PlayerPartyManager.Instance.AddToParty(instance);
 
+        StorageMenuManager menu = FindObjectOfType<StorageMenuManager>();
+
+        if (menu != null)
+            menu.Refresh();
+
         Debug.Log(data.professorName +
             " nivel " + instance.level +
             " capturado.");
