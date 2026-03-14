@@ -936,7 +936,7 @@ MonoBehaviour:
   m_CellSize: {x: 190, y: 150}
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
-  m_ConstraintCount: 5
+  m_ConstraintCount: 3
 --- !u!114 &71160989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34320,6 +34320,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPartyManager
   party:
+  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 0
+    maxHP: 0
+    currentHP: 0
+    attack: 0
+    defense: 0
+    speed: 0
+    accuracy: 0
+    evasion: 0
+    types: []
+    currentMoves: []
+  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 0
+    maxHP: 0
+    currentHP: 0
+    attack: 0
+    defense: 0
+    speed: 0
+    accuracy: 0
+    evasion: 0
+    types: []
+    currentMoves: []
+  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 0
+    maxHP: 0
+    currentHP: 0
+    attack: 0
+    defense: 0
+    speed: 0
+    accuracy: 0
+    evasion: 0
+    types: []
+    currentMoves: []
+  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 0
+    maxHP: 0
+    currentHP: 0
+    attack: 0
+    defense: 0
+    speed: 0
+    accuracy: 0
+    evasion: 0
+    types: []
+    currentMoves: []
+  - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+    level: 0
+    maxHP: 0
+    currentHP: 0
+    attack: 0
+    defense: 0
+    speed: 0
+    accuracy: 0
+    evasion: 0
+    types: []
+    currentMoves: []
   - data: {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
     level: 0
     maxHP: 0

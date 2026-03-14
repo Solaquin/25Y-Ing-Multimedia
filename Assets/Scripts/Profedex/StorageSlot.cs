@@ -23,7 +23,7 @@ public class StorageSlot : MonoBehaviour
 
         if (manager.party.Contains(instance))
         {
-            // Mover de PARTY → STORAGE
+            // PARTY → STORAGE
             manager.party.Remove(instance);
             manager.storage.Add(instance);
 
@@ -31,10 +31,12 @@ public class StorageSlot : MonoBehaviour
         }
         else
         {
-            // Mover de STORAGE → PARTY
-            if (manager.party.Count >= manager.maxPartySize)
+            // STORAGE → PARTY
+
+            // 🔒 LIMITADOR DE SEGURIDAD
+            if (manager.party.Count >= 6)
             {
-                Debug.Log("Party llena");
+                Debug.Log("No puedes tener más de 6 Profemon en la Party");
                 return;
             }
 
