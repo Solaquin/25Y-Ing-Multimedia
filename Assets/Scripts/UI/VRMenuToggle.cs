@@ -36,6 +36,7 @@ public class VRMenuToggle : MonoBehaviour
     void ToggleMenu()
     {
         bool isActive = menuRoot.activeSelf;
+        FindObjectOfType<PartyMenuManager>().RefreshParty();
 
         menuRoot.SetActive(!isActive);
 

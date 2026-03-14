@@ -163,6 +163,7 @@ public class VRMenuManager : MonoBehaviour
     }
 
     public void OpenStorage()
+
     {
         ResetMenu();
         menuPrincipal.SetActive(false);
