@@ -151,24 +151,16 @@ public class Profemon : MonoBehaviour
             Debug.LogError("INSTANCE ES NULL");
             return;
         }
-        // Verificar espacio en party
-        if (PlayerPartyManager.Instance.HasSpaceInParty())
-        {
-            PlayerPartyManager.Instance.AddToParty(instance);
 
-            Debug.Log(data.professorName +
-                " nivel " + instance.level +
-                " añadido a la Party.");
-        }
-        else
-        {
-            Debug.Log("Party llena. Registrado en Profedex pero liberado.");
+        // Siempre intentar agregar
+        PlayerPartyManager.Instance.AddToParty(instance);
 
-            if (ProfedexManager.Instance != null)
-                ProfedexManager.Instance.RegisterProfessor(data);
-        }
+        Debug.Log(data.professorName +
+            " nivel " + instance.level +
+            " capturado.");
 
         isCaptured = true;
+
         Destroy(gameObject);
     }
 
