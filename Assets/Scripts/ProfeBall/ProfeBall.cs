@@ -19,23 +19,22 @@ public class Profebola : MonoBehaviour
         }
     }
 
-
     IEnumerator CaptureSequence(Profemon professor)
     {
         isProcessing = true;
-
-        // Ocultar profesor (entra a la bola)
         professor.HideProfessor();
+
+        // --- SONIDO DE TEMBLOR ---
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlaySound(AudioManager.instance.clipTemblor, transform.position);
 
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
 
-        // Simular temblor
         float shakeTime = 2f;
         float timer = 0f;
-
         Vector3 originalPos = transform.position;
 
         while (timer < shakeTime)
@@ -47,22 +46,26 @@ public class Profebola : MonoBehaviour
 
         transform.position = originalPos;
 
-        // Probabilidad de captura
         int roll = Random.Range(0, 100);
 
         if (roll > professor.data.captureDifficulty)
         {
+            // --- SONIDO DE ÉXITO ---
+            if (AudioManager.instance != null)
+                AudioManager.instance.PlaySound(AudioManager.instance.clipCapturado, transform.position);
+
             professor.ConfirmCapture();
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("El profesor escapó!");
+            // --- SONIDO DE FALLO ---
+            if (AudioManager.instance != null)
+                AudioManager.instance.PlaySound(AudioManager.instance.clipEscapado, transform.position);
 
+            Debug.Log("El profesor escapó!");
             professor.ShowProfessor();
             Destroy(gameObject);
         }
-
     }
-
 }
