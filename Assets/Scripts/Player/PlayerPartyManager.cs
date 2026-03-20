@@ -10,8 +10,6 @@ public class PlayerPartyManager : MonoBehaviour
 
     public List<ProfemonInstance> party = new List<ProfemonInstance>();
 
-    public List<ProfemonInstance> storage = new List<ProfemonInstance>();
-
     public int maxPartySize = 6;
 
     public List<ProfemonInstance> storage = new List<ProfemonInstance>();
@@ -156,6 +154,7 @@ public class PlayerPartyManager : MonoBehaviour
 
         Debug.Log(instance.data.professorName +
                   " fue enviado al Storage.");
+    }
 
     public List<ProfemonInstance> GetAlivePartyMembers()
     {
