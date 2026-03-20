@@ -5519,7 +5519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd07133c15f87354db2c3cdf65a877e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleTextBox
-  battleText: {fileID: 218449498}
+  messageText: {fileID: 218449498}
+  charDelay: 0.03
 --- !u!1 &904998661
 GameObject:
   m_ObjectHideFlags: 0
@@ -10003,7 +10004,6 @@ MonoBehaviour:
   currentState: 0
   turnNumber: 0
   allUnits: []
-  textBox: {fileID: 900468271}
   playerUnit: {fileID: 1535212922}
   enemyUnit: {fileID: 298216845}
   itemUsageHandler: {fileID: 1977257744}
@@ -10033,8 +10033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec23e3ceb16c064abdbde73a1157d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleItemUsageHandler
-  textBox: {fileID: 900468271}
-  battleSystem: {fileID: 1977257737}
 --- !u!1 &1983106516
 GameObject:
   m_ObjectHideFlags: 0

@@ -274,9 +274,7 @@ public class BattleUIController : MonoBehaviour
     IEnumerator ShowNoEffectMessage(ProfemonInstance target)
     {
         yield return StartCoroutine(
-            battleSystem.textBox.ShowMessage(
-                $"No tendrá efecto en {target.data.professorName}."
-            )
+            BattleMessenger.Show($"No tendrá efecto en {target.data.professorName}.")
         );
 
         SetupItems();

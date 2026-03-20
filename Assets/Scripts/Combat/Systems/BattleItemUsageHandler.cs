@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Maneja el uso de items durante el combate.
+/// BattleSystem delega aquí el case BattleActionType.Item.
+/// </summary>
 public class BattleItemUsageHandler : MonoBehaviour
 {
-    [SerializeField] private BattleTextBox textBox;
-    [SerializeField] private BattleSystem battleSystem;
 
     /// <summary>
     /// Ejecuta el item de la acción de turno.
@@ -25,7 +27,7 @@ public class BattleItemUsageHandler : MonoBehaviour
         if (!ItemInventory.Instance.HasItem(item.id))
         {
             yield return StartCoroutine(
-                textBox.ShowMessage($"¡No quedan {item.displayName}!")
+                BattleMessenger.Show($"¡No quedan {item.displayName}!")
             );
             yield break;
         }
@@ -33,7 +35,7 @@ public class BattleItemUsageHandler : MonoBehaviour
         if (!item.CanUseOn(target))
         {
             yield return StartCoroutine(
-                textBox.ShowMessage($"¡No se puede usar {item.displayName} ahora!")
+                BattleMessenger.Show($"¡No se puede usar {item.displayName} ahora!")
             );
             yield break;
         }
@@ -43,7 +45,7 @@ public class BattleItemUsageHandler : MonoBehaviour
 
         string resultMessage = item.Apply(target);
 
-        yield return StartCoroutine(textBox.ShowMessage(resultMessage));
+        yield return StartCoroutine(BattleMessenger.Show(resultMessage));
 
         BattleEvents.OnActiveUnitChanged?.Invoke();
 
