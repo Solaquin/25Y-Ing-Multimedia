@@ -1,7 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections.Generic;
 
 public class BattleUIController : MonoBehaviour
 {
@@ -10,12 +11,11 @@ public class BattleUIController : MonoBehaviour
     [Header("General")]
     public TextMeshProUGUI playerProfemonName;
     public TextMeshProUGUI enemyProfemonName;
-
     public TextMeshProUGUI playerHP;
     public TextMeshProUGUI enemyHP;
 
     [Header("Panels")]
-    public GameObject mainPanel;     // Attack / Item / Switch
+    public GameObject mainPanel;
     public GameObject movesPanel;
     public GameObject itemsPanel;
     public GameObject partyPanel;
@@ -38,9 +38,6 @@ public class BattleUIController : MonoBehaviour
     // item seleccionado, esperando que el jugador elija target en partyMenu
     private BattleItemSO pendingItem;
 
-    // ---------------------------
-    // ENUM DE ESTADOS
-    // ---------------------------
     public enum BattleUIState
     {
         Main,
@@ -76,7 +73,6 @@ public class BattleUIController : MonoBehaviour
         SetupNames();
         SetupMoves();
         UpdateHP();
-
         ShowPanel(BattleUIState.Main);
     }
 
@@ -85,7 +81,6 @@ public class BattleUIController : MonoBehaviour
         SetupNames();
         SetupMoves();
         UpdateHP();
-
         ShowPanel(BattleUIState.Main);
     }
 
@@ -104,6 +99,7 @@ public class BattleUIController : MonoBehaviour
 
     public void OnBackPressed()
     {
+        pendingItem = null;
         ShowPanel(BattleUIState.Main);
     }
 
@@ -124,6 +120,7 @@ public class BattleUIController : MonoBehaviour
 
     public void OnSwitchPressed()
     {
+        pendingItem = null;
         ShowPanel(BattleUIState.Party);
         partyMenu.Open();
     }
@@ -133,14 +130,8 @@ public class BattleUIController : MonoBehaviour
     // ---------------------------
     void SetupNames()
     {
-        CombatUnit playerUnit = battleSystem.playerUnit;
-        CombatUnit enemyUnit = battleSystem.enemyUnit;
-
-        playerProfemonName.text =
-            playerUnit.Instance.data.professorName;
-
-        enemyProfemonName.text =
-            enemyUnit.Instance.data.professorName;
+        playerProfemonName.text = battleSystem.playerUnit.Instance.data.professorName;
+        enemyProfemonName.text = battleSystem.enemyUnit.Instance.data.professorName;
     }
 
     // ---------------------------
@@ -149,43 +140,32 @@ public class BattleUIController : MonoBehaviour
     void SetupMoves()
     {
         CombatUnit playerUnit = battleSystem.playerUnit;
-
         List<MoveSO> moves = playerUnit.GetMoves();
 
         for (int i = 0; i < moveButtons.Length; i++)
         {
             bool hasMove = i < moves.Count;
-
             moveButtons[i].gameObject.SetActive(hasMove);
 
-            if (!hasMove)
-            {
-                moveTexts[i].text = "";
-                continue;
-            }
+            if (!hasMove) { moveTexts[i].text = ""; continue; }
 
             MoveSO move = moves[i];
-
             moveTexts[i].text = move.moveName;
 
             int index = i;
-
             moveButtons[i].onClick.RemoveAllListeners();
-            moveButtons[i].onClick.AddListener(() =>
-            {
-                OnMoveSelected(moves[index]);
-            });
+            moveButtons[i].onClick.AddListener(() => OnMoveSelected(moves[index]));
         }
     }
 
     void OnMoveSelected(MoveSO move)
     {
-        CombatUnit playerUnit = battleSystem.playerUnit;
-        CombatUnit enemyUnit = battleSystem.enemyUnit;
+        battleSystem.PlayerChooseMove(
+            battleSystem.playerUnit,
+            battleSystem.enemyUnit,
+            move
+        );
 
-        battleSystem.PlayerChooseMove(playerUnit, enemyUnit, move);
-
-        // opcional: volver al main después de elegir
         ShowPanel(BattleUIState.Main);
     }
 
@@ -271,10 +251,18 @@ public class BattleUIController : MonoBehaviour
 
     /// <summary>
     /// Callback que recibe partyMenu cuando el jugador elige un Profemon como target del item.
+    /// Si el item no aplica sobre ese target, vuelve al panel de items sin consumir el turno.
     /// </summary>
     void OnItemTargetSelected(ProfemonInstance target)
     {
         if (pendingItem == null) return;
+
+        if (!pendingItem.CanUseOn(target))
+        {
+            // Mostrar mensaje en el textbox y volver al panel de items sin consumir el turno
+            StartCoroutine(ShowNoEffectMessage(target));
+            return;
+        }
 
         battleSystem.PlayerChooseItem(pendingItem, target);
 
@@ -283,18 +271,27 @@ public class BattleUIController : MonoBehaviour
         ShowPanel(BattleUIState.Main);
     }
 
+    IEnumerator ShowNoEffectMessage(ProfemonInstance target)
+    {
+        yield return StartCoroutine(
+            battleSystem.textBox.ShowMessage(
+                $"No tendrá efecto en {target.data.professorName}."
+            )
+        );
+
+        SetupItems();
+        ShowPanel(BattleUIState.Items);
+    }
+
     // ---------------------------
     // HP
     // ---------------------------
     public void UpdateHP()
     {
-        CombatUnit playerUnit = battleSystem.playerUnit;
-        CombatUnit enemyUnit = battleSystem.enemyUnit;
-
         playerHP.text =
-            $"HP: {playerUnit.GetCurrentHP()} / {playerUnit.GetMaxHP()}";
+            $"HP: {battleSystem.playerUnit.GetCurrentHP()} / {battleSystem.playerUnit.GetMaxHP()}";
 
         enemyHP.text =
-            $"HP: {enemyUnit.GetCurrentHP()} / {enemyUnit.GetMaxHP()}";
+            $"HP: {battleSystem.enemyUnit.GetCurrentHP()} / {battleSystem.enemyUnit.GetMaxHP()}";
     }
 }
