@@ -7,72 +7,130 @@ public class BattleUIController : MonoBehaviour
 {
     public BattleSystem battleSystem;
 
-    public CombatUnit player;
-    public CombatUnit enemy;
+    public TextMeshProUGUI playerProfemonName;
+    public TextMeshProUGUI enemyProfemonName;
 
     public TextMeshProUGUI playerHP;
     public TextMeshProUGUI enemyHP;
 
+    public GameObject movesPanel;
     public Button[] moveButtons;
     public TextMeshProUGUI[] moveTexts;
+
+    public PartyMenuBattleController partyMenu;
 
 
     void OnEnable()
     {
         BattleEvents.OnHPChanged += UpdateHP;
+        BattleEvents.OnBattleStarted += InitializeUI;
+        BattleEvents.OnActiveUnitChanged += RefreshUI;
+        BattleEvents.OnPlayerSwitchRequired += OnSwitchPressed;
+
     }
 
     void OnDisable()
     {
         BattleEvents.OnHPChanged -= UpdateHP;
+        BattleEvents.OnBattleStarted -= InitializeUI;
+        BattleEvents.OnActiveUnitChanged -= RefreshUI;
+        BattleEvents.OnPlayerSwitchRequired -= OnSwitchPressed;
     }
 
 
-    void Start()
+    void InitializeUI()
     {
+        SetupNames();
         SetupMoves();
         UpdateHP();
     }
 
+    void RefreshUI()
+    {
+        SetupNames();
+        SetupMoves();
+        UpdateHP();
+        ShowMovesPanel();
+    }
+
+    void SetupNames()
+    {
+        CombatUnit playerUnit = battleSystem.playerUnit;
+        CombatUnit enemyUnit = battleSystem.enemyUnit;
+
+        playerProfemonName.text =
+            playerUnit.Instance.data.professorName;
+
+        enemyProfemonName.text =
+            enemyUnit.Instance.data.professorName;
+    }
+
     void SetupMoves()
     {
-        List<MoveSO> moves = player.GetMoves();
+        CombatUnit playerUnit = battleSystem.playerUnit;
+
+        List<MoveSO> moves = playerUnit.GetMoves();
 
         for (int i = 0; i < moveButtons.Length; i++)
         {
-            if (i < moves.Count)
+            bool hasMove = i < moves.Count;
+
+            moveButtons[i].gameObject.SetActive(hasMove);
+
+            if (!hasMove)
             {
-                MoveSO move = moves[i];
-
-                moveTexts[i].text = move.moveName;
-
-                int index = i;
-
-                moveButtons[i].onClick.AddListener(() =>
-                {
-                    OnMoveSelected(moves[index]);
-                });
+                moveTexts[i].text = "";
+                continue;
             }
-            else
+
+            MoveSO move = moves[i];
+
+            moveTexts[i].text = move.moveName;
+
+            int index = i;
+
+            moveButtons[i].onClick.RemoveAllListeners();
+            moveButtons[i].onClick.AddListener(() =>
             {
-                moveButtons[i].gameObject.SetActive(false);
-            }
+                OnMoveSelected(moves[index]);
+            });
         }
+    }
+
+    void ShowMovesPanel()
+    {
+        movesPanel.SetActive(true);
+    }
+
+    void HideMovesPanel()
+    {
+        movesPanel.SetActive(false);
     }
 
     void OnMoveSelected(MoveSO move)
     {
-        battleSystem.PlayerChooseMove(player, enemy, move);
+        CombatUnit playerUnit = battleSystem.playerUnit;
+        CombatUnit enemyUnit = battleSystem.enemyUnit;
 
-        UpdateHP();
+        battleSystem.PlayerChooseMove(playerUnit, enemyUnit, move);
     }
 
     public void UpdateHP()
     {
+        CombatUnit playerUnit = battleSystem.playerUnit;
+        CombatUnit enemyUnit = battleSystem.enemyUnit;
+
         playerHP.text =
-            $"HP: {player.GetCurrentHP()} / {player.GetMaxHP()}";
+            $"HP: {playerUnit.GetCurrentHP()} / {playerUnit.GetMaxHP()}";
 
         enemyHP.text =
-            $"HP: {enemy.GetCurrentHP()} / {enemy.GetMaxHP()}";
+            $"HP: {enemyUnit.GetCurrentHP()} / {enemyUnit.GetMaxHP()}";
+    }
+
+    public void OnSwitchPressed()
+    {
+        HideMovesPanel();
+
+        partyMenu.Open();
     }
 }

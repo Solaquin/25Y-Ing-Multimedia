@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CombatUnit : MonoBehaviour
 {
-    [Header("Setup")]
+    [Header("Setup for editor debug")]
     public ProfemonData data;
     public int level = 1;
 
@@ -11,33 +11,37 @@ public class CombatUnit : MonoBehaviour
     public ProfemonInstance Instance => instance;
 
     Dictionary<StatType, int> statStages = new Dictionary<StatType, int>();
-    StatusInstance currentStatus;
 
+    [SerializeField] bool startOnAwake;
     [SerializeField] int currentHPDebug;
 
     private void Awake()
     {
-        instance = new ProfemonInstance(data, level);
-
-        foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
+        if(startOnAwake)
         {
-            statStages[stat] = 0;
+            instance = new ProfemonInstance(data, level);
+
+            ResetStages();
+
+            currentHPDebug = instance.currentHP;
+
+            PrintStats();
         }
 
-        currentHPDebug = instance.currentHP;
-
-        Debug.Log($"{name} Attack Base: {instance.attack}");
-        Debug.Log($"{name} Defense Base: {instance.defense}");
-        Debug.Log($"{name} Speed Base: {instance.speed}");
-        Debug.Log($"{name} Accuracy Base: {instance.accuracy}");
-        Debug.Log($"{name} Evasion Base: {instance.evasion}");
     }
+
     // ================================
     // INICIALIZAR
     // ================================
     public void InitializeFromInstance(ProfemonInstance instance)
     {
         this.instance = instance;
+
+        ResetStages();
+
+        currentHPDebug = instance.currentHP;
+
+        PrintStats();
     }
 
     // ================================
@@ -154,18 +158,27 @@ public class CombatUnit : MonoBehaviour
         }
     }
 
+    void PrintStats()
+    {
+        Debug.Log($"{name} Attack Base: {instance.attack}");
+        Debug.Log($"{name} Defense Base: {instance.defense}");
+        Debug.Log($"{name} Speed Base: {instance.speed}");
+        Debug.Log($"{name} Accuracy Base: {instance.accuracy}");
+        Debug.Log($"{name} Evasion Base: {instance.evasion}");
+    }
+
     // ================================
     // ESTADOS
     // ================================
     public void ApplyStatus(StatusEffectSO status, int duration)
     {
-        if (currentStatus != null)
+        if (instance.activeStatus != null)
         {
             Debug.Log($"{name} ya tiene un estado.");
             return;
         }
 
-        currentStatus = new StatusInstance(status, duration);
+        instance.activeStatus = new StatusInstance(status, duration);
 
         status.OnApply(this);
 
@@ -176,13 +189,13 @@ public class CombatUnit : MonoBehaviour
     {
         message = "";
 
-        if (currentStatus == null)
+        if (instance.activeStatus == null)
             return false;
 
-        if (currentStatus.effect.PreventAction(actionType))
+        if (instance.activeStatus.effect.PreventAction(actionType))
         {
             message =
-                $"{name} está {currentStatus.effect.statusType} y no puede moverse.";
+                $"{name} está {instance.activeStatus.effect.statusType} y no puede moverse.";
 
             return true;
         }
@@ -192,18 +205,29 @@ public class CombatUnit : MonoBehaviour
 
     public void TickStatus()
     {
-        if (currentStatus == null)
-            return;
+        if (instance.activeStatus == null) return;
 
-        currentStatus.effect.OnTurnEnd(this);
+        instance.activeStatus.effect.OnTurnEnd(this);
 
-        currentStatus.remainingTurns--;
+        // -1 = persistente, no cuenta turnos
+        if (instance.activeStatus.remainingTurns == -1) return;
 
-        if (currentStatus.remainingTurns <= 0)
+        instance.activeStatus.remainingTurns--;
+
+        if (instance.activeStatus.remainingTurns <= 0)
         {
-            Debug.Log($"{name} ya no está {currentStatus.effect.statusType}");
-            currentStatus = null;
+            Debug.Log($"{name} ya no está {instance.activeStatus.effect.statusType}");
+            instance.activeStatus = null;
         }
+    }
+
+    public void CureStatus()
+    {
+        if (instance.activeStatus == null) return;
+
+        instance.activeStatus.effect.OnRemove(this);
+        Debug.Log($"{name} se curó de {instance.activeStatus.effect.statusType}");
+        instance.activeStatus = null;
     }
 
     // ================================

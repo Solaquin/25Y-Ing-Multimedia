@@ -5,7 +5,12 @@ public class PlayerPartyManager : MonoBehaviour
 {
     public static PlayerPartyManager Instance;
 
+    [Header("Debug Starting Party")]
+    public List<PlayerPartySlot> startingParty = new List<PlayerPartySlot>();
+
     public List<ProfemonInstance> party = new List<ProfemonInstance>();
+
+    public List<ProfemonInstance> storage = new List<ProfemonInstance>();
 
     public int maxPartySize = 6;
 
@@ -18,9 +23,40 @@ public class PlayerPartyManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
+        }
+    }
+
+    // ===============================
+    // DEBUG START PARTY
+    // ===============================
+    void Start()
+    {
+        if (party.Count == 0)
+            InitializeStartingParty();
+    }
+
+    void InitializeStartingParty()
+    {
+        if (party.Count > 0)
+            return;
+
+        foreach (var slot in startingParty)
+        {
+            if (slot.profemon == null)
+                continue;
+
+            ProfemonInstance instance =
+                new ProfemonInstance(slot.profemon, slot.level);
+
+            party.Add(instance);
+        }
     }
 
     // ===============================
@@ -54,7 +90,7 @@ public class PlayerPartyManager : MonoBehaviour
     }
 
     // ===============================
-    // MÉTODO NUEVO (RECOMENDADO)
+    // MÉTODOS PARTY
     // ===============================
     public void AddToParty(ProfemonInstance instance)
     {
@@ -69,12 +105,12 @@ public class PlayerPartyManager : MonoBehaviour
         else
         {
             AddToStorage(instance);
+
+            Debug.Log("Party llena. Enviado al almacenamiento.");
         }
 
         if (ProfedexManager.Instance != null)
-        {
             ProfedexManager.Instance.RegisterProfessor(instance.data);
-        }
     }
 
 
@@ -120,5 +156,30 @@ public class PlayerPartyManager : MonoBehaviour
 
         Debug.Log(instance.data.professorName +
                   " fue enviado al Storage.");
+
+    public List<ProfemonInstance> GetAlivePartyMembers()
+    {
+        List<ProfemonInstance> alive = new List<ProfemonInstance>();
+
+        foreach (var p in party)
+        {
+            if (p.currentHP > 0)
+                alive.Add(p);
+        }
+
+        return alive;
+    }
+
+    public List<ProfemonInstance> GetParty()
+    {
+        return party;
+    }
+
+    public void HealParty()
+    {
+        foreach (var p in party)
+        {
+            p.currentHP = p.maxHP;
+        }
     }
 }
