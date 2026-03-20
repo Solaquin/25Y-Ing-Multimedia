@@ -14,6 +14,10 @@ public class PlayerPartyManager : MonoBehaviour
 
     public int maxPartySize = 6;
 
+    public List<ProfemonInstance> storage = new List<ProfemonInstance>();
+
+    public int maxStorageSize = 100;
+
     public bool starterChosen = false;
 
     private void Awake()
@@ -100,7 +104,7 @@ public class PlayerPartyManager : MonoBehaviour
         }
         else
         {
-            storage.Add(instance);
+            AddToStorage(instance);
 
             Debug.Log("Party llena. Enviado al almacenamiento.");
         }
@@ -140,6 +144,18 @@ public class PlayerPartyManager : MonoBehaviour
 
         return false;
     }
+    public void AddToStorage(ProfemonInstance instance)
+    {
+        if (storage.Count >= maxStorageSize)
+        {
+            Debug.Log("Storage lleno.");
+            return;
+        }
+
+        storage.Add(instance);
+
+        Debug.Log(instance.data.professorName +
+                  " fue enviado al Storage.");
 
     public List<ProfemonInstance> GetAlivePartyMembers()
     {
