@@ -30,6 +30,9 @@ public class BattleSystem : MonoBehaviour
     public CombatUnit playerUnit;
     public CombatUnit enemyUnit;
 
+    // Nuevo: handler de items
+    [SerializeField] private BattleItemUsageHandler itemUsageHandler;
+
     public void SetupBattle(NPCParty enemyParty)
     {
         this.enemyParty = enemyParty;
@@ -72,6 +75,7 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(BattleLoop());
     }
+
     IEnumerator BattleLoop()
     {
         while (currentState != BattleState.EndBattle)
@@ -98,7 +102,6 @@ public class BattleSystem : MonoBehaviour
 
         playerCommandSelected = false;
 
-        // Esperar hasta que el jugador elija movimiento
         yield return new WaitUntil(() => playerCommandSelected);
     }
 
@@ -145,8 +148,6 @@ public class BattleSystem : MonoBehaviour
         Debug.Log($"---- TURN {turnNumber} START ----");
 
         BattleEvents.OnTurnStart?.Invoke();
-
-        // aquí luego irán efectos de inicio de turno
     }
 
     IEnumerator ResolveTurn(List<BattleCommand> commands)
@@ -194,7 +195,6 @@ public class BattleSystem : MonoBehaviour
 
             yield return StartCoroutine(ExecuteAction(action));
 
-            // comprobar KO inmediatamente
             if (!playerUnit.IsAlive())
             {
                 yield return StartCoroutine(HandleUnitKO(playerUnit));
@@ -234,7 +234,10 @@ public class BattleSystem : MonoBehaviour
 
             case BattleActionType.Item:
 
-                UseItem(action);
+                yield return StartCoroutine(
+                    itemUsageHandler.ExecuteItemAction(action)
+                );
+
                 break;
 
             case BattleActionType.Switch:
@@ -297,11 +300,6 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    public void UseItem(TurnAction action)
-    {
-
-    }
-
     public IEnumerator SwitchUnit(TurnAction action)
     {
         CombatUnit unit = action.user;
@@ -332,6 +330,8 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+    // ?? Comandos del jugador ?????????????????????????????????
+
     public void PlayerChooseMove(CombatUnit player, CombatUnit target, MoveSO move)
     {
         if (currentState != BattleState.PlayerInput)
@@ -350,6 +350,19 @@ public class BattleSystem : MonoBehaviour
 
         playerCommandSelected = true;
     }
+
+    public void PlayerChooseItem(BattleItemSO item, ProfemonInstance itemTarget)
+    {
+        if (currentState != BattleState.PlayerInput)
+            return;
+
+        playerCommand =
+            BattleCommand.CreateItemCommand(playerUnit, item, itemTarget);
+
+        playerCommandSelected = true;
+    }
+
+    // Utilidades
 
     private bool CheckAccuracy(CombatUnit user, CombatUnit target, MoveSO move)
     {
@@ -372,7 +385,7 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log(
             $"Accuracy {moveAccuracy} | AStage:{accuracyStage} " +
-            $"EStage:{evasionStage} | Final:{finalAccuracy} VS Roll:{roll}" 
+            $"EStage:{evasionStage} | Final:{finalAccuracy} VS Roll:{roll}"
         );
 
         return roll <= finalAccuracy;
@@ -437,7 +450,6 @@ public class BattleSystem : MonoBehaviour
             textBox.ShowMessage($"{unit.Instance.data.professorName} se debilitó")
         );
 
-        // PLAYER KO
         if (unit == playerUnit)
         {
             if (!PlayerPartyManager.Instance.HasAvailable())
@@ -456,8 +468,6 @@ public class BattleSystem : MonoBehaviour
 
             yield return StartCoroutine(SwitchUnit(switchAction));
         }
-
-        // ENEMY KO
         else if (unit == enemyUnit)
         {
             if (!enemyParty.HasAvailable())
@@ -471,7 +481,7 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.InitializeFromInstance(next);
 
             yield return StartCoroutine(
-                textBox.ShowMessage($"El enemigo envía {next.data.professorName}")
+                textBox.ShowMessage($"El enemigo envía a {next.data.professorName}")
             );
 
             BattleEvents.OnActiveUnitChanged?.Invoke();
@@ -499,8 +509,6 @@ public class BattleSystem : MonoBehaviour
             );
         }
     }
-
-    // TEST FUNCTIONS
 
     public void RunBattleTest()
     {

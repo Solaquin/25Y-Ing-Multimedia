@@ -15,7 +15,8 @@ public class TurnAction
     public BattleActionType actionType;
 
     public MoveSO move;
-    public ItemSO item;
+    public BattleItemSO item;
+    public ProfemonInstance itemTarget;  // añadido
     public ProfemonInstance switchTarget;
 
     public int priority;
@@ -25,7 +26,7 @@ public class TurnAction
     {
         user = command.user;
         target = command.target;
-        actionType = command.commandType;
+        actionType = command.actionType;
 
         switch (actionType)
         {
@@ -36,12 +37,13 @@ public class TurnAction
 
             case BattleActionType.Item:
                 item = command.item;
-                priority = 3; // ejemplo: objetos rápidos
+                itemTarget = command.itemTarget;  // añadido
+                priority = 3;
                 break;
 
             case BattleActionType.Switch:
                 switchTarget = command.switchTarget;
-                priority = 6; // cambiar es muy rápido
+                priority = 6;
                 break;
         }
 
@@ -56,13 +58,13 @@ public class TurnAction
                 return $"{user.name} -> {move.moveName} (P:{priority}, S:{speed})";
 
             case BattleActionType.Item:
-                return $"{user.name} uses item {item.name}";
+                return $"{user.name} usa {item.displayName} en {itemTarget.data.professorName}";
 
             case BattleActionType.Switch:
-                return $"{user.name} switches to {switchTarget.data.professorName}";
+                return $"{user.name} cambia a {switchTarget.data.professorName}";
 
             default:
-                return $"{user.name} unknown action";
+                return $"{user.name} acción desconocida";
         }
     }
 }
