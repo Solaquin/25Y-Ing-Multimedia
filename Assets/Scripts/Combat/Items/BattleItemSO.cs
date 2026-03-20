@@ -14,33 +14,37 @@ public class BattleItemSO : ScriptableObject
     public BattleItemEffect effect;
     public int effectValue;
 
-    // Si es true, el item solo puede usarse durante el combate
+    [Tooltip("Estado que cura este item. Solo aplica si effect es HealStatusCondition.")]
+    public StatusType targetStatus;
+
     public bool battleOnly = false;
 
- 
     public bool CanUseOn(ProfemonInstance target)
     {
         switch (effect)
         {
             case BattleItemEffect.ReviveProfemon:
+            case BattleItemEffect.FullRevive:
                 return !target.IsAlive();
 
             case BattleItemEffect.HealHP:
                 return target.IsAlive() && target.currentHP < target.MaxHP;
 
             case BattleItemEffect.HealStatusCondition:
-                return target.IsAlive() && target.HasStatusCondition();
+                return target.IsAlive()
+                    && target.HasStatusCondition()
+                    && target.activeStatus.effect.statusType == targetStatus;
+
+            case BattleItemEffect.FullHeal:
+                // Útil si tiene vida incompleta O algún estado
+                return target.IsAlive()
+                    && (target.currentHP < target.MaxHP || target.HasStatusCondition());
 
             default:
                 return target.IsAlive();
         }
     }
 
-    /// <summary>
-    /// Aplica el efecto del item sobre la instancia dada.
-    /// Usar tanto en combate (via BattleItemUsageHandler)
-    /// como fuera de él (via OverworldItemUsageHandler).
-    /// </summary>
     public string Apply(ProfemonInstance target)
     {
         switch (effect)
@@ -51,11 +55,21 @@ public class BattleItemSO : ScriptableObject
 
             case BattleItemEffect.HealStatusCondition:
                 target.CureStatusCondition();
-                return $"{target.data.professorName} se curó de su estado.";
+                return $"{target.data.professorName} se curó de {targetStatus}.";
+
+            case BattleItemEffect.FullHeal:
+                target.HealHP(target.MaxHP);
+                target.CureStatusCondition();
+                return $"{target.data.professorName} recuperó toda su vida y se curó de sus estados.";
 
             case BattleItemEffect.ReviveProfemon:
                 target.Revive(effectValue);
                 return $"{target.data.professorName} fue revivido con {effectValue} PS.";
+
+            case BattleItemEffect.FullRevive:
+                target.Revive(target.MaxHP);
+                target.CureStatusCondition();
+                return $"{target.data.professorName} fue revivido con toda su vida.";
 
             default:
                 return "No pasó nada.";

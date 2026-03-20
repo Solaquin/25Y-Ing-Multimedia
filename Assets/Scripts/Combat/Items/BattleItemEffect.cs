@@ -2,5 +2,7 @@ public enum BattleItemEffect
 {
     HealHP,
     HealStatusCondition,
-    ReviveProfemon
+    FullHeal,
+    ReviveProfemon,
+    FullRevive,
 }

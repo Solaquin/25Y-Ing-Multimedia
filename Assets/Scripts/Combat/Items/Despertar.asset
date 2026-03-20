@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleItemSO
   id: 1
   displayName: Despertar
-  description: 
+  description: Despierta al profesor de inmediato
   icon: {fileID: 0}
   effect: 1
   effectValue: 0
+  targetStatus: 3
   battleOnly: 0
