@@ -10572,6 +10572,52 @@ MonoBehaviour:
     amount: 10
   - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
     amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+    amount: 5
 --- !u!1 &2129257386
 GameObject:
   m_ObjectHideFlags: 0

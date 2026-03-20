@@ -4,6 +4,8 @@ public static class BattleEvents
 {
     public static Action OnBattleStarted;
 
+    public static Action<bool> OnBattleEnded;
+
     public static Action OnTurnStart;
 
     public static Action OnTurnEnd;
