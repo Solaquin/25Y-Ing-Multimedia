@@ -5019,7 +5019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &219411426
 Transform:
   m_ObjectHideFlags: 0
@@ -5029,7 +5029,7 @@ Transform:
   m_GameObject: {fileID: 219411425}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -6.22, y: -0.5, z: 66.83}
+  m_LocalPosition: {x: 12.6, y: -0.6, z: 50.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5076,7 +5076,7 @@ Light:
   m_Type: 4
   m_Color: {r: 0.9924539, g: 1, b: 0.8066038, a: 1}
   m_Intensity: 5
-  m_Range: 10
+  m_Range: 3.8
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -5116,7 +5116,7 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 17.53, y: 1}
+  m_AreaSize: {x: 65.2, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
@@ -8458,6 +8458,22 @@ PrefabInstance:
     - target: {fileID: 3407762317771759965, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017049020254013130, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.07718782
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017049020254013130, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0.04652813
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017049020254013130, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
+      propertyPath: m_LODs.Array.data[2].screenRelativeHeight
+      value: 0.017889962
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017049020254013130, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
+      propertyPath: m_LODs.Array.data[3].screenRelativeHeight
+      value: 0.0056836433
       objectReference: {fileID: 0}
     - target: {fileID: 7244867718249172051, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
       propertyPath: m_StaticEditorFlags
