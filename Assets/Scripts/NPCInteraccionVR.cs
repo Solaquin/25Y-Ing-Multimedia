@@ -18,7 +18,7 @@ public class NPCInteraccionVR : MonoBehaviour
         Debug.Log("OnTriggerEnter con: " + other.name);
 
         // Detecta directamente la Main Camera
-        if (other.name == "Main Camera")
+        if (other.CompareTag("Player"))
         {
             if (alerta != null)
             {
@@ -32,7 +32,7 @@ public class NPCInteraccionVR : MonoBehaviour
     {
         Debug.Log("OnTriggerExit con: " + other.name);
 
-        if (other.name == "Main Camera")
+        if (other.CompareTag("Player"))
         {
             if (alerta != null)
             {

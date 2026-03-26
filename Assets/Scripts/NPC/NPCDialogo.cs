@@ -30,7 +30,7 @@ public class NPCDialogo : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("Player"))
         {
             jugadorCerca = true;
             botonHablar.SetActive(true);
@@ -39,7 +39,7 @@ public class NPCDialogo : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("Player"))
         {
             jugadorCerca = false;
             botonHablar.SetActive(false);
