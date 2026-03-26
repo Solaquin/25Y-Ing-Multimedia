@@ -13,7 +13,7 @@ public class NPCShop : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("Player"))
         {
             botonTienda.SetActive(true);
         }
@@ -21,7 +21,7 @@ public class NPCShop : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("Player"))
         {
             botonTienda.SetActive(false);
             panelShop.SetActive(false);

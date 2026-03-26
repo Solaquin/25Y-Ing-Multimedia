@@ -18,7 +18,6 @@ public class NPCDialogo : MonoBehaviour
     public string[] dialogos;
     public string nombreDelNPC = "Profesor";
 
-
     public event Action OnDialogoTerminado;
 
     private int lineaActual = 0;
@@ -26,7 +25,7 @@ public class NPCDialogo : MonoBehaviour
     private bool jugadorCerca = false;
 
     [Header("Input VR")]
-    public InputActionReference botonA; 
+    public InputActionReference botonA;
 
     void Start()
     {
@@ -37,7 +36,7 @@ public class NPCDialogo : MonoBehaviour
         nombreNPC.text = nombreDelNPC;
 
         if (botonA != null)
-            botonA.action.Enable(); 
+            botonA.action.Enable();
     }
 
     void OnTriggerEnter(Collider other)
@@ -61,14 +60,14 @@ public class NPCDialogo : MonoBehaviour
 
     void Update()
     {
-        
+        // Interacción con botón VR
         if (jugadorCerca && botonA != null && botonA.action.WasPressedThisFrame())
         {
             Interactuar();
         }
 
-        // Opcional: también puedes probar con teclado para simulador
-        if (jugadorCerca && Keyboard.current.spaceKey.wasPressedThisFrame)
+        // Interacción con teclado (tecla E)
+        if (jugadorCerca && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             Interactuar();
         }
