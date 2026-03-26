@@ -2,26 +2,31 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class NPCDialogo : MonoBehaviour
 {
+    [Header("UI")]
     public GameObject botonHablar;
     public GameObject panelDialogo;
-
     public TextMeshProUGUI textoDialogo;
     public TextMeshProUGUI nombreNPC;
-
     public GameObject flechaContinuar;
 
+    [Header("Dialogo")]
     public string[] dialogos;
     public string nombreDelNPC = "Profesor";
 
-    // --- NUEVO: otros scripts se suscriben aquí para saber cuando termina el diálogo ---
+
     public event Action OnDialogoTerminado;
 
     private int lineaActual = 0;
     private bool escribiendo = false;
     private bool jugadorCerca = false;
+
+    [Header("Input VR")]
+    public InputActionReference botonA; 
 
     void Start()
     {
@@ -30,6 +35,9 @@ public class NPCDialogo : MonoBehaviour
         flechaContinuar.SetActive(false);
 
         nombreNPC.text = nombreDelNPC;
+
+        if (botonA != null)
+            botonA.action.Enable(); 
     }
 
     void OnTriggerEnter(Collider other)
@@ -53,16 +61,16 @@ public class NPCDialogo : MonoBehaviour
 
     void Update()
     {
-        if (jugadorCerca && Input.GetKeyDown(KeyCode.E))
+        
+        if (jugadorCerca && botonA != null && botonA.action.WasPressedThisFrame())
         {
-            if (!panelDialogo.activeSelf)
-            {
-                IniciarDialogo();
-            }
-            else
-            {
-                SiguienteLinea();
-            }
+            Interactuar();
+        }
+
+        // Opcional: también puedes probar con teclado para simulador
+        if (jugadorCerca && Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Interactuar();
         }
     }
 
@@ -94,11 +102,9 @@ public class NPCDialogo : MonoBehaviour
         }
         else
         {
-            // Cerrar panel
             panelDialogo.SetActive(false);
-            botonHablar.SetActive(false); // no mostrar botón si va al combate
+            botonHablar.SetActive(false);
 
-            // --- NUEVO: disparar evento para que CombatNPC inicie el combate ---
             OnDialogoTerminado?.Invoke();
         }
     }
@@ -107,7 +113,6 @@ public class NPCDialogo : MonoBehaviour
     {
         escribiendo = true;
         flechaContinuar.SetActive(false);
-
         textoDialogo.text = "";
 
         foreach (char letra in dialogos[lineaActual])
@@ -118,5 +123,19 @@ public class NPCDialogo : MonoBehaviour
 
         escribiendo = false;
         flechaContinuar.SetActive(true);
+    }
+
+    public void Interactuar()
+    {
+        if (!jugadorCerca) return;
+
+        if (!panelDialogo.activeSelf)
+        {
+            IniciarDialogo();
+        }
+        else
+        {
+            SiguienteLinea();
+        }
     }
 }
