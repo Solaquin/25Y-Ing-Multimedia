@@ -4387,6 +4387,7 @@ MonoBehaviour:
   - "Aqui aprender\xE1s a interactuar con NPCs"
   - Presiona E para continuar
   nombreDelNPC: NPC
+  botonA: {fileID: 0}
 --- !u!1 &1395148226
 GameObject:
   m_ObjectHideFlags: 0
@@ -4536,7 +4537,7 @@ GameObject:
   - component: {fileID: 1503651569}
   - component: {fileID: 1503651568}
   m_Layer: 0
-  m_Name: Suelo
+  m_Name: SueloEscena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4856,6 +4857,7 @@ MonoBehaviour:
   - Es un computador del laboratorio
   - "Parece ejecutar una simulaci\xF3n VR."
   nombreDelNPC: Objeto
+  botonA: {fileID: 0}
 --- !u!114 &1614283742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5399,6 +5401,7 @@ MonoBehaviour:
   dialogos:
   - A pelear!
   nombreDelNPC: NPC-Lucha
+  botonA: {fileID: 0}
 --- !u!1 &1861484018
 GameObject:
   m_ObjectHideFlags: 0
