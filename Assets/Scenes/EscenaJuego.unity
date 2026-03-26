@@ -982,7 +982,6 @@ GameObject:
   - component: {fileID: 48133915}
   - component: {fileID: 48133914}
   - component: {fileID: 48133913}
-  - component: {fileID: 48133919}
   - component: {fileID: 48133920}
   m_Layer: 0
   m_Name: Profemon4Button
@@ -1218,18 +1217,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48133911}
   m_CullTransparentMesh: 1
---- !u!114 &48133919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 48133911}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bdae65daa1ebe4c9cc9a3d9ba0f48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PartySlot
 --- !u!114 &48133920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1980,7 +1967,6 @@ GameObject:
   - component: {fileID: 72468922}
   - component: {fileID: 72468921}
   - component: {fileID: 72468920}
-  - component: {fileID: 72468926}
   - component: {fileID: 72468927}
   m_Layer: 0
   m_Name: Profemon6Button
@@ -2216,18 +2202,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72468918}
   m_CullTransparentMesh: 1
---- !u!114 &72468926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72468918}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bdae65daa1ebe4c9cc9a3d9ba0f48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PartySlot
 --- !u!114 &72468927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39498,7 +39472,6 @@ GameObject:
   - component: {fileID: 1662411503}
   - component: {fileID: 1662411502}
   - component: {fileID: 1662411501}
-  - component: {fileID: 1662411507}
   - component: {fileID: 1662411508}
   m_Layer: 0
   m_Name: Profemon1Button
@@ -39734,18 +39707,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662411499}
   m_CullTransparentMesh: 1
---- !u!114 &1662411507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662411499}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bdae65daa1ebe4c9cc9a3d9ba0f48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PartySlot
 --- !u!114 &1662411508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40814,7 +40775,6 @@ GameObject:
   - component: {fileID: 1722429534}
   - component: {fileID: 1722429533}
   - component: {fileID: 1722429532}
-  - component: {fileID: 1722429538}
   - component: {fileID: 1722429539}
   m_Layer: 0
   m_Name: Profemon3Button
@@ -41050,18 +41010,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722429530}
   m_CullTransparentMesh: 1
---- !u!114 &1722429538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722429530}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bdae65daa1ebe4c9cc9a3d9ba0f48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PartySlot
 --- !u!114 &1722429539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43365,7 +43313,6 @@ GameObject:
   - component: {fileID: 1820093235}
   - component: {fileID: 1820093234}
   - component: {fileID: 1820093233}
-  - component: {fileID: 1820093239}
   - component: {fileID: 1820093240}
   m_Layer: 0
   m_Name: Profemon5Button
@@ -43601,18 +43548,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820093231}
   m_CullTransparentMesh: 1
---- !u!114 &1820093239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820093231}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bdae65daa1ebe4c9cc9a3d9ba0f48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PartySlot
 --- !u!114 &1820093240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43647,7 +43582,6 @@ GameObject:
   - component: {fileID: 1824278852}
   - component: {fileID: 1824278851}
   - component: {fileID: 1824278850}
-  - component: {fileID: 1824278856}
   - component: {fileID: 1824278857}
   m_Layer: 0
   m_Name: Profemon2Button
@@ -43883,18 +43817,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824278848}
   m_CullTransparentMesh: 1
---- !u!114 &1824278856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1824278848}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bdae65daa1ebe4c9cc9a3d9ba0f48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PartySlot
 --- !u!114 &1824278857
 MonoBehaviour:
   m_ObjectHideFlags: 0
