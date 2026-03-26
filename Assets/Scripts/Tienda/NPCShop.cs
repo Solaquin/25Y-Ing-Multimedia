@@ -3,7 +3,6 @@ using UnityEngine;
 public class NPCShop : MonoBehaviour
 {
     public GameObject botonTienda;
-    public GameObject panelShop;
 
     void Start()
     {
