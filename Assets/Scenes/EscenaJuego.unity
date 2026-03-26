@@ -1289,7 +1289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 286607677297586619, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.24
+      value: 11.02
       objectReference: {fileID: 0}
     - target: {fileID: 286607677297586619, guid: a84014ab78d3b5e448d1fae7964f03e8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1724,6 +1724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!1 &68973242
 GameObject:
   m_ObjectHideFlags: 0
@@ -10040,6 +10041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &458920510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14798,6 +14800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &630547802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16150,6 +16153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &663080073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17023,6 +17027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &691323532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22284,6 +22289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &878557765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26397,6 +26403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &1041260160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34706,6 +34713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &1443245842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41063,6 +41071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &1728618528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48869,6 +48878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &2072773208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49466,6 +49476,7 @@ MonoBehaviour:
     evasion: 0
     types: []
     currentMoves: []
+  maxPartySize: 6
   storage:
   - data: {fileID: 11400000, guid: 95fb06a7c4061ee43a6cc54772a85140, type: 2}
     level: 0
@@ -49478,7 +49489,6 @@ MonoBehaviour:
     evasion: 0
     types: []
     currentMoves: []
-  maxPartySize: 6
   maxStorageSize: 100
   starterChosen: 0
 --- !u!4 &2083544333
@@ -49530,6 +49540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
+  ballType: 0
 --- !u!114 &2084789261
 MonoBehaviour:
   m_ObjectHideFlags: 0
