@@ -14548,7 +14548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCParty
   partySlots:
   - profemon: {fileID: 11400000, guid: 1221ece12d1b3f94b9f55ed0dce6ab7a, type: 2}
-    level: 2
+    level: 5
   party: []
 --- !u!114 &540678522
 MonoBehaviour:
@@ -26094,7 +26094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCParty
   partySlots:
   - profemon: {fileID: 11400000, guid: 1221ece12d1b3f94b9f55ed0dce6ab7a, type: 2}
-    level: 2
+    level: 3
   party: []
 --- !u!114 &859448034
 MonoBehaviour:
