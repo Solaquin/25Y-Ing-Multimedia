@@ -12,6 +12,8 @@ public class PlayerPartyManager : MonoBehaviour
 
     public int maxPartySize = 6;
 
+    public List<ProfemonInstance> storage = new List<ProfemonInstance>();
+
     public int maxStorageSize = 100;
 
     public bool starterChosen = false;
