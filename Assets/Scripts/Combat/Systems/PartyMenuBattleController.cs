@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class PartyMenuBattleController : MonoBehaviour
 {
     public PartyMenuUI menu;
     public BattleSystem battleSystem;
+
+    private bool isItemTargetMode;
+    private Action<ProfemonInstance> onItemTargetSelected;
 
     void OnEnable()
     {
@@ -15,8 +19,19 @@ public class PartyMenuBattleController : MonoBehaviour
         menu.OnProfemonSelected -= HandleSelection;
     }
 
+    // Modo switch — igual que antes
     public void Open()
     {
+        isItemTargetMode = false;
+        onItemTargetSelected = null;
+        menu.Open(PlayerPartyManager.Instance.party);
+    }
+
+    // Modo item target — abre el mismo menú pero con otro callback
+    public void OpenForItemTarget(BattleItemSO item, Action<ProfemonInstance> callback)
+    {
+        isItemTargetMode = true;
+        onItemTargetSelected = callback;
         menu.Open(PlayerPartyManager.Instance.party);
     }
 
@@ -24,6 +39,15 @@ public class PartyMenuBattleController : MonoBehaviour
     {
         menu.Close();
 
-        battleSystem.PlayerChooseSwitch(instance);
+        if (isItemTargetMode)
+        {
+            onItemTargetSelected?.Invoke(instance);
+            isItemTargetMode = false;
+            onItemTargetSelected = null;
+        }
+        else
+        {
+            battleSystem.PlayerChooseSwitch(instance);
+        }
     }
 }

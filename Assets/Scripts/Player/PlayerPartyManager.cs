@@ -10,8 +10,6 @@ public class PlayerPartyManager : MonoBehaviour
 
     public List<ProfemonInstance> party = new List<ProfemonInstance>();
 
-    public List<ProfemonInstance> storage = new List<ProfemonInstance>();
-
     public int maxPartySize = 6;
 
     public int maxStorageSize = 100;

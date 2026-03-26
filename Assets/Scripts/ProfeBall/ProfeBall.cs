@@ -5,6 +5,8 @@ public class Profebola : MonoBehaviour
 {
     private bool isProcessing = false;
 
+    public BallType ballType;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (isProcessing) return;

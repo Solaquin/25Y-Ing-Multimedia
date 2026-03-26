@@ -23,11 +23,13 @@ public class ProfemonInstance
     // Tipos
     public List<TypeSO> types;
 
-    //Movimientos actuales
+    // Movimientos actuales
     public List<MoveSO> currentMoves = new List<MoveSO>();
 
     // Status persistente
     public StatusInstance activeStatus;
+
+    public int MaxHP => maxHP;
 
     public ProfemonInstance(ProfemonData baseData, int level)
     {
@@ -38,7 +40,6 @@ public class ProfemonInstance
 
         currentHP = maxHP;
 
-        // Copiamos los tipos del Data
         types = new List<TypeSO>(baseData.types);
 
         InitializeMoves();
@@ -69,5 +70,30 @@ public class ProfemonInstance
     public bool IsAlive()
     {
         return currentHP > 0;
+    }
+
+    //Items
+
+    public int HealHP(int amount)
+    {
+        int before = currentHP;
+        currentHP = Mathf.Min(currentHP + amount, maxHP);
+        return currentHP - before;
+    }
+
+    public void Revive(int hpAmount)
+    {
+        if (IsAlive()) return;
+        currentHP = Mathf.Clamp(hpAmount, 1, maxHP);
+    }
+
+    public bool HasStatusCondition()
+    {
+        return activeStatus != null;
+    }
+
+    public void CureStatusCondition()
+    {
+        activeStatus = null;
     }
 }
