@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 using System.Collections;
 
 public class NPCDialogo : MonoBehaviour
@@ -14,6 +15,9 @@ public class NPCDialogo : MonoBehaviour
 
     public string[] dialogos;
     public string nombreDelNPC = "Profesor";
+
+    // --- NUEVO: otros scripts se suscriben aquí para saber cuando termina el diálogo ---
+    public event Action OnDialogoTerminado;
 
     private int lineaActual = 0;
     private bool escribiendo = false;
@@ -90,8 +94,12 @@ public class NPCDialogo : MonoBehaviour
         }
         else
         {
+            // Cerrar panel
             panelDialogo.SetActive(false);
-            botonHablar.SetActive(true);
+            botonHablar.SetActive(false); // no mostrar botón si va al combate
+
+            // --- NUEVO: disparar evento para que CombatNPC inicie el combate ---
+            OnDialogoTerminado?.Invoke();
         }
     }
 

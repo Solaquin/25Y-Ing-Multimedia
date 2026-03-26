@@ -89,7 +89,7 @@ public class BattleSystem : MonoBehaviour
 
             if (CheckBattleEnd())
             {
-                EndBattle();
+                yield return StartCoroutine(EndBattle());
                 yield break;
             }
         }
@@ -445,16 +445,22 @@ public class BattleSystem : MonoBehaviour
         CombatUnit player = allUnits[0];
         CombatUnit enemy = allUnits[1];
 
-        if (player.IsAlive())
+        bool playerWon = player.IsAlive();
+
+        if (playerWon)
         {
             yield return StartCoroutine(
-            BattleMessenger.Show($"Player wins"));
+                BattleMessenger.Show($"Player wins"));
         }
         else
         {
             yield return StartCoroutine(
-            BattleMessenger.Show($"Enemy wins"));
+                BattleMessenger.Show($"Enemy wins"));
         }
+
+        // --- NUEVO: volver al mundo e informar resultado ---
+        if (BattleTransitionManager.Instance != null)
+            BattleTransitionManager.Instance.EndBattleTransition(playerWon);
     }
 
     IEnumerator HandleUnitKO(CombatUnit unit)
