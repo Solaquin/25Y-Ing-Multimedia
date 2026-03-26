@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 using System.Collections;
 
 public class NPCDialogo : MonoBehaviour
@@ -14,6 +15,9 @@ public class NPCDialogo : MonoBehaviour
 
     public string[] dialogos;
     public string nombreDelNPC = "Profesor";
+
+    // Evento cuando termina el diálogo
+    public event Action OnDialogoTerminado;
 
     private int lineaActual = 0;
     private bool escribiendo = false;
@@ -30,7 +34,7 @@ public class NPCDialogo : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("Player")) // 🔥 mejor que MainCamera
         {
             jugadorCerca = true;
             botonHablar.SetActive(true);
@@ -39,7 +43,7 @@ public class NPCDialogo : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("Player"))
         {
             jugadorCerca = false;
             botonHablar.SetActive(false);
@@ -91,7 +95,10 @@ public class NPCDialogo : MonoBehaviour
         else
         {
             panelDialogo.SetActive(false);
-            botonHablar.SetActive(true);
+            botonHablar.SetActive(false);
+
+            // 🔥 dispara evento (para combate u otras acciones)
+            OnDialogoTerminado?.Invoke();
         }
     }
 
