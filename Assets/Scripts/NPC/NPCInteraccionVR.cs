@@ -17,7 +17,7 @@ public class NPCInteraccionVR : MonoBehaviour
     {
         Debug.Log("OnTriggerEnter con: " + other.name);
 
-        if (other.CompareTag("Player")) // 🔥 mejor que usar nombre
+        if (other.CompareTag("Player")) // ✅ corregido, sin espacio extra
         {
             if (alerta != null)
             {
