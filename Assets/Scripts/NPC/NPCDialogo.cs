@@ -67,7 +67,7 @@ public class NPCDialogo : MonoBehaviour
             Interactuar();
         }
 
-        // Opcional: también puedes probar con teclado para simulador
+        // Opcional: tambiÃ©n puedes probar con teclado para simulador
         if (jugadorCerca && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             Interactuar();

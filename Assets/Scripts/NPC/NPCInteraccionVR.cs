@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NPCInteraccionVR : MonoBehaviour
 {
-    [Header("Símbolo de alerta sobre el NPC")]
+    [Header("SÃ­mbolo de alerta sobre el NPC")]
     public GameObject alerta;
 
     void Start()
@@ -10,20 +10,19 @@ public class NPCInteraccionVR : MonoBehaviour
         if (alerta != null)
             alerta.SetActive(false);
         else
-            Debug.LogWarning("No se asignó el objeto 'alerta' en el Inspector para " + gameObject.name);
+            Debug.LogWarning("No se asignÃ³ el objeto 'alerta' en el Inspector para " + gameObject.name);
     }
 
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter con: " + other.name);
 
-        // Detecta directamente la Main Camera
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // ðŸ”¥ mejor que usar nombre
         {
             if (alerta != null)
             {
                 alerta.SetActive(true);
-                Debug.Log("La cámara entró al rango de " + gameObject.name);
+                Debug.Log("El jugador entrÃ³ al rango de " + gameObject.name);
             }
         }
     }
@@ -37,7 +36,7 @@ public class NPCInteraccionVR : MonoBehaviour
             if (alerta != null)
             {
                 alerta.SetActive(false);
-                Debug.Log("La cámara salió del rango de " + gameObject.name);
+                Debug.Log("El jugador saliÃ³ del rango de " + gameObject.name);
             }
         }
     }
