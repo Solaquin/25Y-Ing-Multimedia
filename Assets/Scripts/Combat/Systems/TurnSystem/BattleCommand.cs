@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class BattleCommand
 {
+    public BattleActionType actionType;
+
     public CombatUnit user;
+
+    // Move
     public CombatUnit target;
-
-    public BattleActionType commandType;
-
     public MoveSO move;
-    public ItemSO item;
+
+    // Switch
     public ProfemonInstance switchTarget;
+
+    // Item
+    public BattleItemSO item;
+    public ProfemonInstance itemTarget;
 
     private BattleCommand() { }
 
@@ -21,29 +27,26 @@ public class BattleCommand
     {
         return new BattleCommand
         {
+            actionType = BattleActionType.Move,
             user = user,
             target = target,
-            move = move,
-            commandType = BattleActionType.Move
+            move = move
         };
     }
 
     //Commando for use items
     public static BattleCommand CreateItemCommand(
-        CombatUnit user,
-        CombatUnit target,
-        ItemSO item)
+        CombatUnit user, BattleItemSO item, ProfemonInstance itemTarget)
     {
         return new BattleCommand
         {
+            actionType = BattleActionType.Item,
             user = user,
-            target = target,
             item = item,
-            commandType = BattleActionType.Item
+            itemTarget = itemTarget
         };
     }
 
-    //Command for Switch current BattleUnit
     //Command for Switch current BattleUnit
     public static BattleCommand CreateSwitchCommand(
         CombatUnit user,
@@ -51,9 +54,9 @@ public class BattleCommand
     {
         return new BattleCommand
         {
+            actionType = BattleActionType.Switch,
             user = user,
-            switchTarget = switchTarget,
-            commandType = BattleActionType.Switch
+            switchTarget = switchTarget
         };
     }
 }
