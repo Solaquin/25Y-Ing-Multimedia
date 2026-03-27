@@ -159,7 +159,7 @@ MonoBehaviour:
   level: 1
   minLevel: 1
   maxLevel: 5
-  despawnDistance: 30
+  despawnDistance: 100
   isCaptured: 0
   wanderInterval: 4
 --- !u!195 &-3771649826956671020
