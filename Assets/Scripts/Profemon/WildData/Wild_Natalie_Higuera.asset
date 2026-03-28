@@ -10,11 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_Angela
+  m_Name: Wild_Natalie_Higuera
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Angela Alvarez
+  professorName: Natalie Higuera
+  phrase: 
   description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
   image: {fileID: 0}
-  types: []
-  baseStats: {fileID: 11400000, guid: cbd78eb477b159a439d1ea76d7c7a3ec, type: 2}
+  types:
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+  baseStats: {fileID: 11400000, guid: 516506156f7844b48a5005fe3fe74a28, type: 2}
+  learnableMoves: []
   captureDifficulty: 50

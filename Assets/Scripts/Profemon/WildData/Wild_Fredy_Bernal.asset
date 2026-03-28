@@ -13,8 +13,15 @@ MonoBehaviour:
   m_Name: Wild_Fredy_Bernal
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Fredy Bernal
+  phrase: 
   description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
   image: {fileID: 0}
-  types: []
+  types:
+  - {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
   baseStats: {fileID: 11400000, guid: 03ad37f6e568bf14c996949562fe1712, type: 2}
+  learnableMoves: []
   captureDifficulty: 50

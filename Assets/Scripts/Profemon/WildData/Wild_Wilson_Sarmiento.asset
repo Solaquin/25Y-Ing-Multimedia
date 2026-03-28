@@ -20,7 +20,8 @@ MonoBehaviour:
   whereToFind: 
   whereToFindImage: {fileID: 0}
   image: {fileID: 0}
-  types: []
+  types:
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
   baseStats: {fileID: 11400000, guid: 2ac713aa0db5b6c48a8ff08c24874e8b, type: 2}
   learnableMoves:
   - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}

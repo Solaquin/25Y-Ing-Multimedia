@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Wild_German_Garnica
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: German Garnica
+  phrase: 
   description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
   image: {fileID: 0}
-  types: []
+  types:
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
   baseStats: {fileID: 11400000, guid: 14fb36d8fdc94204b9dbdfbf69469fa3, type: 2}
   learnableMoves:
   - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}

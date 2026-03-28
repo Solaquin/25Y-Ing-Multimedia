@@ -13,8 +13,17 @@ MonoBehaviour:
   m_Name: Wild_Christian_Quintero
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Christian Quintero
+  phrase: 
   description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
   image: {fileID: 0}
-  types: []
+  types:
+  - {fileID: 11400000, guid: 1099682adb0eb3a48acf9b9bc3572820, type: 2}
   baseStats: {fileID: 11400000, guid: 9ad88f789d811e54998cf541c8cbe291, type: 2}
+  learnableMoves:
+  - {fileID: 11400000, guid: dde061b7e9cac264c9f2cf6c385b9a0a, type: 2}
+  - {fileID: 11400000, guid: 72d1bf3d08001f548a2b507f85049be6, type: 2}
   captureDifficulty: 50
