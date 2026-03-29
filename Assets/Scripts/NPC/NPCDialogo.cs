@@ -27,6 +27,11 @@ public class NPCDialogo : MonoBehaviour
     [Header("Input VR")]
     public InputActionReference botonA;
 
+    [Header("Detección de mirada")]
+    public Transform camaraJugador;
+    [Range(0, 1)]
+    public float umbralMirada = 0.7f; // entre más alto, más preciso
+
     void Start()
     {
         botonHablar.SetActive(false);
@@ -37,6 +42,11 @@ public class NPCDialogo : MonoBehaviour
 
         if (botonA != null)
             botonA.action.Enable();
+
+        if (camaraJugador == null)
+        {
+            camaraJugador = Camera.main.transform;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -60,14 +70,21 @@ public class NPCDialogo : MonoBehaviour
 
     void Update()
     {
-        // Interacción con botón VR
-        if (jugadorCerca && botonA != null && botonA.action.WasPressedThisFrame())
+        if (camaraJugador == null) return;
+
+        bool mirandoNPC = EstaMirandoAlNPC();
+
+        // Mostrar botón SOLO si está cerca Y mirando
+        botonHablar.SetActive(jugadorCerca && mirandoNPC && !panelDialogo.activeSelf);
+
+        // Interacción VR
+        if (jugadorCerca && mirandoNPC && botonA != null && botonA.action.WasPressedThisFrame())
         {
             Interactuar();
         }
 
-        // Interacción con teclado (tecla E)
-        if (jugadorCerca && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        // Teclado
+        if (jugadorCerca && mirandoNPC && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             Interactuar();
         }
@@ -136,5 +153,13 @@ public class NPCDialogo : MonoBehaviour
         {
             SiguienteLinea();
         }
+    }
+
+    bool EstaMirandoAlNPC()
+    {
+        Vector3 direccionAlNPC = (transform.position - camaraJugador.position).normalized;
+        float dot = Vector3.Dot(camaraJugador.forward, direccionAlNPC);
+
+        return dot > umbralMirada;
     }
 }
