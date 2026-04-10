@@ -1,14 +1,20 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
+/// <summary>
+/// Socket del cinturón que representa un slot de Profeball.
+/// Cuando el jugador interactúa con él, instancia la bola en su mano
+/// y consume una unidad del ItemInventory.
+/// </summary>
 public class BeltSocketSlot : MonoBehaviour
 {
-    public BallType ballType;
-    public GameObject ballPrefab;
+    [Tooltip("SO de la Profeball que representa este slot")]
+    public ProfeBallSO profeBallData;
 
-    [SerializeField] private TextMesh quantityText;
+    [SerializeField] private TextMeshProUGUI quantityText;
 
     private XRSocketInteractor socket;
 
@@ -20,11 +26,23 @@ public class BeltSocketSlot : MonoBehaviour
     private void OnEnable()
     {
         socket.selectEntered.AddListener(OnSelectEntered);
+
+        // Suscribirse a cambios del inventario para actualizar el contador
+        if (ItemInventory.Instance != null)
+            ItemInventory.Instance.OnInventoryChanged += HandleInventoryChanged;
     }
 
     private void OnDisable()
     {
         socket.selectEntered.RemoveListener(OnSelectEntered);
+
+        if (ItemInventory.Instance != null)
+            ItemInventory.Instance.OnInventoryChanged -= HandleInventoryChanged;
+    }
+
+    private void Start()
+    {
+        UpdateVisual();
     }
 
     private void OnSelectEntered(SelectEnterEventArgs args)
@@ -34,11 +52,15 @@ public class BeltSocketSlot : MonoBehaviour
 
     void TryGiveBall(IXRSelectInteractor interactor)
     {
-        var inventory = ProfeBallInventoryManager.Instance.Inventory;
-
-        if (!inventory.Use(ballType))
+        if (profeBallData == null)
         {
-            Debug.Log("Sin bolas");
+            Debug.LogWarning("[BeltSocketSlot] No hay ProfeBallSO asignado.");
+            return;
+        }
+
+        if (!ItemInventory.Instance.HasItem(profeBallData.id))
+        {
+            Debug.Log("[BeltSocketSlot] Sin stock de " + profeBallData.displayName);
             return;
         }
 
@@ -47,21 +69,42 @@ public class BeltSocketSlot : MonoBehaviour
 
     void SpawnBall(IXRSelectInteractor interactor)
     {
+        if (profeBallData.prefabBola == null)
+        {
+            Debug.LogError("[BeltSocketSlot] ProfeBallSO no tiene prefabBola asignado.");
+            return;
+        }
+
         Transform attach = interactor.GetAttachTransform(null);
 
-        GameObject ball = Instantiate(ballPrefab, attach.position, attach.rotation);
+        GameObject ball = Instantiate(
+            profeBallData.prefabBola,
+            attach.position,
+            attach.rotation
+        );
 
-        var interactable = ball.GetComponent<XRGrabInteractable>();
+        // Asignar el SO a la bola instanciada
         var pb = ball.GetComponent<Profebola>();
-
-        pb.ballType = ballType;
+        if (pb != null)
+            pb.datos = profeBallData;
 
         // Forzar que la mano la agarre automáticamente
-        interactable.interactionManager.SelectEnter(interactor, interactable);
+        var interactable = ball.GetComponent<XRGrabInteractable>();
+        if (interactable != null)
+            interactable.interactionManager.SelectEnter(interactor, interactable);
     }
+
     void UpdateVisual()
     {
-        int amount = ProfeBallInventoryManager.Instance.Inventory.GetBall(ballType);
+        if (quantityText == null || profeBallData == null) return;
+
+        int amount = ItemInventory.Instance.GetCount(profeBallData.id);
         quantityText.text = amount.ToString();
+    }
+
+    void HandleInventoryChanged(string itemId)
+    {
+        if (profeBallData != null && itemId == profeBallData.id)
+            UpdateVisual();
     }
 }
