@@ -5,6 +5,8 @@ public class NPCShop : MonoBehaviour
     public GameObject botonTienda;
     public GameObject panelShop;
 
+    [SerializeField]private ShopSystem shopSystem;
+
     void Start()
     {
         botonTienda.SetActive(false);
@@ -14,9 +16,7 @@ public class NPCShop : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             botonTienda.SetActive(true);
-        }
     }
 
     void OnTriggerExit(Collider other)
@@ -24,7 +24,7 @@ public class NPCShop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             botonTienda.SetActive(false);
-            panelShop.SetActive(false);
+            CerrarTienda();
         }
     }
 
@@ -32,15 +32,21 @@ public class NPCShop : MonoBehaviour
     {
         panelShop.SetActive(true);
         botonTienda.SetActive(false);
+        shopSystem.AbrirTienda();
+    }
+
+    public void CerrarTienda()
+    {
+        if (!panelShop.activeSelf) return;
+
+        shopSystem.CerrarTienda();
+        panelShop.SetActive(false);
+        botonTienda.SetActive(true);
     }
 
     private void Update()
     {
         if (panelShop.activeSelf && Input.GetKeyDown(KeyCode.E))
-        {
-            panelShop.SetActive(false);
-            botonTienda.SetActive(true);
-        }
+            CerrarTienda();
     }
 }
-

@@ -196,7 +196,7 @@ public class BattleSystem : MonoBehaviour
             if (!BattleActionValidator.IsActionValid(action))
                 continue;
 
-            yield return StartCoroutine(ExecuteAction(action));
+             yield return StartCoroutine(ExecuteAction(action));
 
             if (!playerUnit.IsAlive())
             {

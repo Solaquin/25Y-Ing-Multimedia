@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Profebola : MonoBehaviour
 {
-    private bool isProcessing = false;
+    [Tooltip("SO que define este tipo de bola. Debe coincidir con la que se consumió del inventario.")]
+    public ProfeBallSO datos;
 
-    public BallType ballType;
+    private bool isProcessing = false;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -19,12 +20,22 @@ public class Profebola : MonoBehaviour
         }
     }
 
-
     IEnumerator CaptureSequence(Profemon professor)
     {
         isProcessing = true;
 
-        // Ocultar profesor (entra a la bola)
+        // Verificar stock antes de proceder
+        if (datos == null || !ItemInventory.Instance.HasItem(datos.id))
+        {
+            Debug.LogWarning("[Profebola] Sin stock o sin ProfeBallSO asignado.");
+            Destroy(gameObject);
+            yield break;
+        }
+
+        // Consumir del inventario
+        ItemInventory.Instance.ConsumeItem(datos.id);
+
+        // Ocultar Profemon (entra a la bola)
         professor.HideProfessor();
 
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -34,35 +45,35 @@ public class Profebola : MonoBehaviour
 
         // Simular temblor
         float shakeTime = 2f;
-        float timer = 0f;
-
+        float elapsed = 0f;
         Vector3 originalPos = transform.position;
 
-        while (timer < shakeTime)
+        while (elapsed < shakeTime)
         {
             transform.position = originalPos + Random.insideUnitSphere * 0.05f;
-            timer += Time.deltaTime;
+            elapsed += Time.deltaTime;
             yield return null;
         }
 
         transform.position = originalPos;
 
-        // Probabilidad de captura
+        // Probabilidad de captura — la dificultad base se reduce con el captureBonus del SO
+        int dificultad = datos != null
+            ? Mathf.Max(0, professor.data.captureDifficulty - datos.captureBonus)
+            : professor.data.captureDifficulty;
+
         int roll = Random.Range(0, 100);
 
-        if (roll > professor.data.captureDifficulty)
+        if (roll > dificultad)
         {
             professor.ConfirmCapture();
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("El profesor escapó!");
-
+            Debug.Log("[Profebola] El profesor escapó!");
             professor.ShowProfessor();
             Destroy(gameObject);
         }
-
     }
-
 }

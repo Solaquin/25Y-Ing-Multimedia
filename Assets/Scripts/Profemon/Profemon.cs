@@ -56,7 +56,7 @@ public class Profemon : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
 
-        Debug.Log(data.professorName + " salvaje generado nivel " + level);
+        //Debug.Log(data.professorName + " salvaje generado nivel " + level);
     }
 
     private void Update()
