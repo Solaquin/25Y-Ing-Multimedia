@@ -92,10 +92,13 @@ public class ProfeBallBeltSlots : MonoBehaviour
 
             obj.transform.rotation =
                 Quaternion.LookRotation(obj.transform.position - head.position);
+
+            // 🔥 ASIGNAR qué ProfeBall representa este slot
+            var slotItem = obj.GetComponent<BeltSlotItem>();
+            slotItem.SetBall(flatList[i]);
         }
     }
 
-    // 🔥 llamado desde el slot cuando lo agarras
     public void SpawnRealBall(Vector3 position, Quaternion rotation)
     {
         GameObject real = Instantiate(realPrefab, position, rotation);
@@ -107,4 +110,4 @@ public class ProfeBallBeltSlots : MonoBehaviour
             rb.useGravity = true;
         }
     }
-}   
+}

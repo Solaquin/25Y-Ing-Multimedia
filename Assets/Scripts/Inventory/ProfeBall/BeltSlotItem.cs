@@ -1,15 +1,21 @@
-﻿using UnityEngine.XR.Interaction.Toolkit.Interactables;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BeltSlotItem : MonoBehaviour
 {
     private ProfeBallBeltSlots belt;
     private XRGrabInteractable grab;
+    private ProfeBallSO myBall;
 
     public void Init(ProfeBallBeltSlots b)
     {
         belt = b;
+    }
+
+    public void SetBall(ProfeBallSO ball)
+    {
+        myBall = ball;
     }
 
     void Awake()
@@ -22,23 +28,22 @@ public class BeltSlotItem : MonoBehaviour
 
     void OnGrab(SelectEnterEventArgs args)
     {
-        if (belt == null)
+        if (belt == null || belt.hand == null || myBall == null)
         {
-            Debug.LogError("BELT ES NULL en BeltSlotItem");
+            Debug.LogError("BeltSlotItem missing references");
             return;
         }
 
-        if (belt.hand == null)
-        {
-            Debug.LogError("HAND ES NULL en BeltSlotItem");
-            return;
-        }
+        // 🔥 quitar del inventario REAL
+        ItemInventory.Instance.RemoveProfeBall(myBall, 1);
 
+        // 🔥 spawnear bola real
         belt.SpawnRealBall(
             belt.hand.position,
             belt.hand.rotation
         );
 
-        gameObject.SetActive(false);
+        // ❗ NO desactivamos manualmente el objeto
+        // UpdateSlots lo hará automáticamente en el siguiente LateUpdate
     }
 }
