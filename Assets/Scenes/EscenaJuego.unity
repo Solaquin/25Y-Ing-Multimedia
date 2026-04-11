@@ -19116,10 +19116,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBallBeltSlots
   xrOrigin: {fileID: 1295502456}
   head: {fileID: 23759453}
-  profeBallPrefab: {fileID: 8501296604263620347, guid: 3753aaa8b20c73346aae87a58e3e81c1, type: 3}
+  realPrefab: {fileID: 8501296604263620347, guid: 3753aaa8b20c73346aae87a58e3e81c1, type: 3}
+  hand: {fileID: 683474222}
+  profeBallPrefab: {fileID: 8501296604263620347, guid: 67a7c0c5a099d9a4da1ca875186fdba4, type: 3}
   maxSlots: 5
   radius: 1
-  heightOffset: -0.4
+  heightOffset: -0.5
   startAngle: -75
   endAngle: -165
 --- !u!1 &547294387
@@ -24535,6 +24537,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!4 &683474222 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 716906830792148215, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 23759452}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &685097080
 GameObject:
   m_ObjectHideFlags: 0
@@ -46844,7 +46851,7 @@ Transform:
   m_GameObject: {fileID: 1295502455}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.7, z: 0}
+  m_LocalPosition: {x: 0, y: -0.881, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
