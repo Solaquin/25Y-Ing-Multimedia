@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5083975544029521522}
   - component: {fileID: 4272426523027144486}
   - component: {fileID: 8655855483037346676}
-  - component: {fileID: 7982876842439299605}
   m_Layer: 0
   m_Name: Profeball
   m_TagString: Untagged
@@ -284,15 +283,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
   datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
---- !u!114 &7982876842439299605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501296604263620347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8b86d01782ce44ea757f7e02fbae41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProfeballInstance
