@@ -99,7 +99,7 @@ public class ProfeBallBeltSlots : MonoBehaviour
         }
     }
 
-    public void SpawnRealBall(Vector3 position, Quaternion rotation)
+    public void SpawnRealBall(Vector3 position, Quaternion rotation, Transform attachTransform)
     {
         GameObject real = Instantiate(realPrefab, position, rotation);
 
@@ -108,6 +108,15 @@ public class ProfeBallBeltSlots : MonoBehaviour
         {
             rb.isKinematic = false;
             rb.useGravity = true;
+        }
+
+        // 🔥 hacer que se enganche a la mano
+        var grab = real.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+
+        if (grab != null && attachTransform != null)
+        {
+            grab.attachTransform = attachTransform;
+            grab.throwOnDetach = true;
         }
     }
 }

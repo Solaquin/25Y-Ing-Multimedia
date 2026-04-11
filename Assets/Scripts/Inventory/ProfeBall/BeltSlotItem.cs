@@ -29,21 +29,17 @@ public class BeltSlotItem : MonoBehaviour
     void OnGrab(SelectEnterEventArgs args)
     {
         if (belt == null || belt.hand == null || myBall == null)
-        {
-            Debug.LogError("BeltSlotItem missing references");
             return;
-        }
 
-        // 🔥 quitar del inventario REAL
-        ItemInventory.Instance.RemoveProfeBall(myBall, 1);
+        ItemInventory.Instance.ConsumeItem(myBall.id);
 
-        // 🔥 spawnear bola real
+        // 🔥 obtener attach point desde la mano
+        Transform attach = belt.hand;
+
         belt.SpawnRealBall(
             belt.hand.position,
-            belt.hand.rotation
+            belt.hand.rotation,
+            attach
         );
-
-        // ❗ NO desactivamos manualmente el objeto
-        // UpdateSlots lo hará automáticamente en el siguiente LateUpdate
     }
 }
