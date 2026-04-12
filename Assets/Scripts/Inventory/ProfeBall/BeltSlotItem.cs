@@ -33,7 +33,7 @@ public class BeltSlotItem : MonoBehaviour
 
         ItemInventory.Instance.ConsumeItem(myBall.id);
 
-        // 🔥 obtener attach point desde la mano
+        //obtener attach point desde la mano
         Transform attach = belt.hand;
 
         belt.SpawnRealBall(
