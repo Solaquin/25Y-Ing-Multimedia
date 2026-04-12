@@ -158,5 +158,23 @@ public class ItemInventory : MonoBehaviour
 
         Debug.Log(sb.ToString());
     }
+    public void RemoveProfeBall(ProfeBallSO ball, int amount)
+    {
+        if (ball == null) return;
+
+        string id = ball.id;
+
+        if (!itemCounts.ContainsKey(id))
+            return;
+
+        itemCounts[id] -= amount;
+
+        if (itemCounts[id] <= 0)
+            itemCounts.Remove(id);
+
+        OnInventoryChanged?.Invoke(id);
+
+        Debug.Log($"[Inventory] -{amount} {id} (ProfeBall) restante: {GetCount(id)}");
+    }
 #endif
 }

@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 4322146975524302567}
   - component: {fileID: 4960845080481607814}
   - component: {fileID: 1733447353265533849}
+  - component: {fileID: 87783592498166679}
   - component: {fileID: 5083975544029521522}
   - component: {fileID: 4272426523027144486}
   - component: {fileID: 8655855483037346676}
   m_Layer: 0
-  m_Name: Profeball
+  m_Name: Profeball_visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,6 +128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3597197e6130d47aa5c719e061c64d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBallGrabHandler
+--- !u!114 &87783592498166679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8501296604263620347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6819a530b40f0459167d6aaac7e8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BeltSlotItem
 --- !u!54 &5083975544029521522
 Rigidbody:
   m_ObjectHideFlags: 0
