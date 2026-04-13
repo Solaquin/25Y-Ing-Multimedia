@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables; // Por si acaso
 
 public class ProfeBallBeltSlots : MonoBehaviour
 {
@@ -13,11 +14,9 @@ public class ProfeBallBeltSlots : MonoBehaviour
 
     [Header("Slot Visual Prefab")]
     public GameObject profeBallPrefab;
-
     public int maxSlots = 8;
     public float radius = 0.18f;
     public float heightOffset = -0.25f;
-
     public float startAngle = -120f;
     public float endAngle = 120f;
 
@@ -27,7 +26,6 @@ public class ProfeBallBeltSlots : MonoBehaviour
     {
         if (head == null)
             head = Camera.main.transform;
-
         CreateSlots();
     }
 
@@ -36,10 +34,8 @@ public class ProfeBallBeltSlots : MonoBehaviour
         for (int i = 0; i < maxSlots; i++)
         {
             GameObject obj = Instantiate(profeBallPrefab, transform);
-
             BeltSlotItem slot = obj.GetComponent<BeltSlotItem>();
             slot.Init(this);
-
             obj.SetActive(false);
             slots.Add(obj);
         }
@@ -53,9 +49,7 @@ public class ProfeBallBeltSlots : MonoBehaviour
     void UpdateSlots()
     {
         var balls = ItemInventory.Instance.GetProfeBalls();
-
         List<ProfeBallSO> flatList = new List<ProfeBallSO>();
-
         foreach (var (item, count) in balls)
         {
             for (int i = 0; i < count; i++)
@@ -63,43 +57,30 @@ public class ProfeBallBeltSlots : MonoBehaviour
         }
 
         int countToShow = Mathf.Min(flatList.Count, maxSlots);
-
         for (int i = 0; i < maxSlots; i++)
         {
             GameObject obj = slots[i];
-
             if (i >= countToShow)
             {
                 obj.SetActive(false);
                 continue;
             }
-
             obj.SetActive(true);
-
             float t = (maxSlots == 1) ? 0.5f : (float)i / (maxSlots - 1);
             float angle = Mathf.Lerp(startAngle, endAngle, t);
             float rad = angle * Mathf.Deg2Rad;
-
             Vector3 center = xrOrigin.position + Vector3.up * heightOffset;
-
-            Vector3 offset = new Vector3(
-                Mathf.Sin(rad),
-                0,
-                Mathf.Cos(rad)
-            ) * radius;
-
+            Vector3 offset = new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad)) * radius;
             obj.transform.position = center + offset;
+            obj.transform.rotation = Quaternion.LookRotation(obj.transform.position - head.position);
 
-            obj.transform.rotation =
-                Quaternion.LookRotation(obj.transform.position - head.position);
-
-            // 🔥 ASIGNAR qué ProfeBall representa este slot
             var slotItem = obj.GetComponent<BeltSlotItem>();
             slotItem.SetBall(flatList[i]);
         }
     }
 
-    public void SpawnRealBall(Vector3 position, Quaternion rotation, Transform attachTransform)
+    // 🔥 MODIFICADO: ahora devuelve la bola real para poder transferir el grab
+    public GameObject SpawnRealBall(Vector3 position, Quaternion rotation, Transform attachTransform)
     {
         GameObject real = Instantiate(realPrefab, position, rotation);
 
@@ -110,13 +91,13 @@ public class ProfeBallBeltSlots : MonoBehaviour
             rb.useGravity = true;
         }
 
-        // 🔥 hacer que se enganche a la mano
-        var grab = real.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-
+        var grab = real.GetComponent<XRGrabInteractable>();
         if (grab != null && attachTransform != null)
         {
             grab.attachTransform = attachTransform;
             grab.throwOnDetach = true;
         }
+
+        return real; // ← Nuevo retorno
     }
 }

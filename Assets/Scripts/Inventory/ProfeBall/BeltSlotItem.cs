@@ -21,7 +21,6 @@ public class BeltSlotItem : MonoBehaviour
     void Awake()
     {
         grab = GetComponent<XRGrabInteractable>();
-
         if (grab != null)
             grab.selectEntered.AddListener(OnGrab);
     }
@@ -31,15 +30,32 @@ public class BeltSlotItem : MonoBehaviour
         if (belt == null || belt.hand == null || myBall == null)
             return;
 
+        // Consumimos del inventario
         ItemInventory.Instance.ConsumeItem(myBall.id);
 
-        //obtener attach point desde la mano
+        // Spawneamos la real exactamente como antes
         Transform attach = belt.hand;
+        //GameObject real = belt.SpawnRealBall(belt.hand.position,belt.hand.rotation,attach);
+        GameObject real = belt.SpawnRealBall(transform.position, transform.rotation, attach);
 
-        belt.SpawnRealBall(
-            belt.hand.position,
-            belt.hand.rotation,
-            attach
-        );
+        var realGrab = real.GetComponent<XRGrabInteractable>();
+
+        // 🔥 TRANSFERENCIA DEL GRAB: la mano ahora agarra la real, no la visual
+        var interactor = args.interactorObject; // la mano/controlador
+        if (interactor != null && realGrab != null)
+        {
+            var manager = grab.interactionManager; // usamos el manager de la visual (ya está registrado)
+
+            if (manager != null)
+            {
+                // 1. Soltamos la visual
+                manager.SelectExit(interactor, args.interactableObject);
+                // 2. Agarramos la real
+                manager.SelectEnter(interactor, realGrab);
+            }
+        }
+
+        // Ocultamos la visual inmediatamente (para que no se vea ni se pueda volver a agarrar)
+        gameObject.SetActive(false);
     }
 }
