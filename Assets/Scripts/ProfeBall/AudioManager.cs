@@ -10,6 +10,30 @@ public class AudioManager : MonoBehaviour
     public AudioClip clipEscapado;
     public AudioClip clipTemblor;
 
+    [Header("Diálogos Retro")]
+    public AudioClip clipDialogo8bit;
+
+    private AudioSource voiceSource;
+
+    private void Start()
+    {
+        // Creamos un AudioSource dinámicamente para la voz
+        voiceSource = gameObject.AddComponent<AudioSource>();
+        voiceSource.clip = clipDialogo8bit;
+        voiceSource.loop = true; // El secreto está aquí
+        voiceSource.playOnAwake = false;
+    }
+
+    public void StartVoice()
+    {
+        if (!voiceSource.isPlaying) voiceSource.Play();
+    }
+
+    public void StopVoice()
+    {
+        voiceSource.Stop();
+    }
+
     [Range(0f, 1f)]
     public float volumenGeneral = 1f;
 
@@ -35,4 +59,25 @@ public class AudioManager : MonoBehaviour
             AudioSource.PlayClipAtPoint(clip, posicion, volumenGeneral);
         }
     }
+
+    IEnumerator MostrarDialogo(string textoCompleto)
+    {
+        string textoActual = "";
+
+        // 1. Iniciamos el loop de sonido
+        AudioManager.instance.StartVoice();
+
+        foreach (char letra in textoCompleto.ToCharArray())
+        {
+            textoActual += letra;
+            uiTexto.text = textoActual; // Supongamos que uiTexto es tu componente de UI
+
+            // Pequeña pausa entre letras
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        // 2. Apagamos el sonido cuando el texto termina de escribirse
+        AudioManager.instance.StopVoice();
+    }
 }
+
