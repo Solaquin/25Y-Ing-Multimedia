@@ -2682,7 +2682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!1 &68973242
 GameObject:
   m_ObjectHideFlags: 0
@@ -7990,7 +7990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &261968256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14626,7 +14626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &443033783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15520,7 +15520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &458920510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17040,7 +17040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &503257194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23189,7 +23189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &630547802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24619,7 +24619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &663080073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25875,7 +25875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &691323532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29656,7 +29656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &781158618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29939,7 +29939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &782587806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34787,7 +34787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &878557765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40012,7 +40012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &1041260160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48129,7 +48129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &1274820218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54412,7 +54412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &1443245842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77248,7 +77248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &2072773208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77783,7 +77783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb75c1a7fab2664438f3f8e4f02b7b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBall
-  datos: {fileID: 0}
+  datos: {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}
 --- !u!114 &2084789261
 MonoBehaviour:
   m_ObjectHideFlags: 0
