@@ -72,25 +72,24 @@ public class Profebola : MonoBehaviour
         int roll = Random.Range(0, 100);
 
         if (roll > dificultad)
-            if (roll > professor.data.captureDifficulty)
-            {
-                // --- SONIDO DE �XITO ---
-                if (AudioManager.instance != null)
-                    AudioManager.instance.PlaySound(AudioManager.instance.clipCapturado, transform.position);
+        {
+            // --- SONIDO DE �XITO ---
+            if (AudioManager.instance != null)
+                AudioManager.instance.PlaySound(AudioManager.instance.clipCapturado, transform.position);
 
-                professor.ConfirmCapture();
-                Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("[Profebola] El profesor escap�!");
-                // --- SONIDO DE FALLO ---
-                if (AudioManager.instance != null)
-                    AudioManager.instance.PlaySound(AudioManager.instance.clipEscapado, transform.position);
+            professor.ConfirmCapture();
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("[Profebola] El profesor escap�!");
+            // --- SONIDO DE FALLO ---
+            if (AudioManager.instance != null)
+                AudioManager.instance.PlaySound(AudioManager.instance.clipEscapado, transform.position);
 
-                Debug.Log("El profesor escap�!");
-                professor.ShowProfessor();
-                Destroy(gameObject);
-            }
+            Debug.Log("El profesor escap�!");
+            professor.ShowProfessor();
+            Destroy(gameObject);
+        }
     }
 }
