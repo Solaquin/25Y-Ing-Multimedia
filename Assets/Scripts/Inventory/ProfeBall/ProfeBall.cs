@@ -1,11 +1,12 @@
+ï»¿using System.Collections;
 using UnityEngine;
-using System.Collections;
 
 public class Profebola : MonoBehaviour
 {
-    private bool isProcessing = false;
+    [Tooltip("SO que define este tipo de bola. Debe coincidir con la que se consumio del inventario.")]
+    public ProfeBallSO datos;
 
-    public BallType ballType;
+    private bool isProcessing = false;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -22,6 +23,19 @@ public class Profebola : MonoBehaviour
     IEnumerator CaptureSequence(Profemon professor)
     {
         isProcessing = true;
+
+        // Verificar stock antes de proceder
+        if (datos == null || !ItemInventory.Instance.HasItem(datos.id))
+        {
+            Debug.LogWarning("[Profebola] Sin stock o sin ProfeBallSO asignado.");
+            Destroy(gameObject);
+            yield break;
+        }
+
+        // Consumir del inventario
+        ItemInventory.Instance.ConsumeItem(datos.id);
+
+        // Ocultar Profemon (entra a la bola)
         professor.HideProfessor();
 
         // --- SONIDO DE TEMBLOR ---
@@ -33,39 +47,50 @@ public class Profebola : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
 
+        // Simular temblor
         float shakeTime = 2f;
+        float elapsed = 0f;
         float timer = 0f;
         Vector3 originalPos = transform.position;
 
-        while (timer < shakeTime)
-        {
-            transform.position = originalPos + Random.insideUnitSphere * 0.05f;
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        while (elapsed < shakeTime)
+            while (timer < shakeTime)
+            {
+                transform.position = originalPos + Random.insideUnitSphere * 0.05f;
+                elapsed += Time.deltaTime;
+                timer += Time.deltaTime;
+                yield return null;
+            }
 
         transform.position = originalPos;
 
+        // Probabilidad de captura la dificultad base se reduce con el captureBonus del SO
+        int dificultad = datos != null
+            ? Mathf.Max(0, professor.data.captureDifficulty - datos.captureBonus)
+            : professor.data.captureDifficulty;
+
         int roll = Random.Range(0, 100);
 
-        if (roll > professor.data.captureDifficulty)
-        {
-            // --- SONIDO DE ÉXITO ---
-            if (AudioManager.instance != null)
-                AudioManager.instance.PlaySound(AudioManager.instance.clipCapturado, transform.position);
+        if (roll > dificultad)
+            if (roll > professor.data.captureDifficulty)
+            {
+                // --- SONIDO DE ï¿½XITO ---
+                if (AudioManager.instance != null)
+                    AudioManager.instance.PlaySound(AudioManager.instance.clipCapturado, transform.position);
 
-            professor.ConfirmCapture();
-            Destroy(gameObject);
-        }
-        else
-        {
-            // --- SONIDO DE FALLO ---
-            if (AudioManager.instance != null)
-                AudioManager.instance.PlaySound(AudioManager.instance.clipEscapado, transform.position);
+                professor.ConfirmCapture();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("[Profebola] El profesor escapï¿½!");
+                // --- SONIDO DE FALLO ---
+                if (AudioManager.instance != null)
+                    AudioManager.instance.PlaySound(AudioManager.instance.clipEscapado, transform.position);
 
-            Debug.Log("El profesor escapó!");
-            professor.ShowProfessor();
-            Destroy(gameObject);
-        }
+                Debug.Log("El profesor escapï¿½!");
+                professor.ShowProfessor();
+                Destroy(gameObject);
+            }
     }
 }
