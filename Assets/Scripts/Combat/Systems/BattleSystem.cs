@@ -1,6 +1,7 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public enum BattleState
 {
@@ -14,6 +15,7 @@ public enum BattleState
 
 public class BattleSystem : MonoBehaviour
 {
+    public AudioInteractivo audioGolpe;
     public TurnOrderDebugUI debugUI;
     public BattleState currentState;
     public int turnNumber = 0;
@@ -28,6 +30,8 @@ public class BattleSystem : MonoBehaviour
 
     public CombatUnit playerUnit;
     public CombatUnit enemyUnit;
+
+
 
     // Handler items
     [SerializeField] private BattleItemUsageHandler itemUsageHandler;
@@ -102,7 +106,7 @@ public class BattleSystem : MonoBehaviour
         playerCommandSelected = false;
 
         yield return StartCoroutine(
-                BattleMessenger.Show($"Selecciona una acción")
+                BattleMessenger.Show($"Selecciona una acciÃ³n")
         );
 
         yield return new WaitUntil(() => playerCommandSelected);
@@ -261,7 +265,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return StartCoroutine(
             BattleMessenger.Show(
-                $"{user.Instance.data.professorName} usó {move.moveName}"
+                $"{user.Instance.data.professorName} usÃ³ {move.moveName}"
             )
         );
 
@@ -271,7 +275,7 @@ public class BattleSystem : MonoBehaviour
         if (!CheckAccuracy(user, target, move))
         {
             yield return StartCoroutine(
-                BattleMessenger.Show("El ataque falló")
+                BattleMessenger.Show("El ataque fallÃ³")
             );
 
             yield break;
@@ -291,10 +295,15 @@ public class BattleSystem : MonoBehaviour
 
         move.effect.Execute(user, target, context);
 
+        // ğŸ”Š SONIDO DE GOLPE (SOLO SI CONECTA)
+
+        if (audioGolpe != null)
+            audioGolpe.ActivarAudio();
+
         if (isCritical)
         {
             yield return StartCoroutine(
-                BattleMessenger.Show("¡Golpe crítico!")
+                BattleMessenger.Show("Â¡Golpe crÃ­tico!")
             );
         }
 
@@ -466,7 +475,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator HandleUnitKO(CombatUnit unit)
     {
         yield return StartCoroutine(
-            BattleMessenger.Show($"{unit.Instance.data.professorName} se debilitó")
+            BattleMessenger.Show($"{unit.Instance.data.professorName} se debilitÃ³")
         );
 
         if (unit == playerUnit)
@@ -500,7 +509,7 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.InitializeFromInstance(next);
 
             yield return StartCoroutine(
-                BattleMessenger.Show($"El enemigo envía a {next.data.professorName}")
+                BattleMessenger.Show($"El enemigo envÃ­a a {next.data.professorName}")
             );
 
             BattleEvents.OnActiveUnitChanged?.Invoke();
@@ -512,7 +521,7 @@ public class BattleSystem : MonoBehaviour
         if (multiplier >= 1.5f)
         {
             yield return StartCoroutine(
-                BattleMessenger.Show("¡Es super efectivo!")
+                BattleMessenger.Show("Â¡Es super efectivo!")
             );
         }
         else if (multiplier > 0f && multiplier < 1f)

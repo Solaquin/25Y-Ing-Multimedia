@@ -15,6 +15,9 @@ public class VRMenuManager : MonoBehaviour
     public GameObject ajustesCanvas;
     public GameObject storageCanvas;
 
+    [Header("Audio UI)")]
+    public AudioInteractivo audioUI;
+
     [Header("Profedex Database")]
     public ProfedexDatabase database;
 
@@ -67,6 +70,11 @@ public class VRMenuManager : MonoBehaviour
     {
         ResetMenu();
     }
+    void PlayClick()
+    {
+        if (audioUI != null)
+            audioUI.ActivarAudio();
+    }
 
     public void ResetMenu()
     {
@@ -95,6 +103,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenProfedex()
     {
+        PlayClick();
         ResetMenu();
         menuPrincipal.SetActive(false);
         profedexCanvas.SetActive(true);
@@ -108,6 +117,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenInventario()
     {
+        PlayClick();
         ResetMenu();
         menuPrincipal.SetActive(false);
         inventarioCanvas.SetActive(true);
@@ -118,6 +128,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenMapa()
     {
+        PlayClick();
         ResetMenu();
         menuPrincipal.SetActive(false);
         mapaCanvas.SetActive(true);
@@ -125,6 +136,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenAjustes()
     {
+        PlayClick();
         ResetMenu();
         menuPrincipal.SetActive(false);
         ajustesCanvas.SetActive(true);
@@ -132,11 +144,13 @@ public class VRMenuManager : MonoBehaviour
 
     public void VolverMenuPrincipal()
     {
+        PlayClick();
         ResetMenu();
     }
 
     public void SalirMenu()
     {
+        PlayClick();
         ResetMenu();
         menuRoot.SetActive(false);
     }
@@ -145,6 +159,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenArea1()
     {
+        PlayClick();
         DisableAreas();
         menuAreas.SetActive(false);
         area1Canvas.SetActive(true);
@@ -152,6 +167,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenArea2()
     {
+        PlayClick();
         DisableAreas();
         menuAreas.SetActive(false);
         area2Canvas.SetActive(true);
@@ -159,6 +175,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenArea3()
     {
+        PlayClick();
         DisableAreas();
         menuAreas.SetActive(false);
         area3Canvas.SetActive(true);
@@ -166,6 +183,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenArea4()
     {
+        PlayClick();
         DisableAreas();
         menuAreas.SetActive(false);
         area4Canvas.SetActive(true);
@@ -174,6 +192,7 @@ public class VRMenuManager : MonoBehaviour
     public void OpenStorage()
 
     {
+        PlayClick();
         ResetMenu();
         menuPrincipal.SetActive(false);
         storageCanvas.SetActive(true);
@@ -185,6 +204,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void VolverAreas()
     {
+        PlayClick();
         DisableAreas();
         menuAreas.SetActive(true);
     }
@@ -193,6 +213,7 @@ public class VRMenuManager : MonoBehaviour
 
     public void OpenProfesorDetalle(ProfemonData data)
     {
+        PlayClick();
         DisableAreas();
         CanvasProfemonDetalle.SetActive(true);
 
@@ -230,6 +251,7 @@ public class VRMenuManager : MonoBehaviour
     }
     public void NextProfessor()
     {
+        PlayClick();
         currentIndex++;
 
         if (currentIndex >= database.allProfemons.Count)
@@ -239,6 +261,7 @@ public class VRMenuManager : MonoBehaviour
     }
     public void PreviousProfessor()
     {
+        PlayClick();
         currentIndex--;
 
         if (currentIndex < 0)
@@ -249,12 +272,14 @@ public class VRMenuManager : MonoBehaviour
 
     public void CloseProfesorDetalle()
     {
+        PlayClick();
         CanvasProfemonDetalle.SetActive(false);
         VolverAreas();
     }
 
     void UpdateProfedexProgress()
     {
+
         int total = database.allProfemons.Count;
         int registrados = 0;
 
