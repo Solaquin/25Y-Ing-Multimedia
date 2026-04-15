@@ -15,7 +15,9 @@ MonoBehaviour:
   id: 0
   displayName: "Poci\xF3n"
   description: Cura 20PS
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6c16bd70843d53649903668eb097d57b, type: 3}
+  precio: 100
   effect: 0
   effectValue: 20
+  targetStatus: 0
   battleOnly: 0

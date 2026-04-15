@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc95455135e58049976c31d1b78fa76, type: 3}
+  m_Name: ProfeBall Basica
+  m_EditorClassIdentifier: Assembly-CSharp::ProfeBallSO
+  id: 2
+  displayName: Profe Capsula
+  description: Puedes reclutar profes para tu equipo
+  icon: {fileID: 0}
+  precio: 50
+  prefabBola: {fileID: 8501296604263620347, guid: 3753aaa8b20c73346aae87a58e3e81c1, type: 3}
+  captureBonus: 50

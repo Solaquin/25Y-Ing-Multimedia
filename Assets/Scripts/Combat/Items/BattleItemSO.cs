@@ -1,16 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BattleItemSO", menuName = "Combat/Items/BattleItemSO")]
-public class BattleItemSO : ScriptableObject
+[CreateAssetMenu(fileName = "BattleItemSO", menuName = "Items/BattleItem")]
+public class BattleItemSO : ItemSO
 {
-    public string id;
-    public string displayName;
-
-    [TextArea(2, 4)]
-    public string description;
-
-    public Sprite icon;
-
+    [Header("Efecto")]
     public BattleItemEffect effect;
     public int effectValue;
 
@@ -36,7 +29,6 @@ public class BattleItemSO : ScriptableObject
                     && target.activeStatus.effect.statusType == targetStatus;
 
             case BattleItemEffect.FullHeal:
-                // Útil si tiene vida incompleta O algún estado
                 return target.IsAlive()
                     && (target.currentHP < target.MaxHP || target.HasStatusCondition());
 

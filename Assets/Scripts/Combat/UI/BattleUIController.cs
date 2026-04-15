@@ -183,7 +183,7 @@ public class BattleUIController : MonoBehaviour
         if (itemDescriptionText != null)
             itemDescriptionText.text = "";
 
-        var items = ItemInventory.Instance.GetAllItems();
+        var items = ItemInventory.Instance.GetBattleItems();
 
         if (items.Count == 0)
         {
