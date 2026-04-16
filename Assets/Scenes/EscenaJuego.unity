@@ -16359,7 +16359,7 @@ MonoBehaviour:
   mapaCanvas: {fileID: 316751816}
   ajustesCanvas: {fileID: 1558414758}
   storageCanvas: {fileID: 1994750940}
-  audioUI: {fileID: 0}
+  audioUI: {fileID: 107177515}
   database: {fileID: 11400000, guid: 82853a0afda7b1a429cd9c7a42fa583e, type: 2}
   menuAreas: {fileID: 1947124501}
   area1Canvas: {fileID: 826010533}
@@ -31689,7 +31689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleUIController
   battleSystem: {fileID: 1930983700}
-  audioUI: {fileID: 0}
+  audioUI: {fileID: 107177515}
   playerProfemonName: {fileID: 2019865058}
   enemyProfemonName: {fileID: 685097081}
   playerHP: {fileID: 1257252927}
@@ -72535,7 +72535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2343167df71084fa1fda66c38ead1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
-  audioGolpe: {fileID: 0}
+  audioGolpe: {fileID: 227334055}
   debugUI: {fileID: 557600219}
   currentState: 0
   turnNumber: 0
