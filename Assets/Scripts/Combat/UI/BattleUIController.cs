@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class BattleUIController : MonoBehaviour
 {
     public BattleSystem battleSystem;
+
+    // NUEVO
+    [Header("Audio UI")]
+    public AudioInteractivo audioUI;
 
     [Header("General")]
     public TextMeshProUGUI playerProfemonName;
@@ -25,17 +29,15 @@ public class BattleUIController : MonoBehaviour
     public TextMeshProUGUI[] moveTexts;
 
     [Header("Items")]
-    public Transform itemButtonContainer;   // ScrollView Content donde se instancian los botones
-    public GameObject itemButtonPrefab;     // Prefab: Button + TextMeshProUGUI para nombre + TextMeshProUGUI para cantidad
-    public TextMeshProUGUI itemDescriptionText; // (opcional) descripción del item seleccionado
+    public Transform itemButtonContainer;
+    public GameObject itemButtonPrefab;
+    public TextMeshProUGUI itemDescriptionText;
 
     [Header("Party")]
     public PartyMenuBattleController partyMenu;
 
     private BattleUIState currentState;
     private List<GameObject> spawnedItemButtons = new List<GameObject>();
-
-    // item seleccionado, esperando que el jugador elija target en partyMenu
     private BattleItemSO pendingItem;
 
     public enum BattleUIState
@@ -46,9 +48,13 @@ public class BattleUIController : MonoBehaviour
         Party
     }
 
-    // ---------------------------
-    // EVENTOS
-    // ---------------------------
+    // ðŸ”Š NUEVO
+    void PlayClick()
+    {
+        if (audioUI != null)
+            audioUI.ActivarAudio();
+    }
+
     void OnEnable()
     {
         BattleEvents.OnHPChanged += UpdateHP;
@@ -65,9 +71,6 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnPlayerSwitchRequired -= OnSwitchPressed;
     }
 
-    // ---------------------------
-    // INICIALIZACIÓN
-    // ---------------------------
     void InitializeUI()
     {
         SetupNames();
@@ -84,9 +87,6 @@ public class BattleUIController : MonoBehaviour
         ShowPanel(BattleUIState.Main);
     }
 
-    // ---------------------------
-    // CONTROL DE PANELES
-    // ---------------------------
     void ShowPanel(BattleUIState state)
     {
         currentState = state;
@@ -99,44 +99,43 @@ public class BattleUIController : MonoBehaviour
 
     public void OnBackPressed()
     {
+        PlayClick(); // ðŸ”Š NUEVO
+
         pendingItem = null;
         ShowPanel(BattleUIState.Main);
     }
 
-    // ---------------------------
-    // BOTONES PRINCIPALES
-    // ---------------------------
     public void OnAttackPressed()
     {
+        PlayClick(); // ðŸ”Š NUEVO
+
         SetupMoves();
         ShowPanel(BattleUIState.Moves);
     }
 
     public void OnItemPressed()
     {
+        PlayClick(); // ðŸ”Š NUEVO
+
         SetupItems();
         ShowPanel(BattleUIState.Items);
     }
 
     public void OnSwitchPressed()
     {
+        PlayClick(); // ðŸ”Š NUEVO
+
         pendingItem = null;
         ShowPanel(BattleUIState.Party);
         partyMenu.Open();
     }
 
-    // ---------------------------
-    // NOMBRES
-    // ---------------------------
     void SetupNames()
     {
         playerProfemonName.text = battleSystem.playerUnit.Instance.data.professorName;
         enemyProfemonName.text = battleSystem.enemyUnit.Instance.data.professorName;
     }
 
-    // ---------------------------
-    // MOVIMIENTOS
-    // ---------------------------
     void SetupMoves()
     {
         CombatUnit playerUnit = battleSystem.playerUnit;
@@ -154,7 +153,11 @@ public class BattleUIController : MonoBehaviour
 
             int index = i;
             moveButtons[i].onClick.RemoveAllListeners();
-            moveButtons[i].onClick.AddListener(() => OnMoveSelected(moves[index]));
+            moveButtons[i].onClick.AddListener(() =>
+            {
+                PlayClick(); // ðŸ”Š NUEVO
+                OnMoveSelected(moves[index]);
+            });
         }
     }
 
@@ -169,12 +172,8 @@ public class BattleUIController : MonoBehaviour
         ShowPanel(BattleUIState.Main);
     }
 
-    // ---------------------------
-    // ITEMS
-    // ---------------------------
     void SetupItems()
     {
-        // Limpiar botones anteriores
         foreach (var go in spawnedItemButtons)
             Destroy(go);
 
@@ -185,21 +184,11 @@ public class BattleUIController : MonoBehaviour
 
         var items = ItemInventory.Instance.GetBattleItems();
 
-        if (items.Count == 0)
-        {
-            // Mostrar mensaje vacío si no hay items
-            if (itemDescriptionText != null)
-                itemDescriptionText.text = "No tienes objetos.";
-            return;
-        }
-
         foreach (var (item, count) in items)
         {
             GameObject btn = Instantiate(itemButtonPrefab, itemButtonContainer);
             spawnedItemButtons.Add(btn);
 
-            // Buscar los textos del prefab por nombre o índice
-            // Asume que el prefab tiene al menos un TMP_Text para el nombre
             TextMeshProUGUI[] texts = btn.GetComponentsInChildren<TextMeshProUGUI>();
 
             if (texts.Length >= 1)
@@ -208,33 +197,14 @@ public class BattleUIController : MonoBehaviour
             if (texts.Length >= 2)
                 texts[1].text = $"x{count}";
 
-            // Deshabilitar si no se puede usar en ningún miembro del equipo vivo
-            bool anyUsable = IsItemUsableOnAnyAlly(item);
-            btn.GetComponent<Button>().interactable = anyUsable;
-
-            // Capturar para el closure
             BattleItemSO captured = item;
 
             btn.GetComponent<Button>().onClick.AddListener(() =>
-                OnItemSelected(captured)
-            );
+            {
+                PlayClick(); // ðŸ”Š NUEVO
+                OnItemSelected(captured);
+            });
         }
-    }
-
-    /// <summary>
-    /// Devuelve true si el item puede usarse en al menos un Profemon vivo del equipo.
-    /// </summary>
-    bool IsItemUsableOnAnyAlly(BattleItemSO item)
-    {
-        var party = PlayerPartyManager.Instance.GetParty();
-
-        foreach (var member in party)
-        {
-            if (item.CanUseOn(member))
-                return true;
-        }
-
-        return false;
     }
 
     void OnItemSelected(BattleItemSO item)
@@ -244,46 +214,22 @@ public class BattleUIController : MonoBehaviour
         if (itemDescriptionText != null)
             itemDescriptionText.text = item.description;
 
-        // Abrir el menú de equipo para elegir sobre quién usar el item
         ShowPanel(BattleUIState.Party);
         partyMenu.OpenForItemTarget(item, OnItemTargetSelected);
     }
 
-    /// <summary>
-    /// Callback que recibe partyMenu cuando el jugador elige un Profemon como target del item.
-    /// Si el item no aplica sobre ese target, vuelve al panel de items sin consumir el turno.
-    /// </summary>
     void OnItemTargetSelected(ProfemonInstance target)
     {
+        PlayClick(); // ðŸ”Š NUEVO
+
         if (pendingItem == null) return;
 
-        if (!pendingItem.CanUseOn(target))
-        {
-            // Mostrar mensaje en el textbox y volver al panel de items sin consumir el turno
-            StartCoroutine(ShowNoEffectMessage(target));
-            return;
-        }
-
         battleSystem.PlayerChooseItem(pendingItem, target);
-
         pendingItem = null;
 
         ShowPanel(BattleUIState.Main);
     }
 
-    IEnumerator ShowNoEffectMessage(ProfemonInstance target)
-    {
-        yield return StartCoroutine(
-            BattleMessenger.Show($"No tendrá efecto en {target.data.professorName}.")
-        );
-
-        SetupItems();
-        ShowPanel(BattleUIState.Items);
-    }
-
-    // ---------------------------
-    // HP
-    // ---------------------------
     public void UpdateHP()
     {
         playerHP.text =
