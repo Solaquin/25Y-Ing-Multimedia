@@ -16359,7 +16359,7 @@ MonoBehaviour:
   mapaCanvas: {fileID: 316751816}
   ajustesCanvas: {fileID: 1558414758}
   storageCanvas: {fileID: 1994750940}
-  audioUI: {fileID: 835152773}
+  audioUI: {fileID: 0}
   database: {fileID: 11400000, guid: 82853a0afda7b1a429cd9c7a42fa583e, type: 2}
   menuAreas: {fileID: 1947124501}
   area1Canvas: {fileID: 826010533}
@@ -16538,6 +16538,54 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &480138854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 480138856}
+  - component: {fileID: 480138855}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &480138855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480138854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37061d36c6a2f24449bd06bd052f611a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  clipCapturado: {fileID: 8300000, guid: b7ed4b7f0cec3064ba8909f0cdabb97a, type: 3}
+  clipEscapado: {fileID: 8300000, guid: 3d9b7e8a1aec04841a3a42355e6f1ef3, type: 3}
+  clipTemblor: {fileID: 8300000, guid: 92c3d6a06ce393145948ceb6688ee6d4, type: 3}
+  volumenGeneral: 1
+--- !u!4 &480138856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480138854}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.71845, y: 0.21488, z: 66.2149}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &481881364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31641,7 +31689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleUIController
   battleSystem: {fileID: 1930983700}
-  audioUI: {fileID: 107177515}
+  audioUI: {fileID: 0}
   playerProfemonName: {fileID: 2019865058}
   enemyProfemonName: {fileID: 685097081}
   playerHP: {fileID: 1257252927}
@@ -44095,7 +44143,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 99f4bff270d525b43893959c97f85664, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: aea95fc8ad3bade4399ccb40a6eb1227, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1135274778
 MonoBehaviour:
@@ -72487,7 +72535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2343167df71084fa1fda66c38ead1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
-  audioGolpe: {fileID: 227334055}
+  audioGolpe: {fileID: 0}
   debugUI: {fileID: 557600219}
   currentState: 0
   turnNumber: 0
@@ -85734,3 +85782,4 @@ SceneRoots:
   - {fileID: 1602606631}
   - {fileID: 107177517}
   - {fileID: 835152775}
+  - {fileID: 480138856}
