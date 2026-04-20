@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_Wilson_Sarmiento
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Wilson Sarmiento
+  worldPrefab: {fileID: 129804054181274043, guid: af675a0299ca51743a541482a8cce26c, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

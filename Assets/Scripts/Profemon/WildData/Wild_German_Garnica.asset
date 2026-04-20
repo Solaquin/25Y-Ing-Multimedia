@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_German_Garnica
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: German Garnica
+  worldPrefab: {fileID: 1892621290828387483, guid: 6a2a0ac337cfd1f469b50c36c6f1b718, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

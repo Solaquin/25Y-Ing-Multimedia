@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 9aa31dcf35c9a4e468ef781b4e060de3, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9f3f1ff5506be8a4e8fdd123440abc54, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: dcd4456febb46234a8c55f9a80c186e9, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -13991,7 +13991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -57070,11 +57070,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38bb7189233f8304fb2b29213852ab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WildProfemonSpawner
-  wildPrefabs:
-  - {fileID: 8925162519585478229, guid: 5acad3132dc4e344f9028f8947341bc7, type: 3}
-  - {fileID: 1003775535269311542, guid: 0f835a7ae01ec7f49be8b0da68165437, type: 3}
-  - {fileID: 6882615634061575736, guid: 7b882c1761d8e82418ff7986bf03d329, type: 3}
-  - {fileID: 7428322957674527049, guid: 894649c2d6f98b64ea9b20ba164ad9c6, type: 3}
+  wildProfemons:
+  - {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
+  - {fileID: 11400000, guid: 1221ece12d1b3f94b9f55ed0dce6ab7a, type: 2}
+  - {fileID: 11400000, guid: aeadcd61c2e46d74a86ab2852fef2a40, type: 2}
+  - {fileID: 11400000, guid: a21d965ee0117d94dbcbcf68937edd6d, type: 2}
   maxAlive: 5
   spawnInterval: 40
   lifetime: 70
@@ -78492,7 +78492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38bb7189233f8304fb2b29213852ab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WildProfemonSpawner
-  wildPrefabs: []
+  wildProfemons: []
   maxAlive: 3
   spawnInterval: 5
   lifetime: 20
@@ -79114,11 +79114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38bb7189233f8304fb2b29213852ab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WildProfemonSpawner
-  wildPrefabs:
-  - {fileID: 2698734512118810298, guid: ec6950d424e1eb543b2864e7a430c6ec, type: 3}
-  - {fileID: 8974308370882789994, guid: 8c909bb68d2caf4418e1dec8540228fb, type: 3}
-  - {fileID: 7765561089648740055, guid: b9d7ba344df2f3643aaef0a9af864f79, type: 3}
-  - {fileID: 7017161055896625894, guid: e71cde454f11cd64491074ed855e7b94, type: 3}
+  wildProfemons:
+  - {fileID: 11400000, guid: 25ebffda14622f644935cae8841e9481, type: 2}
+  - {fileID: 11400000, guid: 891546a7d1ee9c5448dfe0a29a32ff47, type: 2}
+  - {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
+  - {fileID: 11400000, guid: 634629b4e46c7c54cb7781734e12a370, type: 2}
   maxAlive: 5
   spawnInterval: 15
   lifetime: 70

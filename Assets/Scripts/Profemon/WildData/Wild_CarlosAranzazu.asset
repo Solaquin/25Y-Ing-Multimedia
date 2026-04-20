@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_CarlosAranzazu
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Carlos Aranzazu
+  worldPrefab: {fileID: 1003775535269311542, guid: 0f835a7ae01ec7f49be8b0da68165437, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_Gabriel_Rodriguez
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Gabriel Rodriguez
+  worldPrefab: {fileID: 7017161055896625894, guid: e71cde454f11cd64491074ed855e7b94, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

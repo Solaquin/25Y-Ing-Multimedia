@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Wild_Carlos_Rocha
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Carlos Rocha
+  worldPrefab: {fileID: 6882615634061575736, guid: 7b882c1761d8e82418ff7986bf03d329, type: 3}
+  battlePrefab: {fileID: 0}
+  phrase: 
   description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
   image: {fileID: 0}
   types:
   - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}

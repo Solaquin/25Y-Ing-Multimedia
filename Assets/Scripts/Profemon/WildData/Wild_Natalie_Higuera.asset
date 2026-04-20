@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_Natalie_Higuera
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Natalie Higuera
+  worldPrefab: {fileID: 4590302993648841658, guid: 7dc2d2c470984874cbd59f156f79cf83, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

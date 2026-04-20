@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_JorgeJaramillo
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Jorge Jaramillo
+  worldPrefab: {fileID: 5726960811788528854, guid: 5076b6d024f564e4cbfbdccc039bdebb, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

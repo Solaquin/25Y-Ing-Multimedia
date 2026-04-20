@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_Alexander_Ceron
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Alexander Ceron
+  worldPrefab: {fileID: 8925162519585478229, guid: 5acad3132dc4e344f9028f8947341bc7, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

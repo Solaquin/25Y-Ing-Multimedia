@@ -7,6 +7,9 @@ public class ProfemonData : ScriptableObject
     [Header("Información General")]
     public string professorName;
 
+    public GameObject worldPrefab;
+    public GameObject battlePrefab;
+
     [TextArea(2, 4)]
     public string phrase;
 

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_Helioth
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Wilman Helioth
+  worldPrefab: {fileID: 7538416110518910619, guid: c76cd342bf8560f458971e245457c4b9, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 

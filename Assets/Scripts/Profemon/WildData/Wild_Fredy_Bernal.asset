@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wild_Fredy_Bernal
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
   professorName: Fredy Bernal
+  worldPrefab: {fileID: 8974308370882789994, guid: 8c909bb68d2caf4418e1dec8540228fb, type: 3}
+  battlePrefab: {fileID: 0}
   phrase: 
   description: 
   anecdote: 
