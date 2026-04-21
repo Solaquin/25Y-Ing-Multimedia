@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_German_Garnica
+  m_Name: Data_JorgeJaramillo
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: German Garnica
-  worldPrefab: {fileID: 1892621290828387483, guid: 6a2a0ac337cfd1f469b50c36c6f1b718, type: 3}
-  battlePrefab: {fileID: 0}
+  professorName: Jorge Jaramillo
+  worldPrefab: {fileID: 5726960811788528854, guid: 5076b6d024f564e4cbfbdccc039bdebb, type: 3}
+  battlePrefab: {fileID: 5726960811788528854, guid: acdedae1bc1378f418be5da630c342e7, type: 3}
   phrase: 
   description: 
   anecdote: 
@@ -24,8 +24,8 @@ MonoBehaviour:
   image: {fileID: 0}
   types:
   - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
-  baseStats: {fileID: 11400000, guid: 14fb36d8fdc94204b9dbdfbf69469fa3, type: 2}
+  baseStats: {fileID: 11400000, guid: 37027af4ba1491d449a04c14ff6229ec, type: 2}
   learnableMoves:
   - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
-  - {fileID: 11400000, guid: 72d1bf3d08001f548a2b507f85049be6, type: 2}
+  - {fileID: 11400000, guid: dde061b7e9cac264c9f2cf6c385b9a0a, type: 2}
   captureDifficulty: 50

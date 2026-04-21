@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_Christian_Quintero
+  m_Name: Data_CarlosRocha
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Christian Quintero
-  worldPrefab: {fileID: 2698734512118810298, guid: ec6950d424e1eb543b2864e7a430c6ec, type: 3}
-  battlePrefab: {fileID: 0}
+  professorName: Carlos Rocha
+  worldPrefab: {fileID: 6882615634061575736, guid: 7b882c1761d8e82418ff7986bf03d329, type: 3}
+  battlePrefab: {fileID: 6882615634061575736, guid: 7354a38871b117440b7697dc4c35e40f, type: 3}
   phrase: 
   description: 
   anecdote: 
@@ -23,9 +23,10 @@ MonoBehaviour:
   whereToFindImage: {fileID: 0}
   image: {fileID: 0}
   types:
-  - {fileID: 11400000, guid: 1099682adb0eb3a48acf9b9bc3572820, type: 2}
-  baseStats: {fileID: 11400000, guid: 9ad88f789d811e54998cf541c8cbe291, type: 2}
+  - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
+  baseStats: {fileID: 11400000, guid: b656a30c1a86f494a93357025def3183, type: 2}
   learnableMoves:
-  - {fileID: 11400000, guid: dde061b7e9cac264c9f2cf6c385b9a0a, type: 2}
+  - {fileID: 11400000, guid: 3f4d4a4b22f7d4d48b46facc903dace5, type: 2}
+  - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
   - {fileID: 11400000, guid: 72d1bf3d08001f548a2b507f85049be6, type: 2}
   captureDifficulty: 50

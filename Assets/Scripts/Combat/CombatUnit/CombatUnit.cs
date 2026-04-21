@@ -15,6 +15,12 @@ public class CombatUnit : MonoBehaviour
     [SerializeField] bool startOnAwake;
     [SerializeField] int currentHPDebug;
 
+    [Header("Visual")]
+    [SerializeField] Transform modelParent;
+
+    GameObject currentModel;
+    Animator currentAnimator;
+
     private void Awake()
     {
         if(startOnAwake)
@@ -42,6 +48,8 @@ public class CombatUnit : MonoBehaviour
         currentHPDebug = instance.currentHP;
 
         PrintStats();
+
+        SetupVisual();
     }
 
     // ================================
@@ -265,6 +273,48 @@ public class CombatUnit : MonoBehaviour
             return null;
 
         return moves[Random.Range(0, moves.Count)];
+    }
+
+    // ================================
+    // VISUAL
+    // ================================
+
+    void SetupVisual()
+    {
+        if (instance == null || instance.data == null)
+        {
+            Debug.LogError("Instance o data null en CombatUnit");
+            return;
+        }
+
+        if (currentModel != null)
+            Destroy(currentModel);
+
+        GameObject prefab = instance.data.battlePrefab;
+
+        if (prefab == null)
+        {
+            Debug.LogError("battlePrefab no asignado en " + instance.data.professorName);
+            return;
+        }
+
+        currentModel = Instantiate(prefab, modelParent);
+
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+        currentModel.transform.localScale = Vector3.one;
+
+        currentAnimator = currentModel.GetComponent<Animator>();
+    }
+
+    public void ClearVisual()
+    {
+        if (currentModel != null)
+        {
+            Destroy(currentModel);
+            currentModel = null;
+            currentAnimator = null;
+        }
     }
 
 }

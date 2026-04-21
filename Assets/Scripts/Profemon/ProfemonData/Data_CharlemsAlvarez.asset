@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_Fredy_Bernal
+  m_Name: Data_CharlemsAlvarez
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Fredy Bernal
-  worldPrefab: {fileID: 8974308370882789994, guid: 8c909bb68d2caf4418e1dec8540228fb, type: 3}
-  battlePrefab: {fileID: 0}
+  professorName: Charlems Alvarez
+  worldPrefab: {fileID: 7428322957674527049, guid: 894649c2d6f98b64ea9b20ba164ad9c6, type: 3}
+  battlePrefab: {fileID: 7428322957674527049, guid: c16c46cb58507c14faa0f77bc50f67ac, type: 3}
   phrase: 
   description: 
   anecdote: 
@@ -24,6 +24,8 @@ MonoBehaviour:
   image: {fileID: 0}
   types:
   - {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
-  baseStats: {fileID: 11400000, guid: 03ad37f6e568bf14c996949562fe1712, type: 2}
-  learnableMoves: []
+  baseStats: {fileID: 11400000, guid: cbd78eb477b159a439d1ea76d7c7a3ec, type: 2}
+  learnableMoves:
+  - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
+  - {fileID: 11400000, guid: 3f4d4a4b22f7d4d48b46facc903dace5, type: 2}
   captureDifficulty: 50

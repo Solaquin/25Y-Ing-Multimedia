@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_Charlems
+  m_Name: Data_HeliothSanchez
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Charlems Alvarez
-  worldPrefab: {fileID: 7428322957674527049, guid: 894649c2d6f98b64ea9b20ba164ad9c6, type: 3}
-  battlePrefab: {fileID: 0}
+  professorName: Wilman Helioth
+  worldPrefab: {fileID: 7538416110518910619, guid: c76cd342bf8560f458971e245457c4b9, type: 3}
+  battlePrefab: {fileID: 7538416110518910619, guid: 4befdf340b603c8488e04e81ababc4ed, type: 3}
   phrase: 
   description: 
   anecdote: 
@@ -23,9 +23,9 @@ MonoBehaviour:
   whereToFindImage: {fileID: 0}
   image: {fileID: 0}
   types:
-  - {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
-  baseStats: {fileID: 11400000, guid: cbd78eb477b159a439d1ea76d7c7a3ec, type: 2}
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+  baseStats: {fileID: 11400000, guid: dda9c47785dcff64ba67f3da3a8fd86b, type: 2}
   learnableMoves:
   - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
-  - {fileID: 11400000, guid: 3f4d4a4b22f7d4d48b46facc903dace5, type: 2}
+  - {fileID: 11400000, guid: a2d380b42d296bc4691d5766d036ac68, type: 2}
   captureDifficulty: 50

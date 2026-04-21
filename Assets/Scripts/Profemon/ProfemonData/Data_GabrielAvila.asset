@@ -10,23 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_Carlos_Rocha
+  m_Name: Data_GabrielAvila
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Carlos Rocha
-  worldPrefab: {fileID: 6882615634061575736, guid: 7b882c1761d8e82418ff7986bf03d329, type: 3}
-  battlePrefab: {fileID: 0}
+  professorName: Gabriel Avila
+  worldPrefab: {fileID: 7765561089648740055, guid: b9d7ba344df2f3643aaef0a9af864f79, type: 3}
+  battlePrefab: {fileID: 7765561089648740055, guid: e86ebe9d4ce9a0747bb3afe24821ce98, type: 3}
   phrase: 
   description: 
   anecdote: 
   profile: 
   whereToFind: 
   whereToFindImage: {fileID: 0}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 3564c8c147f47c34693a43004d1a996c, type: 3}
   types:
   - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
-  baseStats: {fileID: 11400000, guid: b656a30c1a86f494a93357025def3183, type: 2}
+  baseStats: {fileID: 11400000, guid: fa47f488663d145409573a67a7f4aee5, type: 2}
   learnableMoves:
-  - {fileID: 11400000, guid: 3f4d4a4b22f7d4d48b46facc903dace5, type: 2}
   - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
-  - {fileID: 11400000, guid: 72d1bf3d08001f548a2b507f85049be6, type: 2}
+  - {fileID: 11400000, guid: 3f4d4a4b22f7d4d48b46facc903dace5, type: 2}
+  - {fileID: 11400000, guid: dde061b7e9cac264c9f2cf6c385b9a0a, type: 2}
+  - {fileID: 11400000, guid: a2d380b42d296bc4691d5766d036ac68, type: 2}
   captureDifficulty: 50

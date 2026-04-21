@@ -40,6 +40,7 @@ public class BattleSystem : MonoBehaviour
     {
         this.enemyParty = enemyParty;
 
+        turnNumber = 0;
         ProfemonInstance playerInstance =
             PlayerPartyManager.Instance.GetFirstAlive();
 
@@ -446,30 +447,20 @@ public class BattleSystem : MonoBehaviour
     {
         currentState = BattleState.EndBattle;
 
-        foreach (var unit in allUnits)
-        {
-            unit.ResetStages();
-        }
+        bool playerWon = allUnits[0].IsAlive();
 
-        CombatUnit player = allUnits[0];
-        CombatUnit enemy = allUnits[1];
+        yield return StartCoroutine(
+            BattleMessenger.Show(playerWon ? "Player wins" : "Enemy wins")
+        );
 
-        bool playerWon = player.IsAlive();
+        StopAllCoroutines();
 
-        if (playerWon)
-        {
-            yield return StartCoroutine(
-                BattleMessenger.Show($"Player wins"));
-        }
-        else
-        {
-            yield return StartCoroutine(
-                BattleMessenger.Show($"Enemy wins"));
-        }
-
-        // --- NUEVO: volver al mundo e informar resultado ---
         if (BattleTransitionManager.Instance != null)
-            BattleTransitionManager.Instance.EndBattleTransition(playerWon);
+        {
+            yield return StartCoroutine(
+                BattleTransitionManager.Instance.EndBattleTransition(playerWon)
+            );
+        }
     }
 
     IEnumerator HandleUnitKO(CombatUnit unit)
@@ -541,5 +532,14 @@ public class BattleSystem : MonoBehaviour
     public void RunBattleTest()
     {
         StartBattle();
+    }
+
+    public void CleanupBattle()
+    {
+        foreach (var unit in allUnits)
+        {
+            unit.ResetStages();
+            unit.ClearVisual();
+        }
     }
 }

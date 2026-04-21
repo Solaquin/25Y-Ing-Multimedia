@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
-  m_Name: Wild_Gabriel_Rodriguez
+  m_Name: Data_NatalieHiguera
   m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
-  professorName: Gabriel Rodriguez
-  worldPrefab: {fileID: 7017161055896625894, guid: e71cde454f11cd64491074ed855e7b94, type: 3}
-  battlePrefab: {fileID: 0}
+  professorName: Natalie Higuera
+  worldPrefab: {fileID: 4590302993648841658, guid: 7dc2d2c470984874cbd59f156f79cf83, type: 3}
+  battlePrefab: {fileID: 4590302993648841658, guid: d9a29e4bf742d9547842cd1f35f36c3e, type: 3}
   phrase: 
   description: 
   anecdote: 
@@ -23,7 +23,7 @@ MonoBehaviour:
   whereToFindImage: {fileID: 0}
   image: {fileID: 0}
   types:
-  - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
-  baseStats: {fileID: 11400000, guid: cbeba17f74234dc46ad8bb790bdfe925, type: 2}
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+  baseStats: {fileID: 11400000, guid: 516506156f7844b48a5005fe3fe74a28, type: 2}
   learnableMoves: []
   captureDifficulty: 50
