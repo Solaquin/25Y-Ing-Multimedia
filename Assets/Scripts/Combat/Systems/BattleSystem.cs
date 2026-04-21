@@ -146,6 +146,18 @@ public class BattleSystem : MonoBehaviour
     {
         EndTurn();
 
+        if (!playerUnit.IsAlive())
+        {
+            yield return StartCoroutine(HandleUnitKO(playerUnit));
+            yield break;
+        }
+
+        if (!enemyUnit.IsAlive())
+        {
+            yield return StartCoroutine(HandleUnitKO(enemyUnit));
+            yield break;
+        }
+
         yield return new WaitForSeconds(0.5f);
     }
 
