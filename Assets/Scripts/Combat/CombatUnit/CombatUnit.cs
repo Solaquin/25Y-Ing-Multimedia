@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +51,28 @@ public class CombatUnit : MonoBehaviour
         PrintStats();
 
         SetupVisual();
+    }
+
+    public IEnumerator SwapProfemon(ProfemonInstance newInstance, bool isInitialSpawn = false)
+    {
+        if (newInstance == null || newInstance.data == null)
+        {
+            Debug.LogError("SwapProfemon recibió instancia inválida");
+            yield break;
+        }
+
+        // 1) Salida (solo si ya había algo y no es el spawn inicial)
+        if (!isInitialSpawn && currentModel != null)
+        {
+            yield return StartCoroutine(DespawnAnimation());
+        }
+
+        // 2) Actualizar datos (lógica)
+        this.instance = newInstance;
+        ResetStages();
+
+        // 3) Entrada (siempre)
+        yield return StartCoroutine(SpawnAnimation(isInitialSpawn));
     }
 
     // ================================
@@ -314,6 +337,71 @@ public class CombatUnit : MonoBehaviour
             Destroy(currentModel);
             currentModel = null;
             currentAnimator = null;
+        }
+    }
+
+    IEnumerator DespawnAnimation()
+    {
+        if (currentModel == null)
+            yield break;
+
+        float t = 0f;
+        Vector3 startScale = currentModel.transform.localScale;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 3f;
+            currentModel.transform.localScale =
+                Vector3.Lerp(startScale, Vector3.zero, t);
+
+            yield return null;
+        }
+
+        Destroy(currentModel);
+        currentModel = null;
+        currentAnimator = null;
+    }
+
+    IEnumerator SpawnAnimation(bool isInitialSpawn)
+    {
+        GameObject prefab = instance.data.battlePrefab;
+
+        currentModel = Instantiate(prefab, modelParent);
+
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+
+        currentAnimator = currentModel.GetComponent<Animator>();
+
+        float t = 0f;
+
+        if (isInitialSpawn)
+        {
+            // aparición más “suave”
+            currentModel.transform.localScale = Vector3.zero;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 2f;
+                currentModel.transform.localScale =
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
+
+                yield return null;
+            }
+        }
+        else
+        {
+            // aparición más rápida tipo cambio
+            currentModel.transform.localScale = Vector3.zero;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 4f;
+                currentModel.transform.localScale =
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
+
+                yield return null;
+            }
         }
     }
 

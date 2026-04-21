@@ -47,16 +47,13 @@ public class BattleSystem : MonoBehaviour
         ProfemonInstance enemyInstance =
             enemyParty.GetFirstAlive();
 
-        SpawnUnits(playerInstance, enemyInstance);
+        SpawnUnitsEmpty();
 
-        StartBattle();
+        StartCoroutine(StartBattleRoutine(playerInstance, enemyInstance));
     }
 
-    void SpawnUnits(ProfemonInstance playerInstance, ProfemonInstance enemyInstance)
+    void SpawnUnitsEmpty()
     {
-        playerUnit.InitializeFromInstance(playerInstance);
-        enemyUnit.InitializeFromInstance(enemyInstance);
-
         allUnits.Clear();
 
         allUnits.Add(playerUnit);
@@ -328,7 +325,6 @@ public class BattleSystem : MonoBehaviour
     public IEnumerator SwitchUnit(TurnAction action)
     {
         CombatUnit unit = action.user;
-
         ProfemonInstance newInstance = action.switchTarget;
 
         yield return StartCoroutine(
@@ -337,14 +333,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        if (unit == playerUnit)
-        {
-            playerUnit.InitializeFromInstance(newInstance);
-        }
-        else
-        {
-            enemyUnit.InitializeFromInstance(newInstance);
-        }
+        yield return StartCoroutine(unit.SwapProfemon(newInstance));
 
         yield return StartCoroutine(
             BattleMessenger.Show($"{newInstance.data.professorName} entra al combate.")
@@ -539,6 +528,47 @@ public class BattleSystem : MonoBehaviour
                 BattleMessenger.Show("No tuvo efecto...")
             );
         }
+    }
+
+    IEnumerator StartBattleRoutine(ProfemonInstance playerInstance, ProfemonInstance enemyInstance)
+    {
+        yield return StartCoroutine(
+            BattleIntro(playerInstance, enemyInstance)
+        );
+
+        StartBattle();
+    }
+
+    IEnumerator BattleIntro(ProfemonInstance playerInstance, ProfemonInstance enemyInstance)
+    {
+        // Mensaje inicial (opcional)
+        yield return StartCoroutine(
+            BattleMessenger.Show("¡Un combate comienza!")
+        );
+
+        yield return new WaitForSeconds(0.3f);
+
+        // Enemy entra primero (estilo Pokémon)
+        yield return StartCoroutine(
+            BattleMessenger.Show($"{enemyInstance.data.professorName} aparece.")
+        );
+
+        yield return StartCoroutine(
+            enemyUnit.SwapProfemon(enemyInstance, true)
+        );
+
+        yield return new WaitForSeconds(0.3f);
+
+        // Player entra
+        yield return StartCoroutine(
+            BattleMessenger.Show($"Adelante {playerInstance.data.professorName}!")
+        );
+
+        yield return StartCoroutine(
+            playerUnit.SwapProfemon(playerInstance, true)
+        );
+
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void RunBattleTest()
