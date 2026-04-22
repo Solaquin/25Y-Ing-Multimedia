@@ -32,35 +32,43 @@ public class Profemon : MonoBehaviour
     private NavMeshAgent agent;
     private float wanderTimer;
 
+    private bool initialized = false;
+
     private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
+    }
+
+    public void Initialize(ProfemonData data)
     {
         if (data == null)
         {
-            Debug.LogError("ProfemonData no asignado en " + gameObject.name);
+            Debug.LogError("Initialize recibió data null");
             return;
         }
 
-        // Seguridad por si alguien pone mal los valores
+        this.data = data;
+
         if (maxLevel < minLevel)
             maxLevel = minLevel;
 
-        //  Nivel aleatorio dentro del rango
         level = Random.Range(minLevel, maxLevel + 1);
 
         instance = new ProfemonInstance(data, level);
 
-        // Buscar jugador por Tag
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
+        initialized = true;
 
-        agent = GetComponent<NavMeshAgent>();
-
-        //Debug.Log(data.professorName + " salvaje generado nivel " + level);
+        //Debug.Log($"{data.professorName} inicializado nivel {level}");
     }
 
     private void Update()
     {
+        if (!initialized) return;
+
         if (player != null && !isCaptured)
         {
             float sqrDistance = (transform.position - player.position).sqrMagnitude;

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ public class CombatUnit : MonoBehaviour
 
     [SerializeField] bool startOnAwake;
     [SerializeField] int currentHPDebug;
+
+    [Header("Visual")]
+    [SerializeField] Transform modelParent;
+
+    GameObject currentModel;
+    Animator currentAnimator;
 
     private void Awake()
     {
@@ -42,6 +49,30 @@ public class CombatUnit : MonoBehaviour
         currentHPDebug = instance.currentHP;
 
         PrintStats();
+
+        SetupVisual();
+    }
+
+    public IEnumerator SwapProfemon(ProfemonInstance newInstance, bool isInitialSpawn = false)
+    {
+        if (newInstance == null || newInstance.data == null)
+        {
+            Debug.LogError("SwapProfemon recibió instancia inválida");
+            yield break;
+        }
+
+        // 1) Salida (solo si ya había algo y no es el spawn inicial)
+        if (!isInitialSpawn && currentModel != null)
+        {
+            yield return StartCoroutine(DespawnAnimation());
+        }
+
+        // 2) Actualizar datos (lógica)
+        this.instance = newInstance;
+        ResetStages();
+
+        // 3) Entrada (siempre)
+        yield return StartCoroutine(SpawnAnimation(isInitialSpawn));
     }
 
     // ================================
@@ -265,6 +296,113 @@ public class CombatUnit : MonoBehaviour
             return null;
 
         return moves[Random.Range(0, moves.Count)];
+    }
+
+    // ================================
+    // VISUAL
+    // ================================
+
+    void SetupVisual()
+    {
+        if (instance == null || instance.data == null)
+        {
+            Debug.LogError("Instance o data null en CombatUnit");
+            return;
+        }
+
+        if (currentModel != null)
+            Destroy(currentModel);
+
+        GameObject prefab = instance.data.battlePrefab;
+
+        if (prefab == null)
+        {
+            Debug.LogError("battlePrefab no asignado en " + instance.data.professorName);
+            return;
+        }
+
+        currentModel = Instantiate(prefab, modelParent);
+
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+        currentModel.transform.localScale = Vector3.one;
+
+        currentAnimator = currentModel.GetComponent<Animator>();
+    }
+
+    public void ClearVisual()
+    {
+        if (currentModel != null)
+        {
+            Destroy(currentModel);
+            currentModel = null;
+            currentAnimator = null;
+        }
+    }
+
+    IEnumerator DespawnAnimation()
+    {
+        if (currentModel == null)
+            yield break;
+
+        float t = 0f;
+        Vector3 startScale = currentModel.transform.localScale;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 3f;
+            currentModel.transform.localScale =
+                Vector3.Lerp(startScale, Vector3.zero, t);
+
+            yield return null;
+        }
+
+        Destroy(currentModel);
+        currentModel = null;
+        currentAnimator = null;
+    }
+
+    IEnumerator SpawnAnimation(bool isInitialSpawn)
+    {
+        GameObject prefab = instance.data.battlePrefab;
+
+        currentModel = Instantiate(prefab, modelParent);
+
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+
+        currentAnimator = currentModel.GetComponent<Animator>();
+
+        float t = 0f;
+
+        if (isInitialSpawn)
+        {
+            // aparición más “suave”
+            currentModel.transform.localScale = Vector3.zero;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 2f;
+                currentModel.transform.localScale =
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
+
+                yield return null;
+            }
+        }
+        else
+        {
+            // aparición más rápida tipo cambio
+            currentModel.transform.localScale = Vector3.zero;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 4f;
+                currentModel.transform.localScale =
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
+
+                yield return null;
+            }
+        }
     }
 
 }

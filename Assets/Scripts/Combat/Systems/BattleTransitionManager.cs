@@ -63,14 +63,19 @@ public class BattleTransitionManager : MonoBehaviour
     /// Llamado por BattleSystem al terminar el combate.
     /// playerWon = true si el jugador ganó, false si perdió.
     /// </summary>
-    public void EndBattleTransition(bool playerWon)
+    public IEnumerator EndBattleTransition(bool playerWon)
     {
-        StartCoroutine(TransitionToWorld(playerWon));
+        yield return StartCoroutine(TransitionToWorld(playerWon));
     }
 
     IEnumerator TransitionToWorld(bool playerWon)
     {
         yield return StartCoroutine(Fade(0f, 1f));
+
+        if (battleSystem != null)
+        {
+            battleSystem.CleanupBattle();
+        }
 
         // Desactivar BattleSystem
         battleSystem.gameObject.SetActive(false);

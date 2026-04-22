@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
+  m_Name: Data_AlexanderCeron
+  m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
+  professorName: Alexander Ceron
+  worldPrefab: {fileID: 8925162519585478229, guid: 5acad3132dc4e344f9028f8947341bc7, type: 3}
+  battlePrefab: {fileID: 8925162519585478229, guid: c42dbe563a66b8f488d7f963d6e501b3, type: 3}
+  phrase: 
+  description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
+  image: {fileID: 0}
+  types:
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+  baseStats: {fileID: 11400000, guid: 59202cb0b0e328942a74416d2caf9b50, type: 2}
+  learnableMoves:
+  - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
+  - {fileID: 11400000, guid: 72d1bf3d08001f548a2b507f85049be6, type: 2}
+  - {fileID: 11400000, guid: f27f8d240879b4e48aa315e6eaf4e94b, type: 2}
+  - {fileID: 11400000, guid: 06191de87d5a0c8418cfdc5b6218f7da, type: 2}
+  - {fileID: 11400000, guid: a2d380b42d296bc4691d5766d036ac68, type: 2}
+  captureDifficulty: 50

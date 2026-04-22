@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
+  m_Name: Data_CarlosRocha
+  m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
+  professorName: Carlos Rocha
+  worldPrefab: {fileID: 6882615634061575736, guid: 7b882c1761d8e82418ff7986bf03d329, type: 3}
+  battlePrefab: {fileID: 6882615634061575736, guid: 7354a38871b117440b7697dc4c35e40f, type: 3}
+  phrase: 
+  description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
+  image: {fileID: 0}
+  types:
+  - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
+  baseStats: {fileID: 11400000, guid: b656a30c1a86f494a93357025def3183, type: 2}
+  learnableMoves:
+  - {fileID: 11400000, guid: 3f4d4a4b22f7d4d48b46facc903dace5, type: 2}
+  - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
+  - {fileID: 11400000, guid: 72d1bf3d08001f548a2b507f85049be6, type: 2}
+  captureDifficulty: 50
