@@ -16,6 +16,11 @@ public class PasoNPC
 
     public float esperaDespues = 0.5f;
 
+    [Header("Rotación al llegar al punto")]
+    public Vector3 rotacionAntesDeMover;   // rotación inicial (opcional)
+    public Vector3 rotacionFinal;          // rotación al llegar
+    public float velocidadRotacion = 5f;
+
     [Header("GameObjects al terminar este paso")]
     public GameObject[] activarAlTerminar;
 
@@ -50,6 +55,7 @@ public class NPCDialogoMovil : MonoBehaviour
     private bool ejecutando = false;
 
     string[] dialogos;
+
 
     void Start()
     {
@@ -182,6 +188,24 @@ public class NPCDialogoMovil : MonoBehaviour
     {
         PasoNPC paso = pasos[pasoActual];
 
+        // 🔹 Rotación antes de moverse
+        if (paso.rotacionAntesDeMover != Vector3.zero)
+        {
+            Quaternion rotInicio = Quaternion.Euler(paso.rotacionAntesDeMover);
+
+            while (Quaternion.Angle(transform.rotation, rotInicio) > 0.5f)
+            {
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    rotInicio,
+                    paso.velocidadRotacion * Time.deltaTime
+                );
+
+                yield return null;
+            }
+        }
+
+        // 🔹 Movimiento hacia el punto
         if (paso.puntoMovimiento != null)
         {
             while (Vector3.Distance(transform.position, paso.puntoMovimiento.position) > 0.05f)
@@ -196,7 +220,27 @@ public class NPCDialogoMovil : MonoBehaviour
             }
         }
 
+        // 🔹 Rotación al llegar
+        if (paso.rotacionFinal != Vector3.zero)
+        {
+            Quaternion rotFinal = Quaternion.Euler(paso.rotacionFinal);
+
+            while (Quaternion.Angle(transform.rotation, rotFinal) > 0.5f)
+            {
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    rotFinal,
+                    paso.velocidadRotacion * Time.deltaTime
+                );
+
+                yield return null;
+            }
+
+            transform.rotation = rotFinal;
+        }
+
         yield return new WaitForSeconds(paso.esperaDespues);
+
         AplicarGameObjects();
         pasoActual++;
 
