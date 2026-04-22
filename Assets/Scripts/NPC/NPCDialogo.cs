@@ -7,6 +7,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class NPCDialogo : MonoBehaviour
 {
+    [Header("Audio")]
+    public AudioInteractivo audioInteractuar;
     [Header("UI")]
     public GameObject botonHablar;
     public GameObject panelDialogo;
@@ -145,6 +147,10 @@ public class NPCDialogo : MonoBehaviour
     {
         if (!jugadorCerca) return;
 
+        if(audioInteractuar != null)
+        {
+            audioInteractuar.ActivarAudio();
+        }
         if (!panelDialogo.activeSelf)
         {
             IniciarDialogo();

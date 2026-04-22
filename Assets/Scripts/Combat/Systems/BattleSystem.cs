@@ -15,6 +15,8 @@ public enum BattleState
 
 public class BattleSystem : MonoBehaviour
 {
+    [Header("Audio Combate")]
+    public AudioInteractivo musicaCombate;
     public AudioInteractivo audioGolpe;
     public TurnOrderDebugUI debugUI;
     public BattleState currentState;
@@ -69,6 +71,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         Debug.Log("Battle started");
+        if (musicaCombate != null) musicaCombate.ActivarAudio();
 
         BattleEvents.OnBattleStarted?.Invoke();
 
@@ -450,9 +453,13 @@ public class BattleSystem : MonoBehaviour
 
         bool playerWon = allUnits[0].IsAlive();
 
+
+        if (musicaCombate != null) musicaCombate.DesactivarAudio();
+
         yield return StartCoroutine(
             BattleMessenger.Show(playerWon ? "Player wins" : "Enemy wins")
         );
+
 
         StopAllCoroutines();
 
