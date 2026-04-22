@@ -56,6 +56,13 @@ public class NPCDialogoMovil : MonoBehaviour
 
     string[] dialogos;
 
+    // =========================
+    // 🔧 NUEVO (FIX SISTEMA)
+    // =========================
+    private bool bloqueadoPorMovimiento = false;
+    private bool esperandoPrimerDialogo = false;
+    private Coroutine escrituraCoroutine;
+    private Coroutine movimientoCoroutine;
 
     void Start()
     {
@@ -103,6 +110,20 @@ public class NPCDialogoMovil : MonoBehaviour
     {
         if (!jugadorCerca) return;
 
+        if (bloqueadoPorMovimiento) return;
+
+        // 🎯 SI está escribiendo → SKIP INSTANTÁNEO
+        if (escribiendo)
+        {
+            if (escrituraCoroutine != null)
+                StopCoroutine(escrituraCoroutine);
+
+            textoDialogo.text = dialogos[lineaActual];
+            escribiendo = false;
+            flechaContinuar.SetActive(true);
+            return;
+        }
+
         if (!panelDialogo.activeSelf)
         {
             IniciarSecuencia();
@@ -112,7 +133,6 @@ public class NPCDialogoMovil : MonoBehaviour
             SiguienteLinea();
         }
     }
-
     // =========================
     // 🎬 SECUENCIA
     // =========================
@@ -140,7 +160,11 @@ public class NPCDialogoMovil : MonoBehaviour
 
         panelDialogo.SetActive(true);
 
-        StartCoroutine(EscribirTexto());
+        // 🚫 evita spam de escritura
+        if (escrituraCoroutine != null)
+            StopCoroutine(escrituraCoroutine);
+
+        escrituraCoroutine = StartCoroutine(EscribirTexto());
     }
 
     void SiguienteLinea()
@@ -158,12 +182,21 @@ public class NPCDialogoMovil : MonoBehaviour
 
         if (lineaActual < dialogos.Length)
         {
-            StartCoroutine(EscribirTexto());
+            if (escrituraCoroutine != null)
+                StopCoroutine(escrituraCoroutine);
+
+            escrituraCoroutine = StartCoroutine(EscribirTexto());
         }
         else
         {
             panelDialogo.SetActive(false);
-            StartCoroutine(MoverYContinuar());
+
+            bloqueadoPorMovimiento = true;
+
+            if (movimientoCoroutine != null)
+                StopCoroutine(movimientoCoroutine);
+
+            movimientoCoroutine = StartCoroutine(MoverYContinuar());
         }
     }
 
@@ -182,6 +215,20 @@ public class NPCDialogoMovil : MonoBehaviour
 
         escribiendo = false;
         flechaContinuar.SetActive(true);
+
+        // 🔓 desbloqueo del primer diálogo si aplica
+        if (esperandoPrimerDialogo)
+        {
+            bloqueadoPorMovimiento = false;
+            esperandoPrimerDialogo = false;
+        }
+
+        // 🔓 desbloqueo después del primer texto del nuevo paso
+        if (esperandoPrimerDialogo)
+        {
+            bloqueadoPorMovimiento = false;
+            esperandoPrimerDialogo = false;
+        }
     }
 
     IEnumerator MoverYContinuar()
@@ -244,8 +291,13 @@ public class NPCDialogoMovil : MonoBehaviour
         AplicarGameObjects();
         pasoActual++;
 
+        // 🔓 desbloqueo controlado
+        bloqueadoPorMovimiento = false;
+        esperandoPrimerDialogo = true;
+
         EjecutarPaso();
     }
+
     void AplicarGameObjects()
     {
         PasoNPC paso = pasos[pasoActual];
@@ -268,6 +320,7 @@ public class NPCDialogoMovil : MonoBehaviour
             }
         }
     }
+
     void Terminar()
     {
         ejecutando = false;
