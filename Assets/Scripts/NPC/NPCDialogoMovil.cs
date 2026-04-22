@@ -57,15 +57,21 @@ public class NPCDialogoMovil : MonoBehaviour
     string[] dialogos;
 
     // =========================
-    // 🔧 NUEVO (FIX SISTEMA)
+    // (FIX SISTEMA)
     // =========================
     private bool bloqueadoPorMovimiento = false;
     private bool esperandoPrimerDialogo = false;
     private Coroutine escrituraCoroutine;
     private Coroutine movimientoCoroutine;
 
+    [Header("Diálogo después de elegir starter")]
+    public PasoNPC[] pasosDespuesStarter;
+
+    private bool starterElegido = false;
+
     void Start()
     {
+        starterElegido = false;
         botonHablar.SetActive(false);
         panelDialogo.SetActive(false);
         flechaContinuar.SetActive(false);
@@ -318,6 +324,22 @@ public class NPCDialogoMovil : MonoBehaviour
                 if (go != null)
                     go.SetActive(false);
             }
+        }
+    }
+
+    public void ActivarDialogoStarter()
+    {
+        if (starterElegido) return;
+
+        starterElegido = true;
+
+        // Cambiamos el diálogo a la nueva secuencia
+        pasos = pasosDespuesStarter;
+
+        // Opcional: arranca automáticamente el diálogo
+        if (!ejecutando)
+        {
+            IniciarSecuencia();
         }
     }
 

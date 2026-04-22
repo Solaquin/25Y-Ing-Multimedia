@@ -42469,6 +42469,18 @@ MonoBehaviour:
     activarAlTerminar: []
     desactivarAlTerminar: []
   botonA: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+  pasosDespuesStarter:
+  - dialogo:
+    - Excelente, ahora ve a explorar el maravilloso mundo de los Profemon.
+    - "Yo estar\xE9 aca un tiempo."
+    puntoMovimiento: {fileID: 0}
+    velocidadMovimiento: 0
+    esperaDespues: 0
+    rotacionAntesDeMover: {x: 0, y: 0, z: 0}
+    rotacionFinal: {x: 0, y: 0, z: 0}
+    velocidadRotacion: 0
+    activarAlTerminar: []
+    desactivarAlTerminar: []
 --- !u!1 &1117374924
 GameObject:
   m_ObjectHideFlags: 0
