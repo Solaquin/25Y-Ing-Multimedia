@@ -63,6 +63,7 @@ public class NPCDialogoMovil : MonoBehaviour
     private bool esperandoPrimerDialogo = false;
     private Coroutine escrituraCoroutine;
     private Coroutine movimientoCoroutine;
+    private bool secuenciaTerminada = false;
 
     [Header("Diálogo después de elegir starter")]
     public PasoNPC[] pasosDespuesStarter;
@@ -132,6 +133,25 @@ public class NPCDialogoMovil : MonoBehaviour
 
         if (!panelDialogo.activeSelf)
         {
+            // 🧠 si ya terminó, NO reinicia
+            if (secuenciaTerminada)
+            {
+                // opcional: repetir último diálogo
+                pasoActual = pasos.Length - 1;
+                lineaActual = 0;
+
+                dialogos = pasos[pasoActual].dialogo;
+
+                panelDialogo.SetActive(true);
+
+                if (escrituraCoroutine != null)
+                    StopCoroutine(escrituraCoroutine);
+
+                escrituraCoroutine = StartCoroutine(EscribirTexto());
+
+                return;
+            }
+
             IniciarSecuencia();
         }
         else
@@ -355,6 +375,8 @@ public class NPCDialogoMovil : MonoBehaviour
     {
         ejecutando = false;
         panelDialogo.SetActive(false);
+
+        secuenciaTerminada = true; // 👈 IMPORTANTE
 
         OnDialogoTerminado?.Invoke();
     }
