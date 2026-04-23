@@ -16,6 +16,8 @@ public class CombatUnit : MonoBehaviour
     [SerializeField] bool startOnAwake;
     [SerializeField] int currentHPDebug;
 
+    private bool hasBeenKO = false;
+
     [Header("Visual")]
     [SerializeField] Transform modelParent;
 
@@ -70,6 +72,7 @@ public class CombatUnit : MonoBehaviour
         // 2) Actualizar datos (lógica)
         this.instance = newInstance;
         ResetStages();
+        ResetKOFlag();
 
         // 3) Entrada (siempre)
         yield return StartCoroutine(SpawnAnimation(isInitialSpawn));
@@ -122,6 +125,17 @@ public class CombatUnit : MonoBehaviour
     public int GetMaxHP()
     {
         return instance.maxHP;
+    }
+
+    public bool HasBeenKO => hasBeenKO;
+    public void MarkAsKO()
+    {
+        hasBeenKO = true;
+    }
+
+    public void ResetKOFlag()
+    {
+        hasBeenKO = false;
     }
 
     // ================================
@@ -203,13 +217,21 @@ public class CombatUnit : MonoBehaviour
     // ================================
     public void ApplyStatus(StatusEffectSO status, int duration)
     {
-        if (instance.activeStatus != null)
+        if (status == null)
+        {
+            Debug.LogError("Intento de aplicar status null");
+            return;
+        }
+
+        instance.ValidateStatus();
+
+        if (instance.ActiveStatus != null)
         {
             Debug.Log($"{name} ya tiene un estado.");
             return;
         }
 
-        instance.activeStatus = new StatusInstance(status, duration);
+        instance.TrySetStatus(status, duration);
 
         status.OnApply(this);
 
@@ -220,13 +242,15 @@ public class CombatUnit : MonoBehaviour
     {
         message = "";
 
-        if (instance.activeStatus == null)
+        instance.ValidateStatus();
+
+        if (instance.ActiveStatus == null)
             return false;
 
-        if (instance.activeStatus.effect.PreventAction(actionType))
+        if (instance.ActiveStatus.effect.PreventAction(actionType))
         {
             message =
-                $"{name} está {instance.activeStatus.effect.statusType} y no puede moverse.";
+                $"{name} está {instance.ActiveStatus.effect.statusType} y no puede moverse.";
 
             return true;
         }
@@ -236,29 +260,36 @@ public class CombatUnit : MonoBehaviour
 
     public void TickStatus()
     {
-        if (instance.activeStatus == null) return;
+        instance.ValidateStatus();
 
-        instance.activeStatus.effect.OnTurnEnd(this);
+        if (instance.ActiveStatus == null) return;
+
+        instance.ActiveStatus.effect.OnTurnEnd(this);
 
         // -1 = persistente, no cuenta turnos
-        if (instance.activeStatus.remainingTurns == -1) return;
+        if (instance.ActiveStatus.remainingTurns == -1) return;
 
-        instance.activeStatus.remainingTurns--;
+        instance.ActiveStatus.remainingTurns--;
 
-        if (instance.activeStatus.remainingTurns <= 0)
+        if (instance.ActiveStatus.remainingTurns <= 0)
         {
-            Debug.Log($"{name} ya no está {instance.activeStatus.effect.statusType}");
-            instance.activeStatus = null;
+            Debug.Log($"{name} ya no está {instance.ActiveStatus.effect.statusType}");
+            CureStatus();
         }
     }
 
     public void CureStatus()
     {
-        if (instance.activeStatus == null) return;
+        instance.ValidateStatus();
 
-        instance.activeStatus.effect.OnRemove(this);
-        Debug.Log($"{name} se curó de {instance.activeStatus.effect.statusType}");
-        instance.activeStatus = null;
+        if (instance.ActiveStatus == null) return;
+
+        if (instance.ActiveStatus.effect != null)
+            instance.ActiveStatus.effect.OnRemove(this);
+
+        Debug.Log($"{name} se curó de {instance.ActiveStatus.effect?.statusType}");
+
+        instance.CureStatusCondition();
     }
 
     // ================================
@@ -408,22 +439,45 @@ public class CombatUnit : MonoBehaviour
     // ================================
     // Animations
     // ================================
-    public IEnumerator PlayByTag(string tag)
+
+    public IEnumerator PlayFaint()
     {
         if (currentAnimator == null) yield break;
 
-        // Dispara el trigger según tag 
+        currentAnimator.SetTrigger(BattleAnimKeys.Faint);
+
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Faint")
+        );
+
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f
+        );
+
+        yield return new WaitForSeconds(0.4f);
+
+        // Desaparece
+        yield return StartCoroutine(DespawnAnimation());
+    }
+
+    public IEnumerator PlayByTag(string tag, float exitTime = 0.8f, bool waitForExit = true)
+    {
+        if (currentAnimator == null) yield break;
+
         currentAnimator.SetTrigger(tag);
 
-        // Espera a entrar al estado con ese tag
+        // Esperar a entrar al estado
         yield return new WaitUntil(() =>
             currentAnimator.GetCurrentAnimatorStateInfo(0).IsTag(tag)
         );
 
-        // Espera a terminar
-        yield return new WaitUntil(() =>
-            currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f
-        );
+        if (waitForExit)
+        {
+            // Esperar hasta cierto punto
+            yield return new WaitUntil(() =>
+                currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= exitTime
+            );
+        }
     }
 
     public IEnumerator PlayVisualEvents(List<VisualEvent> events, CombatUnit user, CombatUnit target)

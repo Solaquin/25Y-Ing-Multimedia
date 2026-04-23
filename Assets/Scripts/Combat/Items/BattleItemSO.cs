@@ -26,7 +26,7 @@ public class BattleItemSO : ItemSO
             case BattleItemEffect.HealStatusCondition:
                 return target.IsAlive()
                     && target.HasStatusCondition()
-                    && target.activeStatus.effect.statusType == targetStatus;
+                    && target.ActiveStatus.effect.statusType == targetStatus;
 
             case BattleItemEffect.FullHeal:
                 return target.IsAlive()

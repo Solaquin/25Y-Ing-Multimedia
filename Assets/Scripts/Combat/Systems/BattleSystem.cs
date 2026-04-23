@@ -146,16 +146,14 @@ public class BattleSystem : MonoBehaviour
     {
         EndTurn();
 
-        if (!playerUnit.IsAlive())
+        if (!playerUnit.IsAlive() && !playerUnit.HasBeenKO)
         {
-            yield return StartCoroutine(playerUnit.PlayByTag("Faint"));
             yield return StartCoroutine(HandleUnitKO(playerUnit));
             yield break;
         }
 
-        if (!enemyUnit.IsAlive())
+        if (!enemyUnit.IsAlive() && !enemyUnit.HasBeenKO)
         {
-            yield return StartCoroutine(enemyUnit.PlayByTag("Faint"));
             yield return StartCoroutine(HandleUnitKO(enemyUnit));
             yield break;
         }
@@ -217,16 +215,14 @@ public class BattleSystem : MonoBehaviour
 
              yield return StartCoroutine(ExecuteAction(action));
 
-            if (!playerUnit.IsAlive())
+            if (!playerUnit.IsAlive() && !playerUnit.HasBeenKO)
             {
-                yield return StartCoroutine(playerUnit.PlayByTag("Faint"));
                 yield return StartCoroutine(HandleUnitKO(playerUnit));
                 yield break;
             }
 
-            if (!enemyUnit.IsAlive())
+            if (!enemyUnit.IsAlive() && !enemyUnit.HasBeenKO)
             {
-                yield return StartCoroutine(enemyUnit.PlayByTag("Faint"));
                 yield return StartCoroutine(HandleUnitKO(enemyUnit));
                 yield break;
             }
@@ -387,6 +383,9 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerChooseSwitch(ProfemonInstance instance)
     {
+        if (currentState != BattleState.PlayerInput)
+            return;
+
         playerCommand =
             BattleCommand.CreateSwitchCommand(playerUnit, instance);
 
@@ -498,10 +497,21 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator HandleUnitKO(CombatUnit unit)
     {
+        currentState = BattleState.Busy;
+
+        unit.MarkAsKO();
+
+        // Mensaje KO
         yield return StartCoroutine(
             BattleMessenger.Show($"{unit.Instance.data.professorName} se debilitó")
         );
 
+        // Animación de derrota
+        yield return StartCoroutine(unit.PlayFaint());
+
+        // =========================
+        // PLAYER
+        // =========================
         if (unit == playerUnit)
         {
             if (!PlayerPartyManager.Instance.HasAvailable())
@@ -512,14 +522,30 @@ public class BattleSystem : MonoBehaviour
 
             BattleEvents.OnPlayerSwitchRequired?.Invoke();
 
+            currentState = BattleState.PlayerInput;
+
             playerCommandSelected = false;
 
             yield return new WaitUntil(() => playerCommandSelected);
 
+            currentState = BattleState.Busy;
+
             TurnAction switchAction = CommandResolver.CreateAction(playerCommand);
 
-            yield return StartCoroutine(SwitchUnit(switchAction));
+            // mensaje entrada
+            yield return StartCoroutine(
+                BattleMessenger.Show($"{switchAction.switchTarget.data.professorName} entra al combate")
+            );
+
+            // SIEMPRE SwapProfemon
+            yield return StartCoroutine(
+                playerUnit.SwapProfemon(switchAction.switchTarget)
+            );
         }
+
+        // =========================
+        // ENEMY
+        // =========================
         else if (unit == enemyUnit)
         {
             if (!enemyParty.HasAvailable())
@@ -530,10 +556,14 @@ public class BattleSystem : MonoBehaviour
 
             ProfemonInstance next = enemyParty.GetFirstAlive();
 
-            enemyUnit.InitializeFromInstance(next);
-
+            // mensaje entrada
             yield return StartCoroutine(
                 BattleMessenger.Show($"El enemigo envía a {next.data.professorName}")
+            );
+
+            // CAMBIO IMPORTANTE (antes era InitializeFromInstance)
+            yield return StartCoroutine(
+                enemyUnit.SwapProfemon(next)
             );
 
             BattleEvents.OnActiveUnitChanged?.Invoke();

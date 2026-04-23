@@ -27,7 +27,10 @@ public class ProfemonInstance
     public List<MoveSO> currentMoves = new List<MoveSO>();
 
     // Status persistente
-    public StatusInstance activeStatus;
+    [SerializeField] // si necesitas verlo en inspector
+    private StatusInstance activeStatus;
+
+    public StatusInstance ActiveStatus => activeStatus;
 
     public int MaxHP => maxHP;
 
@@ -87,13 +90,34 @@ public class ProfemonInstance
         currentHP = Mathf.Clamp(hpAmount, 1, maxHP);
     }
 
+    public bool TrySetStatus(StatusEffectSO effect, int duration)
+    {
+        if (effect == null)
+        {
+            Debug.LogError("Intento de setear status con effect null");
+            return false;
+        }
+
+        activeStatus = new StatusInstance(effect, duration);
+        return true;
+    }
+
     public bool HasStatusCondition()
     {
-        return activeStatus != null;
+        return activeStatus != null && activeStatus.effect != null;
     }
 
     public void CureStatusCondition()
     {
         activeStatus = null;
+    }
+
+    public void ValidateStatus()
+    {
+        if (activeStatus != null && activeStatus.effect == null)
+        {
+            Debug.LogWarning("Status corrupto detectado, limpiando...");
+            activeStatus = null;
+        }
     }
 }
