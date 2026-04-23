@@ -17,7 +17,6 @@ public class PasoNPC
     public float esperaDespues = 0.5f;
 
     [Header("Rotación al llegar al punto")]
-    public Vector3 rotacionAntesDeMover;   // rotación inicial (opcional)
     public Vector3 rotacionFinal;          // rotación al llegar
     public float velocidadRotacion = 5f;
 
@@ -38,6 +37,7 @@ public class NPCDialogoMovil : MonoBehaviour
 
     [Header("Nombre")]
     public string nombreDelNPC = "NPC";
+    public Animator animator;
 
     [Header("Secuencia")]
     public PasoNPC[] pasos;
@@ -242,25 +242,31 @@ public class NPCDialogoMovil : MonoBehaviour
         PasoNPC paso = pasos[pasoActual];
 
         // 🔹 Rotación antes de moverse
-        if (paso.rotacionAntesDeMover != Vector3.zero)
+        if (paso.puntoMovimiento != null)
         {
-            Quaternion rotInicio = Quaternion.Euler(paso.rotacionAntesDeMover);
-
-            while (Quaternion.Angle(transform.rotation, rotInicio) > 0.5f)
+            // Calcula la rotación mirando hacia el destino
+            Vector3 direccion = (paso.puntoMovimiento.position - transform.position).normalized;
+            if (direccion != Vector3.zero)
             {
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    rotInicio,
-                    paso.velocidadRotacion * Time.deltaTime
-                );
+                Quaternion rotHaciaDestino = Quaternion.LookRotation(direccion, Vector3.up) * Quaternion.Euler(0f, 180f, 0f);
 
-                yield return null;
+                while (Quaternion.Angle(transform.rotation, rotHaciaDestino) > 0.5f)
+                {
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        rotHaciaDestino,
+                        paso.velocidadRotacion * Time.deltaTime
+                    );
+                    yield return null;
+                }
             }
         }
 
         // 🔹 Movimiento hacia el punto
         if (paso.puntoMovimiento != null)
         {
+            if (animator != null) animator.SetBool("IsWalking", true);
+
             while (Vector3.Distance(transform.position, paso.puntoMovimiento.position) > 0.05f)
             {
                 transform.position = Vector3.MoveTowards(
@@ -271,6 +277,8 @@ public class NPCDialogoMovil : MonoBehaviour
 
                 yield return null;
             }
+
+            if (animator != null) animator.SetBool("IsWalking", false);
         }
 
         // 🔹 Rotación al llegar
