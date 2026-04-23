@@ -12,3 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5464a4a2868859f44936858bd4c24e9d, type: 3}
   m_Name: DebuffTargetEffect
   m_EditorClassIdentifier: Assembly-CSharp::DebuffTargetEffectSO
+  visualEvents:
+  - animTag: Attack
+    sfx: {fileID: 0}
+    vfx: {fileID: 0}
+    onTarget: 0
+    phase: 0
+  - animTag: Hit
+    sfx: {fileID: 0}
+    vfx: {fileID: 0}
+    onTarget: 1
+    phase: 1

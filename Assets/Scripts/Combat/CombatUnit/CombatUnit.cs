@@ -405,4 +405,74 @@ public class CombatUnit : MonoBehaviour
         }
     }
 
+    // ================================
+    // Animations
+    // ================================
+    public IEnumerator PlayByTag(string tag)
+    {
+        if (currentAnimator == null) yield break;
+
+        // Dispara el trigger según tag 
+        currentAnimator.SetTrigger(tag);
+
+        // Espera a entrar al estado con ese tag
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).IsTag(tag)
+        );
+
+        // Espera a terminar
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f
+        );
+    }
+
+    public IEnumerator PlayVisualEvents(List<VisualEvent> events, CombatUnit user, CombatUnit target)
+    {
+        foreach (var e in events)
+        {
+            CombatUnit unit = e.onTarget ? target : user;
+
+            // animación
+            if (!string.IsNullOrEmpty(e.animTag))
+                yield return StartCoroutine(unit.PlayByTag(e.animTag));
+
+            // VFX
+            if (e.vfx != null)
+                Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
+
+            // sonido
+            if (e.sfx != null)
+            {
+                AudioSource.PlayClipAtPoint(e.sfx, unit.transform.position);
+            }
+        }
+    }
+    public IEnumerator PlayVisualPhase(List<VisualEvent> events, VisualPhase phase, CombatUnit user, CombatUnit target)
+    {
+        foreach (var e in events)
+        {
+            if (e.phase != phase)
+                continue;
+
+            CombatUnit unit = e.onTarget ? target : user;
+
+            // Animación
+            if (!string.IsNullOrEmpty(e.animTag))
+            {
+                yield return StartCoroutine(unit.PlayByTag(e.animTag));
+            }
+
+            // VFX
+            if (e.vfx != null)
+            {
+                Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
+            }
+
+            // Audio
+            if (e.sfx != null)
+            {
+                AudioSource.PlayClipAtPoint(e.sfx, unit.transform.position);
+            }
+        }
+    }
 }

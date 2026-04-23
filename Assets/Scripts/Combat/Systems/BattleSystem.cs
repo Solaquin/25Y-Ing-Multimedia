@@ -148,12 +148,14 @@ public class BattleSystem : MonoBehaviour
 
         if (!playerUnit.IsAlive())
         {
+            yield return StartCoroutine(playerUnit.PlayByTag("Faint"));
             yield return StartCoroutine(HandleUnitKO(playerUnit));
             yield break;
         }
 
         if (!enemyUnit.IsAlive())
         {
+            yield return StartCoroutine(enemyUnit.PlayByTag("Faint"));
             yield return StartCoroutine(HandleUnitKO(enemyUnit));
             yield break;
         }
@@ -217,12 +219,14 @@ public class BattleSystem : MonoBehaviour
 
             if (!playerUnit.IsAlive())
             {
+                yield return StartCoroutine(playerUnit.PlayByTag("Faint"));
                 yield return StartCoroutine(HandleUnitKO(playerUnit));
                 yield break;
             }
 
             if (!enemyUnit.IsAlive())
             {
+                yield return StartCoroutine(enemyUnit.PlayByTag("Faint"));
                 yield return StartCoroutine(HandleUnitKO(enemyUnit));
                 yield break;
             }
@@ -306,12 +310,33 @@ public class BattleSystem : MonoBehaviour
             isCritical = isCritical
         };
 
-        move.effect.Execute(user, target, context);
+        // BEFORE (animación ataque / cast)
+        yield return StartCoroutine(
+            user.PlayVisualPhase(
+                move.effect.visualEvents,
+                VisualPhase.BeforeEffect,
+                user,
+                target
+            )
+        );
 
-        // 🔊 SONIDO DE GOLPE (SOLO SI CONECTA)
+        // LÓGICA
+        move.effect.Execute(user, target, context);
 
         if (audioGolpe != null)
             audioGolpe.ActivarAudio();
+
+        // AFTER (impacto / hit / efectos)
+        yield return StartCoroutine(
+            user.PlayVisualPhase(
+                move.effect.visualEvents,
+                VisualPhase.AfterEffect,
+                user,
+                target
+            )
+        );
+
+
 
         if (isCritical)
         {
