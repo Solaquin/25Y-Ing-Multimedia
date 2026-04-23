@@ -28,15 +28,26 @@ public class Profemon : MonoBehaviour
 
     [Header("Navigation Settings")]
     public float wanderInterval = 4f;
+    public float idleWaitMin = 2f;   // segundos mínimos en idle
+    public float idleWaitMax = 5f;   // segundos máximos en idle
+    public float rotationSpeed = 8f; // qué tan rápido gira hacia el destino
 
     private NavMeshAgent agent;
+    private Animator animator;
+
     private float wanderTimer;
+    private float idleWaitTime;    // cuánto tiempo esperar antes de moverse
+    private bool isWaiting = true; // empieza esperando
 
     private bool initialized = false;
+
+    // Nombres de los parámetros en tu Animator Controller
+    private static readonly int AnimIsWalking = Animator.StringToHash("isWalking");
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -57,12 +68,13 @@ public class Profemon : MonoBehaviour
             maxLevel = minLevel;
 
         level = Random.Range(minLevel, maxLevel + 1);
-
         instance = new ProfemonInstance(data, level);
 
-        initialized = true;
+        // Empieza en idle con un tiempo de espera aleatorio
+        idleWaitTime = Random.Range(idleWaitMin, idleWaitMax);
+        isWaiting = true;
 
-        //Debug.Log($"{data.professorName} inicializado nivel {level}");
+        initialized = true;
     }
 
     private void Update()
@@ -72,7 +84,6 @@ public class Profemon : MonoBehaviour
         if (player != null && !isCaptured)
         {
             float sqrDistance = (transform.position - player.position).sqrMagnitude;
-
             if (sqrDistance > despawnDistance * despawnDistance)
             {
                 Destroy(gameObject);
@@ -81,24 +92,73 @@ public class Profemon : MonoBehaviour
         }
 
         HandleWander();
+        UpdateAnimator();
     }
 
     private void HandleWander()
     {
-        if (agent == null)
-            return;
+        if (agent == null || spawnAreaSize == Vector3.zero) return;
 
-        if (spawnAreaSize == Vector3.zero)
-            return;
-
-        wanderTimer += Time.deltaTime;
-
-        if (wanderTimer >= wanderInterval)
+        if (isWaiting)
         {
-            Vector3 randomPoint = GetRandomPointInSpawnArea();
-            agent.SetDestination(randomPoint);
-            wanderTimer = 0f;
+            // Está en idle: cuenta el tiempo de espera
+            wanderTimer += Time.deltaTime;
+
+            if (wanderTimer >= idleWaitTime)
+            {
+                // Terminó de esperar: elige un destino y camina
+                Vector3 randomPoint = GetRandomPointInSpawnArea();
+                agent.SetDestination(randomPoint);
+                agent.isStopped = false;
+
+                wanderTimer = 0f;
+                isWaiting = false;
+            }
         }
+        else
+        {
+            // Está caminando: rota hacia el destino y revisa si llegó
+            RotateTowardsDestination();
+
+            bool arrivedAtDestination = !agent.pathPending
+                && agent.remainingDistance <= agent.stoppingDistance;
+
+            if (arrivedAtDestination)
+            {
+                // Llegó: entra en idle con un nuevo tiempo de espera aleatorio
+                agent.isStopped = true;
+                idleWaitTime = Random.Range(idleWaitMin, idleWaitMax);
+                wanderTimer = 0f;
+                isWaiting = true;
+            }
+        }
+    }
+
+    private void RotateTowardsDestination()
+    {
+        // Solo rota si el agente tiene un destino válido y se está moviendo
+        if (agent.velocity.sqrMagnitude < 0.01f) return;
+
+        Vector3 direction = agent.velocity.normalized;
+        direction.y = 0f;
+
+        if (direction == Vector3.zero) return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * rotationSpeed
+        );
+    }
+
+    private void UpdateAnimator()
+    {
+        if (animator == null) return;
+
+        // Camina si el agente se mueve por encima de un umbral pequeño
+        bool walking = !isWaiting && agent.velocity.sqrMagnitude > 0.01f;
+        animator.SetBool(AnimIsWalking, walking);
     }
 
     private Vector3 GetRandomPointInSpawnArea()
@@ -110,70 +170,35 @@ public class Profemon : MonoBehaviour
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(target, out hit, 2f, NavMesh.AllAreas))
-        {
             return hit.position;
-        }
 
         return transform.position;
     }
 
-    public ProfemonInstance GetInstance()
-    {
-        return instance;
-    }
+    // --- El resto del código no cambia ---
 
-    public void HideProfessor()
-    {
-        gameObject.SetActive(false);
-    }
+    public ProfemonInstance GetInstance() => instance;
 
-    public void ShowProfessor()
-    {
-        gameObject.SetActive(true);
-    }
+    public void HideProfessor() => gameObject.SetActive(false);
+    public void ShowProfessor() => gameObject.SetActive(true);
 
     public void ConfirmCapture()
     {
         Debug.Log("ConfirmCapture ejecutado");
 
-        if (data == null)
-        {
-            Debug.LogError("DATA ES NULL");
-            return;
-        }
+        if (data == null) { Debug.LogError("DATA ES NULL"); return; }
+        if (PlayerPartyManager.Instance == null) { Debug.LogError("PLAYER PARTY MANAGER ES NULL"); return; }
+        if (isCaptured) { Debug.Log("Ya estaba capturado."); return; }
+        if (instance == null) { Debug.LogError("INSTANCE ES NULL"); return; }
 
-        if (PlayerPartyManager.Instance == null)
-        {
-            Debug.LogError("PLAYER PARTY MANAGER ES NULL");
-            return;
-        }
-
-        if (isCaptured)
-        {
-            Debug.Log("Ya estaba capturado.");
-            return;
-        }
-
-        if (instance == null)
-        {
-            Debug.LogError("INSTANCE ES NULL");
-            return;
-        }
-
-        // Siempre intentar agregar
         PlayerPartyManager.Instance.AddToParty(instance);
 
         StorageMenuManager menu = FindObjectOfType<StorageMenuManager>();
+        if (menu != null) menu.Refresh();
 
-        if (menu != null)
-            menu.Refresh();
-
-        Debug.Log(data.professorName +
-            " nivel " + instance.level +
-            " capturado.");
+        Debug.Log(data.professorName + " nivel " + instance.level + " capturado.");
 
         isCaptured = true;
-
         Destroy(gameObject);
     }
 
