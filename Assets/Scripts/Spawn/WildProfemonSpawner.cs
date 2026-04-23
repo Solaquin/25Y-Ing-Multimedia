@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class WildProfemonSpawner : MonoBehaviour
 {
@@ -69,12 +70,20 @@ public class WildProfemonSpawner : MonoBehaviour
         StartCoroutine(DestroyAfterTime(spawned, lifetime));
     }
 
-    private System.Collections.IEnumerator DestroyAfterTime(GameObject obj, float time)
+    private IEnumerator DestroyAfterTime(GameObject obj, float time)
     {
         yield return new WaitForSeconds(time);
 
         if (obj != null)
         {
+            Profemon profemon = obj.GetComponent<Profemon>();
+
+            if (profemon != null)
+            {
+                // Espera que termine la animación de salida
+                yield return profemon.StartCoroutine(profemon.DespawnAnim());
+            }
+
             Destroy(obj);
         }
     }

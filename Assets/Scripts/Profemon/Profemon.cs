@@ -1,4 +1,5 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,6 +41,7 @@ public class Profemon : MonoBehaviour
     private bool isWaiting = true; // empieza esperando
 
     private bool initialized = false;
+    private bool isDespawning = false;
 
     // Nombres de los parámetros en tu Animator Controller
     private static readonly int AnimIsWalking = Animator.StringToHash("isWalking");
@@ -75,6 +77,8 @@ public class Profemon : MonoBehaviour
         isWaiting = true;
 
         initialized = true;
+
+        PlaySpawnAnimation();
     }
 
     private void Update()
@@ -84,9 +88,9 @@ public class Profemon : MonoBehaviour
         if (player != null && !isCaptured)
         {
             float sqrDistance = (transform.position - player.position).sqrMagnitude;
-            if (sqrDistance > despawnDistance * despawnDistance)
+            if (sqrDistance > despawnDistance * despawnDistance && !isDespawning)
             {
-                Destroy(gameObject);
+                StartCoroutine(DespawnThenDestroy());
                 return;
             }
         }
@@ -206,5 +210,75 @@ public class Profemon : MonoBehaviour
     {
         spawnCenter = center;
         spawnAreaSize = size;
+    }
+
+    private void PlaySpawnAnimation()
+    {
+        StartCoroutine(SpawnAnim());
+    }
+
+    private IEnumerator DespawnThenDestroy()
+    {
+        yield return StartCoroutine(DespawnAnim());
+        Destroy(gameObject);
+    }
+
+    private IEnumerator SpawnAnim()
+    {
+        float duration = 0.4f;
+        float elapsed = 0f;
+
+        transform.localScale = Vector3.zero;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // Curva con rebote: overshoot y luego settle en 1
+            float scale = SpawnCurve(t);
+            transform.localScale = Vector3.one * scale;
+
+            yield return null;
+        }
+
+        transform.localScale = Vector3.one;
+    }
+
+    // Curva personalizada: sube rápido, hace overshoot, vuelve a 1
+    private float SpawnCurve(float t)
+    {
+        // Elastic-out simplificado
+        float overshoot = 1.70158f;
+        t -= 1f;
+        return t * t * ((overshoot + 1f) * t + overshoot) + 1f;
+    }
+
+    public IEnumerator DespawnAnim()
+    {
+        if (isDespawning) yield break;
+        isDespawning = true;
+
+        // Detener movimiento mientras despawnea
+        if (agent != null)
+            agent.isStopped = true;
+
+        float duration = 0.35f;
+        float elapsed = 0f;
+        Vector3 originalScale = transform.localScale;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // Shrink con ease-in
+            float scale = Mathf.Lerp(1f, 0f, t * t);
+            transform.localScale = originalScale * scale;
+
+            yield return null;
+        }
+
+        transform.localScale = Vector3.zero;
     }
 }
