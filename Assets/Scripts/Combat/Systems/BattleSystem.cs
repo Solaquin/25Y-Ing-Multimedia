@@ -541,6 +541,8 @@ public class BattleSystem : MonoBehaviour
             yield return StartCoroutine(
                 playerUnit.SwapProfemon(switchAction.switchTarget)
             );
+
+            BattleEvents.OnActiveUnitChanged?.Invoke();
         }
 
         // =========================
