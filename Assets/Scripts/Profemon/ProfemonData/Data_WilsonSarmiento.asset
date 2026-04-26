@@ -21,7 +21,7 @@ MonoBehaviour:
   profile: 
   whereToFind: 
   whereToFindImage: {fileID: 0}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: d54b3dca3b8fd774ab90cc39415ff0b3, type: 3}
   types:
   - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
   baseStats: {fileID: 11400000, guid: 2ac713aa0db5b6c48a8ff08c24874e8b, type: 2}

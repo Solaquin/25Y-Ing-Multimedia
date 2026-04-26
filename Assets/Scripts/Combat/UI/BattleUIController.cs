@@ -35,6 +35,8 @@ public class BattleUIController : MonoBehaviour
 
     [Header("Party")]
     public PartyMenuBattleController partyMenu;
+    [Header("Icons")]
+    public Image playerProfemonIcon;
 
     private BattleUIState currentState;
     private List<GameObject> spawnedItemButtons = new List<GameObject>();
@@ -76,6 +78,7 @@ public class BattleUIController : MonoBehaviour
         SetupNames();
         SetupMoves();
         UpdateHP();
+        UpdateProfemonIcon();
         ShowPanel(BattleUIState.Main);
     }
 
@@ -84,6 +87,7 @@ public class BattleUIController : MonoBehaviour
         SetupNames();
         SetupMoves();
         UpdateHP();
+        UpdateProfemonIcon();
         ShowPanel(BattleUIState.Main);
     }
 
@@ -237,5 +241,32 @@ public class BattleUIController : MonoBehaviour
 
         enemyHP.text =
             $"HP: {battleSystem.enemyUnit.GetCurrentHP()} / {battleSystem.enemyUnit.GetMaxHP()}";
+    }
+    IEnumerator RetryIcon()
+    {
+        yield return new WaitForSeconds(0.1f);
+        UpdateProfemonIcon();
+    }
+
+    private bool intentandoCargarIcono = false;
+
+    void UpdateProfemonIcon()
+    {
+        if (battleSystem.playerUnit == null ||
+            battleSystem.playerUnit.Instance == null ||
+            battleSystem.playerUnit.Instance.data == null)
+        {
+            if (!intentandoCargarIcono)
+            {
+                intentandoCargarIcono = true;
+                StartCoroutine(RetryIcon());
+            }
+            return;
+        }
+
+        intentandoCargarIcono = false;
+
+        if (playerProfemonIcon != null)
+            playerProfemonIcon.sprite = battleSystem.playerUnit.Instance.data.image;
     }
 }
