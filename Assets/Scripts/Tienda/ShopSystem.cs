@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopSystem : MonoBehaviour
@@ -10,6 +11,36 @@ public class ShopSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject shopItemButtonPrefab;
     [SerializeField] private Transform contenedorBotones;
+    [SerializeField] private TMP_Text dineroText;
+
+    void Start()
+    {
+        if (WalletSystem.Instance == null)
+        {
+            Debug.LogError("WalletSystem no encontrado en la escena.");
+            return;
+        }
+
+        // Suscribirse al evento
+        WalletSystem.Instance.OnDineroChanged += ActualizarDineroUI;
+
+        // Mostrar valor inicial
+        ActualizarDineroUI(WalletSystem.Instance.Dinero);
+    }
+
+    void OnDestroy()
+    {
+        if (WalletSystem.Instance != null)
+        {
+            WalletSystem.Instance.OnDineroChanged -= ActualizarDineroUI;
+        }
+    }
+
+    void ActualizarDineroUI(int dineroActual)
+    {
+        if (dineroText != null)
+            dineroText.text = "$ " + dineroActual.ToString();
+    }
 
     public void AbrirTienda()
     {
