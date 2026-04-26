@@ -39,6 +39,12 @@ public class BattleUIController : MonoBehaviour
     [Header("Icons")]
     public Image playerProfemonIcon;
 
+    [Header("World HP Bars")]
+    public GameObject hpBarPrefab;
+
+    private HPBarUI playerBar;
+    private HPBarUI enemyBar;
+
     // 🔥 NUEVO: iconos por tipo de movimiento
     [System.Serializable]
     public class TipoMovimientoIcono
@@ -91,6 +97,7 @@ public class BattleUIController : MonoBehaviour
         SetupMoves();
         UpdateHP();
         UpdateProfemonIcon();
+        CrearBarrasWorld();
         ShowPanel(BattleUIState.Main);
     }
 
@@ -177,7 +184,7 @@ public class BattleUIController : MonoBehaviour
 
             MoveSO move = moves[i];
             moveTexts[i].text = move.moveName;
-
+                
             // 🔥 NUEVO: cambiar imagen del botón según tipo
             Image img = moveButtons[i].GetComponent<Image>();
             if (img != null)
@@ -268,13 +275,23 @@ public class BattleUIController : MonoBehaviour
 
     public void UpdateHP()
     {
-        playerHP.text =
-            $"HP: {battleSystem.playerUnit.GetCurrentHP()} / {battleSystem.playerUnit.GetMaxHP()}";
+        int currentPlayer = battleSystem.playerUnit.GetCurrentHP();
+        int maxPlayer = battleSystem.playerUnit.GetMaxHP();
 
-        enemyHP.text =
-            $"HP: {battleSystem.enemyUnit.GetCurrentHP()} / {battleSystem.enemyUnit.GetMaxHP()}";
+        int currentEnemy = battleSystem.enemyUnit.GetCurrentHP();
+        int maxEnemy = battleSystem.enemyUnit.GetMaxHP();
+
+        // TEXTO original
+        playerHP.text = $"HP: {currentPlayer} / {maxPlayer}";
+        enemyHP.text = $"HP: {currentEnemy} / {maxEnemy}";
+
+        //WORLD UI
+        if (playerBar != null)
+            playerBar.UpdateHP(currentPlayer, maxPlayer);
+       
+        if (enemyBar != null)
+            enemyBar.UpdateHP(currentEnemy, maxEnemy);
     }
-
     IEnumerator RetryIcon()
     {
         yield return new WaitForSeconds(0.1f);
@@ -301,5 +318,35 @@ public class BattleUIController : MonoBehaviour
 
         if (playerProfemonIcon != null)
             playerProfemonIcon.sprite = battleSystem.playerUnit.Instance.data.image;
+    }
+
+    void CrearBarrasWorld()
+    {
+        if (playerBar != null || enemyBar != null) return;
+        // 🔵 PLAYER
+        GameObject pBar = Instantiate(hpBarPrefab);
+        WorldHPBar pFollow = pBar.GetComponent<WorldHPBar>();
+        pFollow.target = battleSystem.playerUnit.transform;
+
+        playerBar = pBar.GetComponent<HPBarUI>();
+        playerBar.Setup(
+            battleSystem.playerUnit.Instance.data.professorName,
+            battleSystem.playerUnit.GetCurrentHP(),
+            battleSystem.playerUnit.GetMaxHP()
+        );
+
+        // 🔴 ENEMY
+        GameObject eBar = Instantiate(hpBarPrefab);
+        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+
+        
+        eFollow.target = battleSystem.enemyUnit.transform;
+
+        enemyBar = eBar.GetComponent<HPBarUI>();
+        enemyBar.Setup(
+            battleSystem.enemyUnit.Instance.data.professorName,
+            battleSystem.enemyUnit.GetCurrentHP(),
+            battleSystem.enemyUnit.GetMaxHP()
+        );
     }
 }

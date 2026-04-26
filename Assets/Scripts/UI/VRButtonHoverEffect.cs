@@ -1,8 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.EventSystems; // 🔥 NUEVO
 
-public class VRButtonHoverEffect : MonoBehaviour
+public class VRButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler // 🔥 NUEVO
 {
     public float hoverScale = 1.2f;
     public float speed = 8f;
@@ -16,8 +17,12 @@ public class VRButtonHoverEffect : MonoBehaviour
 
         XRBaseInteractable interactable = GetComponent<XRBaseInteractable>();
 
-        interactable.hoverEntered.AddListener(OnHoverEnter);
-        interactable.hoverExited.AddListener(OnHoverExit);
+        // EVITA ERROR si no existe (por ejemplo en UI)
+        if (interactable != null)
+        {
+            interactable.hoverEntered.AddListener(OnHoverEnter);
+            interactable.hoverExited.AddListener(OnHoverExit);
+        }
     }
 
     void Update()
@@ -37,6 +42,17 @@ public class VRButtonHoverEffect : MonoBehaviour
     }
 
     void OnHoverExit(HoverExitEventArgs args)
+    {
+        isHovering = false;
+    }
+
+    // 🔥 NUEVO: soporte para UI en VR (Canvas)
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovering = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
     {
         isHovering = false;
     }
