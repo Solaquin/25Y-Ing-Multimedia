@@ -35,8 +35,20 @@ public class BattleUIController : MonoBehaviour
 
     [Header("Party")]
     public PartyMenuBattleController partyMenu;
+
     [Header("Icons")]
     public Image playerProfemonIcon;
+
+    // 🔥 NUEVO: iconos por tipo de movimiento
+    [System.Serializable]
+    public class TipoMovimientoIcono
+    {
+        public TypeSO tipo;
+        public Sprite icono;
+    }
+
+    [Header("Iconos movimientos")]
+    public List<TipoMovimientoIcono> iconosMovimiento;
 
     private BattleUIState currentState;
     private List<GameObject> spawnedItemButtons = new List<GameObject>();
@@ -103,32 +115,28 @@ public class BattleUIController : MonoBehaviour
 
     public void OnBackPressed()
     {
-        PlayClick(); // 🔊 NUEVO
-
+        PlayClick();
         pendingItem = null;
         ShowPanel(BattleUIState.Main);
     }
 
     public void OnAttackPressed()
     {
-        PlayClick(); // 🔊 NUEVO
-
+        PlayClick();
         SetupMoves();
         ShowPanel(BattleUIState.Moves);
     }
 
     public void OnItemPressed()
     {
-        PlayClick(); // 🔊 NUEVO
-
+        PlayClick();
         SetupItems();
         ShowPanel(BattleUIState.Items);
     }
 
     public void OnSwitchPressed()
     {
-        PlayClick(); // 🔊 NUEVO
-
+        PlayClick();
         pendingItem = null;
         ShowPanel(BattleUIState.Party);
         partyMenu.Open();
@@ -138,6 +146,17 @@ public class BattleUIController : MonoBehaviour
     {
         playerProfemonName.text = battleSystem.playerUnit.Instance.data.professorName;
         enemyProfemonName.text = battleSystem.enemyUnit.Instance.data.professorName;
+    }
+
+    // 🔥 MÉTODO PARA OBTENER ICONO SEGÚN TIPO
+    Sprite GetIconoMovimiento(TypeSO tipo)
+    {
+        foreach (var t in iconosMovimiento)
+        {
+            if (t.tipo == tipo)
+                return t.icono;
+        }
+        return null;
     }
 
     void SetupMoves()
@@ -150,16 +169,29 @@ public class BattleUIController : MonoBehaviour
             bool hasMove = i < moves.Count;
             moveButtons[i].gameObject.SetActive(hasMove);
 
-            if (!hasMove) { moveTexts[i].text = ""; continue; }
+            if (!hasMove)
+            {
+                moveTexts[i].text = "";
+                continue;
+            }
 
             MoveSO move = moves[i];
             moveTexts[i].text = move.moveName;
+
+            // 🔥 NUEVO: cambiar imagen del botón según tipo
+            Image img = moveButtons[i].GetComponent<Image>();
+            if (img != null)
+            {
+                Sprite icono = GetIconoMovimiento(move.moveType);
+                if (icono != null)
+                    img.sprite = icono;
+            }
 
             int index = i;
             moveButtons[i].onClick.RemoveAllListeners();
             moveButtons[i].onClick.AddListener(() =>
             {
-                PlayClick(); // 🔊 NUEVO
+                PlayClick();
                 OnMoveSelected(moves[index]);
             });
         }
@@ -205,7 +237,7 @@ public class BattleUIController : MonoBehaviour
 
             btn.GetComponent<Button>().onClick.AddListener(() =>
             {
-                PlayClick(); // 🔊 NUEVO
+                PlayClick();
                 OnItemSelected(captured);
             });
         }
@@ -224,7 +256,7 @@ public class BattleUIController : MonoBehaviour
 
     void OnItemTargetSelected(ProfemonInstance target)
     {
-        PlayClick(); // 🔊 NUEVO
+        PlayClick();
 
         if (pendingItem == null) return;
 
@@ -242,6 +274,7 @@ public class BattleUIController : MonoBehaviour
         enemyHP.text =
             $"HP: {battleSystem.enemyUnit.GetCurrentHP()} / {battleSystem.enemyUnit.GetMaxHP()}";
     }
+
     IEnumerator RetryIcon()
     {
         yield return new WaitForSeconds(0.1f);
