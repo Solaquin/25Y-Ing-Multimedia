@@ -12,16 +12,25 @@ public class UIHoverGlobal : MonoBehaviour
     {
         if (EventSystem.current == null) return;
 
+        GameObject objetoActual = null;
+
+        // FUNCIONA PARA AMBOS (MOUSE Y XR)
         PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        pointerData.position = Input.mousePosition;
+
+        // esto permite que XR también funcione
+        pointerData.position = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
 
         if (results.Count > 0)
         {
-            GameObject objetoActual = results[0].gameObject;
+            objetoActual = results[0].gameObject;
+        }
 
+        // SONIDO SOLO SI CAMBIA EL HOVER
+        if (objetoActual != null)
+        {
             if (objetoActual != ultimoHover)
             {
                 if (objetoActual.GetComponent<UnityEngine.UI.Selectable>() != null)
