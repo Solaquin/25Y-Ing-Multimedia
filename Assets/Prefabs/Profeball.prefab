@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9016167414052007136}
   - component: {fileID: 4322146975524302567}
   - component: {fileID: 4960845080481607814}
-  - component: {fileID: 1733447353265533849}
   - component: {fileID: 5083975544029521522}
   - component: {fileID: 4272426523027144486}
   - component: {fileID: 8655855483037346676}
@@ -115,18 +114,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1733447353265533849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501296604263620347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3597197e6130d47aa5c719e061c64d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProfeBallGrabHandler
 --- !u!54 &5083975544029521522
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -235,7 +222,7 @@ MonoBehaviour:
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
+  m_AttachEaseInTime: 0.3
   m_MovementType: 0
   m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
@@ -278,7 +265,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 0
+  m_FarAttachMode: 1
   m_LimitLinearVelocity: 0
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10

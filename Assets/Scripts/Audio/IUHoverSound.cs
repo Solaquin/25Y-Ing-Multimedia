@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class UIHoverGlobal : MonoBehaviour
 {
@@ -8,43 +10,51 @@ public class UIHoverGlobal : MonoBehaviour
 
     private GameObject ultimoHover;
 
-    void Update()
+    public NearFarInteractor nfInteractorLeft;
+    public NearFarInteractor nfInteractorRight;
+
+    void OnEnable()
     {
-        if (EventSystem.current == null) return;
+        RegistrarEventos(nfInteractorLeft);
+        RegistrarEventos(nfInteractorRight);
+    }
 
-        GameObject objetoActual = null;
+    void OnDisable()
+    {
+        DesregistrarEventos(nfInteractorLeft);
+        DesregistrarEventos(nfInteractorRight);
+    }
 
-        // FUNCIONA PARA AMBOS (MOUSE Y XR)
-        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+    private void RegistrarEventos(NearFarInteractor interactor)
+    {
+        if (interactor == null) return;
+        interactor.hoverEntered.AddListener(OnHoverEntrado);
+        interactor.hoverExited.AddListener(OnHoverSalido);
+    }
 
-        // esto permite que XR también funcione
-        pointerData.position = new Vector2(Screen.width / 2f, Screen.height / 2f);
+    private void DesregistrarEventos(NearFarInteractor interactor)
+    {
+        if (interactor == null) return;
+        interactor.hoverEntered.RemoveListener(OnHoverEntrado);
+        interactor.hoverExited.RemoveListener(OnHoverSalido);
+    }
 
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
+    private void OnHoverEntrado(HoverEnterEventArgs args)
+    {
+        // args.interactableObject es el objeto al que se está apuntando
+        GameObject objetoHover = args.interactableObject.transform.gameObject;
 
-        if (results.Count > 0)
-        {
-            objetoActual = results[0].gameObject;
-        }
+        if (objetoHover == ultimoHover) return;
 
-        // SONIDO SOLO SI CAMBIA EL HOVER
-        if (objetoActual != null)
-        {
-            if (objetoActual != ultimoHover)
-            {
-                if (objetoActual.GetComponent<UnityEngine.UI.Selectable>() != null)
-                {
-                    if (audioUI != null)
-                        audioUI.ActivarAudio();
+        ultimoHover = objetoHover;
 
-                    ultimoHover = objetoActual;
-                }
-            }
-        }
-        else
-        {
+        if (audioUI != null)
+            audioUI.ActivarAudio();
+    }
+
+    private void OnHoverSalido(HoverExitEventArgs args)
+    {
+        if (args.interactableObject.transform.gameObject == ultimoHover)
             ultimoHover = null;
-        }
     }
 }
