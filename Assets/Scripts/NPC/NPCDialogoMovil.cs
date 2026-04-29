@@ -152,7 +152,18 @@ public class NPCDialogoMovil : MonoBehaviour
                 return;
             }
 
-            IniciarSecuencia();
+            if(!ejecutando)
+            {
+
+                IniciarSecuencia();
+            }
+            else
+            {
+                panelDialogo.SetActive(true);
+                if (escrituraCoroutine != null)
+                    StopCoroutine(escrituraCoroutine);
+                escrituraCoroutine = StartCoroutine(EscribirTexto());
+            }
         }
         else
         {
