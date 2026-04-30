@@ -49197,9 +49197,6 @@ PrefabInstance:
       addedObject: {fileID: 1431079330}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1431079333}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1431079332}
   m_SourcePrefab: {fileID: 100100000, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
 --- !u!4 &1431079324 stripped
@@ -49343,41 +49340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b126212a3b39f274185ee418fc342ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CajaInteractuableVR
-  inspector: {fileID: 1431079333}
---- !u!114 &1431079333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358878398}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c152789a12475445aa5704cb4cb5487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CartasInspectorVR
-  inventario: {fileID: 1155693190}
-  cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
-  distancia: 0.6
-  alturaOffset: -0.1
-  separacion: 0.02
-  rotacionAbanico: 5
-  inclinacion: 15
-  escalaCentral: 0.08
-  escalaLateral: 0.065
-  joystickDerecho:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Joystick Derecho
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: e4f7b484-d507-4fea-afb7-a8bc09234235
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 8275859971367427353, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
-  umbral: 0.5
+  inspector: {fileID: 978402768}
 --- !u!1 &1432717523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7333870905098747789, guid: 1920305aa2134374aaeb8c21ac04cb0f, type: 3}
