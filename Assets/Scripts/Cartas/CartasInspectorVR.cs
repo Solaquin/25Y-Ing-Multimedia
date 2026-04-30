@@ -2,80 +2,71 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Monta este script en la Main Camera.
+/// No necesita puntoInspeccion externo — calcula la posición frente al jugador en runtime.
+/// </summary>
 public class CartasInspectorVR : MonoBehaviour
 {
     [Header("Referencias")]
     public InventarioCartas inventario;
     public GameObject cartaPrefab;
-    public Transform puntoInspeccion;
 
-    [Header("Ajustes visuales")]
-    public float separacion = 0.15f;
-    public float rotacionAbanico = 20f;
-    public float inclinacion = 15f;
+    [Header("Posición frente al jugador")]
+    public float distancia = 0.6f;   // metros frente a la cámara
+    public float alturaOffset = -0.1f; // bajar un poco respecto al centro
+
+    [Header("Abanico")]
+    public float separacion = 0.18f;  // distancia entre cartas
+    public float rotacionAbanico = 12f;    // grados de inclinación lateral
+    public float inclinacion = 10f;    // grados hacia el jugador (X)
+
+    [Header("Escala")]
+    public float escalaCentral = 0.08f;   // ajusta según tamaño de tu prefab
+    public float escalaLateral = 0.065f;
 
     [Header("VR Input")]
-    public InputActionProperty joystickDerecho; // Vector2
+    public InputActionProperty joystickDerecho;
+    public float umbral = 0.5f;
 
-    public float umbral = 0.5f; // sensibilidad
-    private bool puedeMover = true;
-
+    // estado
     private List<GameObject> cartasVisuales = new List<GameObject>();
     private bool abierto = false;
-
+    private bool puedeMover = true;
     private int indiceActual = 0;
 
+    // ───────────────────────────────────────────
     public void ToggleInspeccion()
     {
-        if (abierto)
-            Cerrar();
-        else
-            Abrir();
+        if (abierto) Cerrar();
+        else Abrir();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-            ToggleInspeccion();
-
+        // debug teclado
+        if (Input.GetKeyDown(KeyCode.E)) ToggleInspeccion();
         if (!abierto) return;
+        if (Input.GetKeyDown(KeyCode.D)) Siguiente();
+        if (Input.GetKeyDown(KeyCode.A)) Anterior();
 
-        //INPUT VR (joystick derecho)
-        Vector2 input = joystickDerecho.action.ReadValue<Vector2>();
-
+        // joystick VR
+        if (joystickDerecho.action == null) return;
+        Vector2 stick = joystickDerecho.action.ReadValue<Vector2>();
         if (puedeMover)
         {
-            if (input.x > umbral)
-            {
-                Siguiente();
-                puedeMover = false;
-            }
-            else if (input.x < -umbral)
-            {
-                Anterior();
-                puedeMover = false;
-            }
+            if (stick.x > umbral) { Siguiente(); puedeMover = false; }
+            else if (stick.x < -umbral) { Anterior(); puedeMover = false; }
         }
-
-        // 🔄 Reset cuando suelta el joystick
-        if (Mathf.Abs(input.x) < 0.2f)
-        {
-            puedeMover = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-            Siguiente();
-
-        if (Input.GetKeyDown(KeyCode.A))
-            Anterior();
+        if (Mathf.Abs(stick.x) < 0.2f) puedeMover = true;
     }
 
+    // ───────────────────────────────────────────
     void Abrir()
     {
-
+        if (inventario.cartas <= 0) return;
+        indiceActual = Mathf.Clamp(indiceActual, 0, inventario.cartas - 1);
         abierto = true;
-        indiceActual = Mathf.Clamp(1, 0, inventario.cartas - 1);
-
         MostrarCartas();
     }
 
@@ -85,109 +76,72 @@ public class CartasInspectorVR : MonoBehaviour
         LimpiarCartas();
     }
 
+    // ───────────────────────────────────────────
     void MostrarCartas()
     {
         LimpiarCartas();
-        Debug.Log("Mostrando carta index: " + indiceActual);
-        int total = inventario.cartas;
 
+        int total = inventario.cartas;
         if (total <= 0) return;
 
-        // 🔥 CASO 1: SOLO UNA CARTA
-        if (total == 1)
+        // punto frente a la cámara calculado en runtime
+        Vector3 frente = transform.position
+                       + transform.forward * distancia
+                       + transform.up * alturaOffset;
+
+        // offsets a mostrar: solo los que existan
+        // siempre mostramos: indice-1, indice, indice+1
+        for (int offset = -1; offset <= 1; offset++)
         {
-            GameObject carta = Instantiate(
-                cartaPrefab,
-                puntoInspeccion.position,
-                puntoInspeccion.rotation,
-                puntoInspeccion
-            );
-
-            // color
-            Renderer rend = carta.GetComponentInChildren<Renderer>();
-            if (rend != null && inventario.colores.Count > 0)
-            {
-                rend.material = new Material(rend.material);
-                rend.material.color = inventario.colores[0];
-            }
-
-            cartasVisuales.Add(carta);
-
-            // posición centrada
-            PosicionarCarta(carta, 0);
-
-            return;
-        }
-
-        // 🔥 CASO NORMAL (3 cartas)
-        for (int i = -1; i <= 1; i++)
-        {
-            int index = indiceActual + i;
-
-            if (index < 0 || index >= total)
-                continue;
-
-            GameObject carta = Instantiate(
-                cartaPrefab,
-                puntoInspeccion.position,
-                puntoInspeccion.rotation,
-                puntoInspeccion
-            );
-
-            Renderer rend = carta.GetComponentInChildren<Renderer>();
-            if (rend != null && index < inventario.colores.Count)
-            {
-                rend.material = new Material(rend.material);
-                rend.material.color = inventario.colores[index];
-            }
-
-            cartasVisuales.Add(carta);
-
-            PosicionarCarta(carta, i);
+            int idx = indiceActual + offset;
+            if (idx < 0 || idx >= total) continue;
+            CrearCarta(idx, offset, frente);
         }
     }
 
-    void PosicionarCarta(GameObject carta, int posicion)
+    void CrearCarta(int idx, int offset, Vector3 centroMundo)
     {
-        float offsetX = posicion * separacion;
-        float rotZ = -posicion * rotacionAbanico;
+        // posición: desplazamiento lateral en el eje derecho de la cámara
+        Vector3 pos = centroMundo + transform.right * (offset * separacion);
 
-        carta.transform.localPosition = new Vector3(offsetX, 0, 0);
+        // rotación: la carta mira hacia atrás (hacia el jugador) + abanico en Z
+        Quaternion rot = Quaternion.LookRotation(-transform.forward, transform.up)
+               * Quaternion.Euler(inclinacion, 90f, -offset * rotacionAbanico);
 
-        carta.transform.LookAt(Camera.main.transform);
-        carta.transform.Rotate(0, 90, 0);
+        GameObject carta = Instantiate(cartaPrefab, pos, rot);
 
-        carta.transform.Rotate(0, 0,0);
+        // escala
+        if (offset != 0)
+            carta.transform.localScale *= 0.85f;
 
-        carta.transform.Rotate(inclinacion, 0, 0);
+        // color
+        Renderer rend = carta.GetComponent<Renderer>()
+                     ?? carta.GetComponentInChildren<Renderer>();
+        if (rend != null && idx < inventario.colores.Count)
+        {
+            rend.material = new Material(rend.material);
+            rend.material.color = inventario.colores[idx];
+        }
 
-        if (posicion == 0)
-            carta.transform.localScale = Vector3.one * 1.2f;
+        cartasVisuales.Add(carta);
     }
 
+    // ───────────────────────────────────────────
     void Siguiente()
     {
         if (indiceActual < inventario.cartas - 1)
-        {
-            indiceActual++;
-            MostrarCartas();
-        }
+        { indiceActual++; MostrarCartas(); }
     }
 
     void Anterior()
     {
         if (indiceActual > 0)
-        {
-            indiceActual--;
-            MostrarCartas();
-        }
+        { indiceActual--; MostrarCartas(); }
     }
 
     void LimpiarCartas()
     {
-        foreach (var c in cartasVisuales)
-            Destroy(c);
-
+        foreach (var c in cartasVisuales) Destroy(c);
         cartasVisuales.Clear();
     }
 }

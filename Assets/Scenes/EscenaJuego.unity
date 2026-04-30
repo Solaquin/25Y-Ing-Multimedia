@@ -1091,6 +1091,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 126993479}
+    - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 287310640}
     - targetCorrespondingSourceObject: {fileID: 202364688, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1687159087}
@@ -1101,6 +1104,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 978402764}
+    - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 978402768}
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
 --- !u!4 &23759453 stripped
 Transform:
@@ -4441,13 +4447,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126993478}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.2434}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 23759453}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &128513415
 GameObject:
   m_ObjectHideFlags: 0
@@ -9200,6 +9206,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281759004}
   m_CullTransparentMesh: 1
+--- !u!1 &287310639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287310640}
+  m_Layer: 0
+  m_Name: PuntoCartasInspeccion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &287310640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287310639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 23759453}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &294579644
 GameObject:
   m_ObjectHideFlags: 0
@@ -34701,6 +34738,40 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &978402768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978402760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c152789a12475445aa5704cb4cb5487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CartasInspectorVR
+  inventario: {fileID: 1155693190}
+  cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
+  distancia: 0.2
+  alturaOffset: 0
+  separacion: 0.04
+  rotacionAbanico: 0
+  inclinacion: 0
+  escalaCentral: 0.04
+  escalaLateral: 0.03
+  joystickDerecho:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Joystick Derecho
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 0280ab1b-eca5-464a-a179-ba835835ba80
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 8275859971367427353, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
+  umbral: 0.5
 --- !u!1 &981208332
 GameObject:
   m_ObjectHideFlags: 0
@@ -49101,6 +49172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CajaCartas
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -49147,7 +49222,7 @@ MonoBehaviour:
   cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
   puntoInicio: {fileID: 294579645}
   offsetX: 0.001
-  maxCards: 15
+  maxCards: 10
   inventario: {fileID: 1155693190}
 --- !u!114 &1431079330
 MonoBehaviour:
@@ -49276,17 +49351,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358878398}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c152789a12475445aa5704cb4cb5487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CartasInspectorVR
   inventario: {fileID: 1155693190}
   cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
-  puntoInspeccion: {fileID: 126993479}
+  distancia: 0.6
+  alturaOffset: -0.1
   separacion: 0.02
   rotacionAbanico: 5
-  inclinacion: 0
+  inclinacion: 15
+  escalaCentral: 0.08
+  escalaLateral: 0.065
   joystickDerecho:
     m_UseReference: 1
     m_Action:
