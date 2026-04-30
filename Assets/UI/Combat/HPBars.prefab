@@ -88,7 +88,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3693954046734354955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +135,8 @@ MonoBehaviour:
   fillImage: {fileID: 4128884792038949002}
   nameText: {fileID: 6405990336170716342}
   hpText: {fileID: 5448624810741838385}
+  fillSpeed: 3
+  appearSpeed: 5
 --- !u!1 &3244880186594207593
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: af71dc852d2d94b47ba2617a19bb1a06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d279e5588bb4cbb4f9a304fa118c6b25, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -548,7 +550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bbc942835bdd0624caad6b498936b337, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a2fa6fa71ea5e9488eb1edd8e948ae3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   displayName: Despertar
   description: Despierta al profesor de inmediato
-  icon: {fileID: 21300000, guid: e41f41aed5520744188bdd5bf556418b, type: 3}
+  icon: {fileID: 21300000, guid: 30a8c9454f34ece42bf6be962cbd088b, type: 3}
   precio: 50
   effect: 1
   effectValue: 0
