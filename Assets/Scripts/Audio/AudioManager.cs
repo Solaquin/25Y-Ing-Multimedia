@@ -1,38 +1,88 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-public class AudioManager : MonoBehaviour
+public static class AudioManager
 {
-    // Singleton para acceder desde cualquier lugar
-    public static AudioManager instance;
-
-    [Header("Clips de Captura")]
-    public AudioClip clipCapturado;
-    public AudioClip clipEscapado;
-    public AudioClip clipTemblor;
-
-    [Range(0f, 1f)]
-    public float volumenGeneral = 1f;
-
-    private void Awake()
+    // ---------------------------
+    //  SONIDOS NORMALES
+    // ---------------------------
+    public static void Play(AudioInteractivo audio, Vector3 posicion = default)
     {
-        // Configuraci�n del Singleton
-        if (instance == null)
+        if (audio == null || audio.clips.Length == 0) return;
+
+        AudioClip clip = audio.clips[0];
+
+        if (audio.tipoAudio == AudioInteractivo.TipoAudio.Aleatorio ||
+            audio.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Opcional: para que no se borre entre escenas
+            clip = audio.clips[Random.Range(0, audio.clips.Length)];
         }
-        else
+
+        GameObject temp = new GameObject("AudioTemp");
+        temp.transform.position = posicion;
+
+        AudioSource source = temp.AddComponent<AudioSource>();
+        source.clip = clip;
+
+        if (audio.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
-            Destroy(gameObject);
+            source.pitch = Random.Range(audio.pitchMin, audio.pitchMax);
+        }
+
+        source.Play();
+
+        Object.Destroy(temp, clip.length);
+    }
+
+    // ---------------------------
+    // LOOPS (MEJORADO)
+    // ---------------------------
+    private static Dictionary<AudioInteractivo, AudioSource> loops =
+        new Dictionary<AudioInteractivo, AudioSource>();
+
+    public static void PlayLoop(AudioInteractivo audio)
+    {
+        if (audio == null || audio.clips.Length == 0) return;
+
+        // Si ya está sonando, no lo dupliques
+        if (loops.ContainsKey(audio) && loops[audio] != null)
+            return;
+
+        GameObject obj = new GameObject("Loop_" + audio.name);
+        AudioSource source = obj.AddComponent<AudioSource>();
+
+        source.clip = audio.clips[0];
+        source.loop = true;
+        source.Play();
+
+        Object.DontDestroyOnLoad(obj);
+
+        loops[audio] = source;
+    }
+
+    public static void StopLoop(AudioInteractivo audio)
+    {
+        if (audio == null) return;
+
+        if (loops.ContainsKey(audio))
+        {
+            if (loops[audio] != null)
+            {
+                Object.Destroy(loops[audio].gameObject);
+            }
+
+            loops.Remove(audio);
         }
     }
 
-    // M�todo para reproducir sonidos en una posici�n 3D
-    public void PlaySound(AudioClip clip, Vector3 posicion)
+    public static void StopAllLoops()
     {
-        if (clip != null)
+        foreach (var loop in loops.Values)
         {
-            AudioSource.PlayClipAtPoint(clip, posicion, volumenGeneral);
+            if (loop != null)
+                Object.Destroy(loop.gameObject);
         }
+
+        loops.Clear();
     }
 }

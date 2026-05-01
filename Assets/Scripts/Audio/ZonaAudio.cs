@@ -9,7 +9,7 @@ public class ZonaAudio : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (audioZona != null)
-                audioZona.ActivarAudio();
+                AudioManager.PlayLoop(audioZona);
         }
     }
 
@@ -18,7 +18,7 @@ public class ZonaAudio : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (audioZona != null)
-                audioZona.DesactivarAudio();
+                AudioManager.StopLoop();
         }
     }
 }

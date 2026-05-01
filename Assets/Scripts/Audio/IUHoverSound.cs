@@ -49,7 +49,7 @@ public class UIHoverGlobal : MonoBehaviour
         ultimoHover = objetoHover;
 
         if (audioUI != null)
-            audioUI.ActivarAudio();
+            AudioManager.Play(audioUI);
     }
 
     private void OnHoverSalido(HoverExitEventArgs args)
