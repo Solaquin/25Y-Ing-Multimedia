@@ -35257,13 +35257,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CartasInspectorVR
   inventario: {fileID: 1155693190}
   cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
+  camaraVR: {fileID: 978402769}
   distancia: 0.2
   alturaOffset: 0
   separacion: 0.04
   rotacionAbanico: 0
   inclinacion: 0
-  escalaCentral: 0.04
-  escalaLateral: 0.03
   joystickDerecho:
     m_UseReference: 1
     m_Action:
@@ -35277,6 +35276,11 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 8275859971367427353, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
   umbral: 0.5
+--- !u!20 &978402769 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 23759452}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &981208332
 GameObject:
   m_ObjectHideFlags: 0
@@ -40436,8 +40440,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a041a69a555f4a74499ac037468c0fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestCartas
-  caja: {fileID: 1431079327}
   inventario: {fileID: 1155693190}
+  cartasDePrueba:
+  - {fileID: 11400000, guid: 33df89c222ffe39438068b4498888b78, type: 2}
+  - {fileID: 11400000, guid: 84d64521775bef547adab554564c7d14, type: 2}
+  - {fileID: 11400000, guid: 1ec03276d831722428475dc33dbd94d6, type: 2}
+  - {fileID: 11400000, guid: 091dd77e90803e444a28fd498fae2f3b, type: 2}
+  - {fileID: 11400000, guid: 33df89c222ffe39438068b4498888b78, type: 2}
 --- !u!114 &1155693190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40450,8 +40459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81507ccc33b1cae4d8f6f79afc03297e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventarioCartas
-  cartas: 0
-  colores: []
 --- !u!1 &1157418143
 GameObject:
   m_ObjectHideFlags: 0

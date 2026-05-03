@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1fbe67935d0184eb20ed7f4598316b, type: 3}
   m_Name: Carta2
   m_EditorClassIdentifier: Assembly-CSharp::CartaSO
-  nombreCarta: 
-  materialCarta: {fileID: 0}
+  nombreCarta: Carta2
+  materialCarta: {fileID: 2100000, guid: 988d864b0a7cdd744b06b956a32c9db2, type: 2}
