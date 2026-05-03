@@ -3,21 +3,26 @@ using UnityEngine;
 
 public class InventarioCartas : MonoBehaviour
 {
-    public int cartas = 0;
+    private List<CartaSO> cartasDesbloqueadas = new List<CartaSO>();
 
-    public List<Color> colores = new List<Color>();
+    public int cartas => cartasDesbloqueadas.Count;
+    public List<CartaSO> Cartas => cartasDesbloqueadas;
 
     public delegate void OnCartasChanged(int cantidad);
     public event OnCartasChanged onCartasChanged;
 
-    public void AgregarCarta()
+    public void AgregarCarta(CartaSO carta)
     {
-        cartas++;
-
-        // 🔥 Generar color bonito
-        Color nuevoColor = Color.HSVToRGB(Random.value, 0.6f, 1f);
-        colores.Add(nuevoColor);
-
+        if (carta == null) return;
+        if (cartasDesbloqueadas.Contains(carta))
+        {
+            Debug.Log($"[Inventario] Ya tienes: {carta.nombreCarta}");
+            return;
+        }
+        cartasDesbloqueadas.Add(carta);
+        Debug.Log($"[Inventario] Nueva carta: {carta.nombreCarta} (total: {cartas})");
         onCartasChanged?.Invoke(cartas);
     }
+
+    public bool TieneCarta(CartaSO carta) => cartasDesbloqueadas.Contains(carta);
 }
