@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class CartasInspectorVR : MonoBehaviour
 {
@@ -21,6 +23,10 @@ public class CartasInspectorVR : MonoBehaviour
     [Header("VR Input")]
     public InputActionProperty joystickDerecho;
     public float umbral = 0.5f;
+
+    [Header("Movimiento VR")]
+    public MonoBehaviour moveProvider;
+    public MonoBehaviour turnProvider; 
 
     private List<GameObject> cartasVisuales = new List<GameObject>();
     private bool abierto = false;
@@ -62,6 +68,9 @@ public class CartasInspectorVR : MonoBehaviour
         if (abierto) return;
         indiceActual = Mathf.Clamp(indiceActual, 0, inventario.cartas - 1);
         abierto = true;
+        // Bloquear movimiento
+        if (moveProvider != null) moveProvider.enabled = false;
+        if (turnProvider != null) turnProvider.enabled = false;
         MostrarCartas();
     }
 
@@ -69,6 +78,10 @@ public class CartasInspectorVR : MonoBehaviour
     {
         abierto = false;
         LimpiarCartas();
+
+        // Restaurar movimiento
+        if (moveProvider != null) moveProvider.enabled = true;
+        if (turnProvider != null) turnProvider.enabled = true;
     }
 
     void MostrarCartas()
