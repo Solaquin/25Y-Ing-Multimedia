@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public static class AudioManager
 {
     // ---------------------------
-    //  SONIDOS NORMALES
+    // 🔊 SONIDOS NORMALES
     // ---------------------------
     public static void Play(AudioInteractivo audio, Vector3 posicion = default)
     {
@@ -12,6 +12,7 @@ public static class AudioManager
 
         AudioClip clip = audio.clips[0];
 
+        // RANDOM
         if (audio.tipoAudio == AudioInteractivo.TipoAudio.Aleatorio ||
             audio.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
@@ -24,6 +25,7 @@ public static class AudioManager
         AudioSource source = temp.AddComponent<AudioSource>();
         source.clip = clip;
 
+        // PITCH
         if (audio.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
             source.pitch = Random.Range(audio.pitchMin, audio.pitchMax);
@@ -35,7 +37,7 @@ public static class AudioManager
     }
 
     // ---------------------------
-    // LOOPS (MEJORADO)
+    // 🔁 LOOPS (MEJORADO)
     // ---------------------------
     private static Dictionary<AudioInteractivo, AudioSource> loops =
         new Dictionary<AudioInteractivo, AudioSource>();
@@ -44,7 +46,7 @@ public static class AudioManager
     {
         if (audio == null || audio.clips.Length == 0) return;
 
-        // Si ya está sonando, no lo dupliques
+        // Evitar duplicados
         if (loops.ContainsKey(audio) && loops[audio] != null)
             return;
 
@@ -53,6 +55,8 @@ public static class AudioManager
 
         source.clip = audio.clips[0];
         source.loop = true;
+        source.playOnAwake = false;
+
         source.Play();
 
         Object.DontDestroyOnLoad(obj);

@@ -71,7 +71,8 @@ public class BattleSystem : MonoBehaviour
         }
 
         Debug.Log("Battle started");
-        if (musicaCombate != null) musicaCombate.ActivarAudio();
+        if (musicaCombate != null)
+            AudioManager.PlayLoop(musicaCombate);
 
         BattleEvents.OnBattleStarted?.Invoke();
 
@@ -320,7 +321,7 @@ public class BattleSystem : MonoBehaviour
         move.effect.Execute(user, target, context);
 
         if (audioGolpe != null)
-            audioGolpe.ActivarAudio();
+            AudioManager.Play(audioGolpe);
 
         // AFTER (impacto / hit / efectos)
         yield return StartCoroutine(

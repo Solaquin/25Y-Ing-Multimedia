@@ -28,6 +28,7 @@ public class UIHoverGlobal : MonoBehaviour
     private void RegistrarEventos(NearFarInteractor interactor)
     {
         if (interactor == null) return;
+
         interactor.hoverEntered.AddListener(OnHoverEntrado);
         interactor.hoverExited.AddListener(OnHoverSalido);
     }
@@ -35,13 +36,13 @@ public class UIHoverGlobal : MonoBehaviour
     private void DesregistrarEventos(NearFarInteractor interactor)
     {
         if (interactor == null) return;
+
         interactor.hoverEntered.RemoveListener(OnHoverEntrado);
         interactor.hoverExited.RemoveListener(OnHoverSalido);
     }
 
     private void OnHoverEntrado(HoverEnterEventArgs args)
     {
-        // args.interactableObject es el objeto al que se está apuntando
         GameObject objetoHover = args.interactableObject.transform.gameObject;
 
         if (objetoHover == ultimoHover) return;

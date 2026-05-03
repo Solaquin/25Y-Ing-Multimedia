@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ZonaAudio : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class ZonaAudio : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (audioZona != null)
-                AudioManager.StopLoop();
+                AudioManager.StopLoop(audioZona); // 🔥 FIX IMPORTANTE
         }
     }
 }

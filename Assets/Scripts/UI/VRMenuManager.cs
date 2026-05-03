@@ -73,7 +73,7 @@ public class VRMenuManager : MonoBehaviour
     void PlayClick()
     {
         if (audioUI != null)
-            audioUI.ActivarAudio();
+            AudioManager.Play(audioUI);
     }
 
     public void ResetMenu()

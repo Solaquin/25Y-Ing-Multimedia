@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class NPCInteraccionVR : MonoBehaviour
 {
+    public AudioInteractivo audioAlerta;
     [Header("Símbolo de alerta sobre el NPC")]
     public GameObject alerta;
 
@@ -22,7 +23,9 @@ public class NPCInteraccionVR : MonoBehaviour
             if (alerta != null)
             {
                 alerta.SetActive(true);
-                Debug.Log("El jugador entró al rango de " + gameObject.name);
+
+                if (audioAlerta != null)
+                    AudioManager.Play(audioAlerta);
             }
         }
     }
