@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class Profebola : MonoBehaviour
 {
-    [Tooltip("SO que define este tipo de bola. Debe coincidir con la que se consumio del inventario.")]
+    [Tooltip("SO que define este tipo de bola. Debe coincidir con la que se consumió del inventario.")]
     public ProfeBallSO datos;
+
+    [Header("Audio")]
+    public AudioInteractivo sonidoTemblor;
+    public AudioInteractivo sonidoCaptura;
+    public AudioInteractivo sonidoFallo;
 
     private bool isProcessing = false;
 
@@ -38,9 +43,9 @@ public class Profebola : MonoBehaviour
         // Ocultar Profemon (entra a la bola)
         professor.HideProfessor();
 
-        // --- SONIDO DE TEMBLOR ---
-        if (AudioManager.instance != null)
-            AudioManager.instance.PlaySound(AudioManager.instance.clipTemblor, transform.position);
+        // 🔊 SONIDO TEMBLOR
+        if (sonidoTemblor != null)
+            AudioManager.Play(sonidoTemblor, transform.position);
 
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.linearVelocity = Vector3.zero;
@@ -50,21 +55,18 @@ public class Profebola : MonoBehaviour
         // Simular temblor
         float shakeTime = 2f;
         float elapsed = 0f;
-        float timer = 0f;
         Vector3 originalPos = transform.position;
 
         while (elapsed < shakeTime)
-            while (timer < shakeTime)
-            {
-                transform.position = originalPos + Random.insideUnitSphere * 0.05f;
-                elapsed += Time.deltaTime;
-                timer += Time.deltaTime;
-                yield return null;
-            }
+        {
+            transform.position = originalPos + Random.insideUnitSphere * 0.05f;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
         transform.position = originalPos;
 
-        // Probabilidad de captura la dificultad base se reduce con el captureBonus del SO
+        // Probabilidad de captura
         int dificultad = datos != null
             ? Mathf.Max(0, professor.data.captureDifficulty - datos.captureBonus)
             : professor.data.captureDifficulty;
@@ -73,21 +75,21 @@ public class Profebola : MonoBehaviour
 
         if (roll > dificultad)
         {
-            // --- SONIDO DE �XITO ---
-            if (AudioManager.instance != null)
-                AudioManager.instance.PlaySound(AudioManager.instance.clipCapturado, transform.position);
+            // 🔊 SONIDO ÉXITO
+            if (sonidoCaptura != null)
+                AudioManager.Play(sonidoCaptura, transform.position);
 
             professor.ConfirmCapture();
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("[Profebola] El profesor escap�!");
-            // --- SONIDO DE FALLO ---
-            if (AudioManager.instance != null)
-                AudioManager.instance.PlaySound(AudioManager.instance.clipEscapado, transform.position);
+            Debug.Log("[Profebola] El profesor escapó!");
 
-            Debug.Log("El profesor escap�!");
+            // 🔊 SONIDO FALLO
+            if (sonidoFallo != null)
+                AudioManager.Play(sonidoFallo, transform.position);
+
             professor.ShowProfessor();
             Destroy(gameObject);
         }

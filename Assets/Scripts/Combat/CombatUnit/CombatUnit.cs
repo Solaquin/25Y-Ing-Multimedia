@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,17 +59,17 @@ public class CombatUnit : MonoBehaviour
     {
         if (newInstance == null || newInstance.data == null)
         {
-            Debug.LogError("SwapProfemon recibiÛ instancia inv·lida");
+            Debug.LogError("SwapProfemon recibi√≥ instancia inv√°lida");
             yield break;
         }
 
-        // 1) Salida (solo si ya habÌa algo y no es el spawn inicial)
+        // 1) Salida (solo si ya hab√≠a algo y no es el spawn inicial)
         if (!isInitialSpawn && currentModel != null)
         {
             yield return StartCoroutine(DespawnAnimation());
         }
 
-        // 2) Actualizar datos (lÛgica)
+        // 2) Actualizar datos (l√≥gica)
         this.instance = newInstance;
         ResetStages();
         ResetKOFlag();
@@ -93,7 +93,7 @@ public class CombatUnit : MonoBehaviour
 
         BattleEvents.OnHPChanged?.Invoke();
 
-        Debug.Log($"{name} recibiÛ {amount} de daÒo. HP: {instance.currentHP}");
+        Debug.Log($"{name} recibi√≥ {amount} de da√±o. HP: {instance.currentHP}");
         currentHPDebug = instance.currentHP;
     }
 
@@ -108,7 +108,7 @@ public class CombatUnit : MonoBehaviour
 
         BattleEvents.OnHPChanged?.Invoke();
 
-        Debug.Log($"{name} se curÛ {amount}. New HP:{instance.currentHP}");
+        Debug.Log($"{name} se cur√≥ {amount}. New HP:{instance.currentHP}");
         currentHPDebug = instance.currentHP;
     }
 
@@ -250,7 +250,7 @@ public class CombatUnit : MonoBehaviour
         if (instance.ActiveStatus.effect.PreventAction(actionType))
         {
             message =
-                $"{name} est· {instance.ActiveStatus.effect.statusType} y no puede moverse.";
+                $"{name} est√° {instance.ActiveStatus.effect.statusType} y no puede moverse.";
 
             return true;
         }
@@ -273,7 +273,7 @@ public class CombatUnit : MonoBehaviour
 
         if (instance.ActiveStatus.remainingTurns <= 0)
         {
-            Debug.Log($"{name} ya no est· {instance.ActiveStatus.effect.statusType}");
+            Debug.Log($"{name} ya no est√° {instance.ActiveStatus.effect.statusType}");
             CureStatus();
         }
     }
@@ -287,7 +287,7 @@ public class CombatUnit : MonoBehaviour
         if (instance.ActiveStatus.effect != null)
             instance.ActiveStatus.effect.OnRemove(this);
 
-        Debug.Log($"{name} se curÛ de {instance.ActiveStatus.effect?.statusType}");
+        Debug.Log($"{name} se cur√≥ de {instance.ActiveStatus.effect?.statusType}");
 
         instance.CureStatusCondition();
     }
@@ -408,7 +408,7 @@ public class CombatUnit : MonoBehaviour
 
         if (isInitialSpawn)
         {
-            // apariciÛn m·s ìsuaveî
+            // aparici√≥n m√°s ‚Äúsuave‚Äù
             currentModel.transform.localScale = Vector3.zero;
 
             while (t < 1f)
@@ -422,7 +422,7 @@ public class CombatUnit : MonoBehaviour
         }
         else
         {
-            // apariciÛn m·s r·pida tipo cambio
+            // aparici√≥n m√°s r√°pida tipo cambio
             currentModel.transform.localScale = Vector3.zero;
 
             while (t < 1f)
@@ -486,18 +486,22 @@ public class CombatUnit : MonoBehaviour
         {
             CombatUnit unit = e.onTarget ? target : user;
 
-            // animaciÛn
             if (!string.IsNullOrEmpty(e.animTag))
                 yield return StartCoroutine(unit.PlayByTag(e.animTag));
 
-            // VFX
             if (e.vfx != null)
                 Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
 
-            // sonido
             if (e.sfx != null)
             {
-                AudioSource.PlayClipAtPoint(e.sfx, unit.transform.position);
+                GameObject temp = new GameObject("TempSFX");
+                temp.transform.position = unit.transform.position;
+
+                AudioSource source = temp.AddComponent<AudioSource>();
+                source.clip = e.sfx;
+                source.Play();
+
+                Destroy(temp, e.sfx.length);
             }
         }
     }
@@ -510,7 +514,7 @@ public class CombatUnit : MonoBehaviour
 
             CombatUnit unit = e.onTarget ? target : user;
 
-            // AnimaciÛn
+            // Animaci√≥n
             if (!string.IsNullOrEmpty(e.animTag))
             {
                 yield return StartCoroutine(unit.PlayByTag(e.animTag));
@@ -522,10 +526,17 @@ public class CombatUnit : MonoBehaviour
                 Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
             }
 
-            // Audio
+            // AUDIO CORREGIDO
             if (e.sfx != null)
             {
-                AudioSource.PlayClipAtPoint(e.sfx, unit.transform.position);
+                GameObject temp = new GameObject("TempSFX");
+                temp.transform.position = unit.transform.position;
+
+                AudioSource source = temp.AddComponent<AudioSource>();
+                source.clip = e.sfx;
+                source.Play();
+
+                Destroy(temp, e.sfx.length);
             }
         }
     }

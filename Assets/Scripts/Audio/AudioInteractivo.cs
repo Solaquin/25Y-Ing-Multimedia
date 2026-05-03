@@ -36,6 +36,7 @@ public class AudioInteractivo : MonoBehaviour
         }
     }
 
+   
     public void ActivarAudio()
     {
         if (clips.Length == 0) return;
