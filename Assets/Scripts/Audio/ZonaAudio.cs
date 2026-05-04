@@ -6,19 +6,17 @@ public class ZonaAudio : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            if (audioZona != null)
-                AudioManager.PlayLoop(audioZona);
-        }
+        if (!other.CompareTag("Player")) return;
+
+        if (audioZona != null)
+            AudioManager.PlayLoop(audioZona);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            if (audioZona != null)
-                AudioManager.StopLoop(audioZona); // 🔥 FIX IMPORTANTE
-        }
+        if (!other.CompareTag("Player")) return;
+
+        if (audioZona != null)
+            AudioManager.StopLoop(audioZona);
     }
 }
