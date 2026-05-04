@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public static class AudioManager
 {
     // ---------------------------
-    // 🔊 SONIDOS NORMALES
+    // SONIDOS NORMALES
     // ---------------------------
     public static void Play(AudioInteractivo audio, Vector3 posicion = default)
     {
@@ -12,12 +12,19 @@ public static class AudioManager
 
         AudioClip clip = audio.clips[0];
 
-        // RANDOM
         if (audio.tipoAudio == AudioInteractivo.TipoAudio.Aleatorio ||
             audio.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
             clip = audio.clips[Random.Range(0, audio.clips.Length)];
         }
+
+        PlayClip(clip, posicion, audio);
+    }
+
+    //  MÉTODO NUEVO (CLAVE)
+    public static void PlayClip(AudioClip clip, Vector3 posicion, AudioInteractivo config = null)
+    {
+        if (clip == null) return;
 
         GameObject temp = new GameObject("AudioTemp");
         temp.transform.position = posicion;
@@ -25,10 +32,11 @@ public static class AudioManager
         AudioSource source = temp.AddComponent<AudioSource>();
         source.clip = clip;
 
-        // PITCH
-        if (audio.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
+        // Pitch opcional
+        if (config != null &&
+            config.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
-            source.pitch = Random.Range(audio.pitchMin, audio.pitchMax);
+            source.pitch = Random.Range(config.pitchMin, config.pitchMax);
         }
 
         source.Play();
@@ -37,7 +45,7 @@ public static class AudioManager
     }
 
     // ---------------------------
-    // 🔁 LOOPS (MEJORADO)
+    // LOOPS (MÚSICA / AMBIENTE)
     // ---------------------------
     private static Dictionary<AudioInteractivo, AudioSource> loops =
         new Dictionary<AudioInteractivo, AudioSource>();
@@ -46,7 +54,6 @@ public static class AudioManager
     {
         if (audio == null || audio.clips.Length == 0) return;
 
-        // Evitar duplicados
         if (loops.ContainsKey(audio) && loops[audio] != null)
             return;
 
@@ -55,8 +62,6 @@ public static class AudioManager
 
         source.clip = audio.clips[0];
         source.loop = true;
-        source.playOnAwake = false;
-
         source.Play();
 
         Object.DontDestroyOnLoad(obj);
@@ -71,9 +76,7 @@ public static class AudioManager
         if (loops.ContainsKey(audio))
         {
             if (loops[audio] != null)
-            {
                 Object.Destroy(loops[audio].gameObject);
-            }
 
             loops.Remove(audio);
         }

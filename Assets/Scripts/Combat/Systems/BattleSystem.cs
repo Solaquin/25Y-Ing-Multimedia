@@ -214,7 +214,7 @@ public class BattleSystem : MonoBehaviour
             if (!BattleActionValidator.IsActionValid(action))
                 continue;
 
-             yield return StartCoroutine(ExecuteAction(action));
+            yield return StartCoroutine(ExecuteAction(action));
 
             if (!playerUnit.IsAlive() && !playerUnit.HasBeenKO)
             {
@@ -479,7 +479,8 @@ public class BattleSystem : MonoBehaviour
         bool playerWon = allUnits[0].IsAlive();
 
 
-        if (musicaCombate != null) musicaCombate.DesactivarAudio();
+        if (musicaCombate != null)
+            AudioManager.StopLoop(musicaCombate);
 
         yield return StartCoroutine(
             BattleMessenger.Show(playerWon ? "Player wins" : "Enemy wins")

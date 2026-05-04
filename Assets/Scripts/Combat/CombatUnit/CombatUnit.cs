@@ -26,7 +26,7 @@ public class CombatUnit : MonoBehaviour
 
     private void Awake()
     {
-        if(startOnAwake)
+        if (startOnAwake)
         {
             instance = new ProfemonInstance(data, level);
 
@@ -234,6 +234,15 @@ public class CombatUnit : MonoBehaviour
         instance.TrySetStatus(status, duration);
 
         status.OnApply(this);
+
+        // 🔊 =========================
+        // 🔥 SONIDO BUFF / DEBUFF
+        // =========================
+        if (status.sfxOnApply != null)
+        {
+            AudioSource.PlayClipAtPoint(status.sfxOnApply, transform.position);
+        }
+        // 🔊 =========================
 
         Debug.Log($"{name} ahora tiene {status.statusType}");
     }

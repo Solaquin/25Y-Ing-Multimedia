@@ -13,6 +13,10 @@ public class UIHoverGlobal : MonoBehaviour
     public NearFarInteractor nfInteractorLeft;
     public NearFarInteractor nfInteractorRight;
 
+    // 🔧 CONTROL ANTI-SPAM (CLAVE PARA VR)
+    private float hoverCooldown = 0.2f;
+    private float lastHoverTime = -1f;
+
     void OnEnable()
     {
         RegistrarEventos(nfInteractorLeft);
@@ -43,19 +47,31 @@ public class UIHoverGlobal : MonoBehaviour
 
     private void OnHoverEntrado(HoverEnterEventArgs args)
     {
+        if (args.interactableObject == null) return;
+
         GameObject objetoHover = args.interactableObject.transform.gameObject;
 
+        // 🚫 Evita repetir sobre el mismo objeto
         if (objetoHover == ultimoHover) return;
 
-        ultimoHover = objetoHover;
+        // 🚫 Evita spam por múltiples eventos en VR
+        if (Time.time - lastHoverTime < hoverCooldown) return;
 
+        ultimoHover = objetoHover;
+        lastHoverTime = Time.time;
+
+        // 🔊 Sonido hover
         if (audioUI != null)
             AudioManager.Play(audioUI);
     }
 
     private void OnHoverSalido(HoverExitEventArgs args)
     {
+        if (args.interactableObject == null) return;
+
         if (args.interactableObject.transform.gameObject == ultimoHover)
+        {
             ultimoHover = null;
+        }
     }
 }
