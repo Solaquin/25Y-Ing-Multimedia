@@ -33566,8 +33566,8 @@ GameObject:
   - component: {fileID: 913106099}
   - component: {fileID: 913106098}
   - component: {fileID: 913106097}
-  - component: {fileID: 913106101}
   - component: {fileID: 913106100}
+  - component: {fileID: 913106102}
   m_Layer: 5
   m_Name: Battle Canva
   m_TagString: Untagged
@@ -33678,7 +33678,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &913106101
+--- !u!114 &913106102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33687,13 +33687,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 913106095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e675aefcf91ea604994f72f31f72e7f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VRMenuFollow
-  playerCamera: {fileID: 23759453}
-  distance: 1
-  height: 0.12
-  smoothSpeed: 5
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.LazyFollow
+  m_Target: {fileID: 23759453}
+  m_TargetOffset: {x: 0, y: 0.5, z: 1}
+  m_FollowInLocalSpace: 0
+  m_ApplyTargetInLocalSpace: 0
+  m_MovementSpeed: 6
+  m_MovementSpeedVariancePercentage: 0.25
+  m_SnapOnEnable: 1
+  m_PositionFollowMode: 1
+  m_MinDistanceAllowed: 0.01
+  m_MaxDistanceAllowed: 1
+  m_TimeUntilThresholdReachesMaxDistance: 2
+  m_RotationFollowMode: 1
+  m_MinAngleAllowed: 0.1
+  m_MaxAngleAllowed: 5
+  m_TimeUntilThresholdReachesMaxAngle: 3
 --- !u!1 &915057045
 GameObject:
   m_ObjectHideFlags: 0
@@ -35050,7 +35061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &969749895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49000,7 +49011,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 3.16
-  m_NavMeshData: {fileID: 23800000, guid: 010808c89eb4fb74482d7e714cf02f22, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d274a4a2a20e5fc47b4bc794b1ee07a7, type: 2}
   m_BuildHeightMesh: 0
 --- !u!65 &1382454875
 BoxCollider:
@@ -68970,6 +68981,10 @@ PrefabInstance:
     - target: {fileID: 1786670844886749046, guid: 7ef547b39bc52aa4b85b5c54b2821896, type: 3}
       propertyPath: m_Name
       value: CombatSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1786670844886749046, guid: 7ef547b39bc52aa4b85b5c54b2821896, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3393295401016966299, guid: 7ef547b39bc52aa4b85b5c54b2821896, type: 3}
       propertyPath: allTypes.Array.size

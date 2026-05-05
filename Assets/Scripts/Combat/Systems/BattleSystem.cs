@@ -38,6 +38,17 @@ public class BattleSystem : MonoBehaviour
     // Handler items
     [SerializeField] private BattleItemUsageHandler itemUsageHandler;
 
+    private void OnEnable()
+    {
+        if (musicaCombate != null)
+            AudioManager.PlayLoop(musicaCombate);
+    }
+
+    private void OnDisable()
+    {
+        AudioManager.StopLoop(musicaCombate);
+    }
+
     public void SetupBattle(NPCParty enemyParty)
     {
         this.enemyParty = enemyParty;
@@ -71,8 +82,6 @@ public class BattleSystem : MonoBehaviour
         }
 
         Debug.Log("Battle started");
-        if (musicaCombate != null)
-            AudioManager.PlayLoop(musicaCombate);
 
         BattleEvents.OnBattleStarted?.Invoke();
 
