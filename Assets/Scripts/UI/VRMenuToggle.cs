@@ -1,42 +1,39 @@
 using UnityEngine;
 using UnityEngine.XR;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class VRMenuToggle : MonoBehaviour
 {
     public GameObject menuRoot;
     public VRMenuManager menuManager;
 
-    private List<InputDevice> leftHandDevices = new List<InputDevice>();
+    [Header("Input VR")]
+    public InputActionReference botonMenu;
 
-    void Start()
+    private PartyMenuManager partyMenuManager;
+
+    private void Start()
     {
-        InputDevices.GetDevicesAtXRNode(XRNode.LeftHand, leftHandDevices);
+        if(botonMenu != null)
+            botonMenu.action.Enable();
+
+        partyMenuManager = FindFirstObjectByType<PartyMenuManager>();
     }
 
     void Update()
     {
         // Tecla M del teclado
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) || botonMenu.action.WasPressedThisFrame())
         {
             ToggleMenu();
-        }
-
-        // Botón de menú del mando izquierdo
-        foreach (var device in leftHandDevices)
-        {
-            bool menuPressed;
-            if (device.TryGetFeatureValue(CommonUsages.menuButton, out menuPressed) && menuPressed)
-            {
-                ToggleMenu();
-            }
         }
     }
 
     void ToggleMenu()
     {
         bool isActive = menuRoot.activeSelf;
-        FindObjectOfType<PartyMenuManager>().RefreshParty();
+        partyMenuManager.RefreshParty();
 
         menuRoot.SetActive(!isActive);
 

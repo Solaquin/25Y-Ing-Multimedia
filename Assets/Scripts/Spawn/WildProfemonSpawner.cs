@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class WildProfemonSpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    public List<GameObject> wildPrefabs;
+    public List<ProfemonData> wildProfemons;
+
     public int maxAlive = 3;
     public float spawnInterval = 5f;
 
@@ -35,10 +37,16 @@ public class WildProfemonSpawner : MonoBehaviour
         if (currentAlive.Count >= maxAlive)
             return;
 
-        if (wildPrefabs.Count == 0)
+        if (wildProfemons.Count == 0)
             return;
 
-        GameObject prefab = wildPrefabs[Random.Range(0, wildPrefabs.Count)];
+        ProfemonData data = wildProfemons[Random.Range(0, wildProfemons.Count)];
+
+        if (data.worldPrefab == null)
+        {
+            Debug.LogError("WorldPrefab no asignado en " + data.professorName);
+            return;
+        }
 
         Vector3 randomPosition = transform.position +
             new Vector3(
@@ -47,12 +55,13 @@ public class WildProfemonSpawner : MonoBehaviour
                 Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
             );
 
-        GameObject spawned = Instantiate(prefab, randomPosition, Quaternion.identity);
+        GameObject spawned = Instantiate(data.worldPrefab, randomPosition, Quaternion.identity);
 
-        // 🔥 PASARLE EL ÁREA DE SPAWN
+        // PASARLE EL ÁREA DE SPAWN
         Profemon profemon = spawned.GetComponent<Profemon>();
         if (profemon != null)
         {
+            profemon.Initialize(data); //Inyectar data
             profemon.SetSpawnArea(transform.position, spawnAreaSize);
         }
 
@@ -61,12 +70,20 @@ public class WildProfemonSpawner : MonoBehaviour
         StartCoroutine(DestroyAfterTime(spawned, lifetime));
     }
 
-    private System.Collections.IEnumerator DestroyAfterTime(GameObject obj, float time)
+    private IEnumerator DestroyAfterTime(GameObject obj, float time)
     {
         yield return new WaitForSeconds(time);
 
         if (obj != null)
         {
+            Profemon profemon = obj.GetComponent<Profemon>();
+
+            if (profemon != null)
+            {
+                // Espera que termine la animación de salida
+                yield return profemon.StartCoroutine(profemon.DespawnAnim());
+            }
+
             Destroy(obj);
         }
     }

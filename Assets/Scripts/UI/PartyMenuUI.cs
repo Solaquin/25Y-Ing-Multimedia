@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
@@ -11,6 +11,12 @@ public class PartyMenuUI : MonoBehaviour
     public Button[] partyButtons;
     public TextMeshProUGUI[] nameTexts;
     public TextMeshProUGUI[] hpTexts;
+
+    [Header("HP Bars")]
+    public Image[] hpBars;
+
+    // NUEVO: iconos de los profemon
+    public Image[] profemonIcons;
 
     List<ProfemonInstance> currentParty;
 
@@ -39,7 +45,34 @@ public class PartyMenuUI : MonoBehaviour
                 ProfemonInstance p = currentParty[i];
 
                 nameTexts[i].text = p.data.professorName;
+
+                // (lo dejas por si lo quieres usar después)
                 //hpTexts[i].text = $"{p.currentHP}/{p.maxHP}";
+
+                // 🔥 BARRA DE VIDA
+                if (hpBars != null && i < hpBars.Length)
+                {
+                    float hpPercent = (float)p.currentHP / p.maxHP;
+                    hpBars[i].fillAmount = hpPercent;
+
+                    // Color dinámico
+                    if (hpPercent > 0.5f)
+                        hpBars[i].color = Color.green;
+                    else if (hpPercent > 0.25f)
+                        hpBars[i].color = Color.yellow;
+                    else
+                        hpBars[i].color = Color.red;
+                }
+
+                // 🔥 ICONO
+                if (profemonIcons != null && i < profemonIcons.Length)
+                {
+                    if (p.data != null && p.data.image != null)
+                    {
+                        profemonIcons[i].sprite = p.data.image;
+                        profemonIcons[i].color = Color.white;
+                    }
+                }
 
                 int index = i;
 
@@ -55,7 +88,28 @@ public class PartyMenuUI : MonoBehaviour
             }
             else
             {
+                // Ocultar botón
                 partyButtons[i].gameObject.SetActive(false);
+
+                // LIMPIAR TEXTO
+                if (i < nameTexts.Length)
+                    nameTexts[i].text = "";
+
+                if (i < hpTexts.Length)
+                    hpTexts[i].text = "";
+
+                // LIMPIAR BARRA
+                if (hpBars != null && i < hpBars.Length)
+                {
+                    hpBars[i].fillAmount = 0f;
+                }
+
+                // LIMPIAR IMAGEN
+                if (profemonIcons != null && i < profemonIcons.Length)
+                {
+                    profemonIcons[i].sprite = null;
+                    profemonIcons[i].color = new Color(1, 1, 1, 0);
+                }
             }
         }
     }

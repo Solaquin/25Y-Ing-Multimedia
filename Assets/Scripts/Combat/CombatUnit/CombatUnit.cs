@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,9 +16,17 @@ public class CombatUnit : MonoBehaviour
     [SerializeField] bool startOnAwake;
     [SerializeField] int currentHPDebug;
 
+    private bool hasBeenKO = false;
+
+    [Header("Visual")]
+    [SerializeField] Transform modelParent;
+
+    GameObject currentModel;
+    Animator currentAnimator;
+
     private void Awake()
     {
-        if(startOnAwake)
+        if (startOnAwake)
         {
             instance = new ProfemonInstance(data, level);
 
@@ -42,6 +51,31 @@ public class CombatUnit : MonoBehaviour
         currentHPDebug = instance.currentHP;
 
         PrintStats();
+
+        SetupVisual();
+    }
+
+    public IEnumerator SwapProfemon(ProfemonInstance newInstance, bool isInitialSpawn = false)
+    {
+        if (newInstance == null || newInstance.data == null)
+        {
+            Debug.LogError("SwapProfemon recibió instancia inválida");
+            yield break;
+        }
+
+        // 1) Salida (solo si ya había algo y no es el spawn inicial)
+        if (!isInitialSpawn && currentModel != null)
+        {
+            yield return StartCoroutine(DespawnAnimation());
+        }
+
+        // 2) Actualizar datos (lógica)
+        this.instance = newInstance;
+        ResetStages();
+        ResetKOFlag();
+
+        // 3) Entrada (siempre)
+        yield return StartCoroutine(SpawnAnimation(isInitialSpawn));
     }
 
     // ================================
@@ -59,7 +93,7 @@ public class CombatUnit : MonoBehaviour
 
         BattleEvents.OnHPChanged?.Invoke();
 
-        Debug.Log($"{name} recibi� {amount} de da�o. HP: {instance.currentHP}");
+        Debug.Log($"{name} recibió {amount} de daño. HP: {instance.currentHP}");
         currentHPDebug = instance.currentHP;
     }
 
@@ -74,7 +108,7 @@ public class CombatUnit : MonoBehaviour
 
         BattleEvents.OnHPChanged?.Invoke();
 
-        Debug.Log($"{name} se cur� {amount}. New HP:{instance.currentHP}");
+        Debug.Log($"{name} se curó {amount}. New HP:{instance.currentHP}");
         currentHPDebug = instance.currentHP;
     }
 
@@ -91,6 +125,17 @@ public class CombatUnit : MonoBehaviour
     public int GetMaxHP()
     {
         return instance.maxHP;
+    }
+
+    public bool HasBeenKO => hasBeenKO;
+    public void MarkAsKO()
+    {
+        hasBeenKO = true;
+    }
+
+    public void ResetKOFlag()
+    {
+        hasBeenKO = false;
     }
 
     // ================================
@@ -172,15 +217,32 @@ public class CombatUnit : MonoBehaviour
     // ================================
     public void ApplyStatus(StatusEffectSO status, int duration)
     {
-        if (instance.activeStatus != null)
+        if (status == null)
+        {
+            Debug.LogError("Intento de aplicar status null");
+            return;
+        }
+
+        instance.ValidateStatus();
+
+        if (instance.ActiveStatus != null)
         {
             Debug.Log($"{name} ya tiene un estado.");
             return;
         }
 
-        instance.activeStatus = new StatusInstance(status, duration);
+        instance.TrySetStatus(status, duration);
 
         status.OnApply(this);
+
+        // 🔊 =========================
+        // 🔥 SONIDO BUFF / DEBUFF
+        // =========================
+        if (status.sfxOnApply != null)
+        {
+            AudioSource.PlayClipAtPoint(status.sfxOnApply, transform.position);
+        }
+        // 🔊 =========================
 
         Debug.Log($"{name} ahora tiene {status.statusType}");
     }
@@ -189,13 +251,15 @@ public class CombatUnit : MonoBehaviour
     {
         message = "";
 
-        if (instance.activeStatus == null)
+        instance.ValidateStatus();
+
+        if (instance.ActiveStatus == null)
             return false;
 
-        if (instance.activeStatus.effect.PreventAction(actionType))
+        if (instance.ActiveStatus.effect.PreventAction(actionType))
         {
             message =
-                $"{name} est� {instance.activeStatus.effect.statusType} y no puede moverse.";
+                $"{name} está {instance.ActiveStatus.effect.statusType} y no puede moverse.";
 
             return true;
         }
@@ -205,29 +269,36 @@ public class CombatUnit : MonoBehaviour
 
     public void TickStatus()
     {
-        if (instance.activeStatus == null) return;
+        instance.ValidateStatus();
 
-        instance.activeStatus.effect.OnTurnEnd(this);
+        if (instance.ActiveStatus == null) return;
+
+        instance.ActiveStatus.effect.OnTurnEnd(this);
 
         // -1 = persistente, no cuenta turnos
-        if (instance.activeStatus.remainingTurns == -1) return;
+        if (instance.ActiveStatus.remainingTurns == -1) return;
 
-        instance.activeStatus.remainingTurns--;
+        instance.ActiveStatus.remainingTurns--;
 
-        if (instance.activeStatus.remainingTurns <= 0)
+        if (instance.ActiveStatus.remainingTurns <= 0)
         {
-            Debug.Log($"{name} ya no est� {instance.activeStatus.effect.statusType}");
-            instance.activeStatus = null;
+            Debug.Log($"{name} ya no está {instance.ActiveStatus.effect.statusType}");
+            CureStatus();
         }
     }
 
     public void CureStatus()
     {
-        if (instance.activeStatus == null) return;
+        instance.ValidateStatus();
 
-        instance.activeStatus.effect.OnRemove(this);
-        Debug.Log($"{name} se cur� de {instance.activeStatus.effect.statusType}");
-        instance.activeStatus = null;
+        if (instance.ActiveStatus == null) return;
+
+        if (instance.ActiveStatus.effect != null)
+            instance.ActiveStatus.effect.OnRemove(this);
+
+        Debug.Log($"{name} se curó de {instance.ActiveStatus.effect?.statusType}");
+
+        instance.CureStatusCondition();
     }
 
     // ================================
@@ -267,4 +338,215 @@ public class CombatUnit : MonoBehaviour
         return moves[Random.Range(0, moves.Count)];
     }
 
+    // ================================
+    // VISUAL
+    // ================================
+
+    void SetupVisual()
+    {
+        if (instance == null || instance.data == null)
+        {
+            Debug.LogError("Instance o data null en CombatUnit");
+            return;
+        }
+
+        if (currentModel != null)
+            Destroy(currentModel);
+
+        GameObject prefab = instance.data.battlePrefab;
+
+        if (prefab == null)
+        {
+            Debug.LogError("battlePrefab no asignado en " + instance.data.professorName);
+            return;
+        }
+
+        currentModel = Instantiate(prefab, modelParent);
+
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+        currentModel.transform.localScale = Vector3.one;
+
+        currentAnimator = currentModel.GetComponent<Animator>();
+    }
+
+    public void ClearVisual()
+    {
+        if (currentModel != null)
+        {
+            Destroy(currentModel);
+            currentModel = null;
+            currentAnimator = null;
+        }
+    }
+
+    IEnumerator DespawnAnimation()
+    {
+        if (currentModel == null)
+            yield break;
+
+        float t = 0f;
+        Vector3 startScale = currentModel.transform.localScale;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 3f;
+            currentModel.transform.localScale =
+                Vector3.Lerp(startScale, Vector3.zero, t);
+
+            yield return null;
+        }
+
+        Destroy(currentModel);
+        currentModel = null;
+        currentAnimator = null;
+    }
+
+    IEnumerator SpawnAnimation(bool isInitialSpawn)
+    {
+        GameObject prefab = instance.data.battlePrefab;
+
+        currentModel = Instantiate(prefab, modelParent);
+
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+
+        currentAnimator = currentModel.GetComponent<Animator>();
+
+        float t = 0f;
+
+        if (isInitialSpawn)
+        {
+            // aparición más “suave”
+            currentModel.transform.localScale = Vector3.zero;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 2f;
+                currentModel.transform.localScale =
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
+
+                yield return null;
+            }
+        }
+        else
+        {
+            // aparición más rápida tipo cambio
+            currentModel.transform.localScale = Vector3.zero;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 4f;
+                currentModel.transform.localScale =
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
+
+                yield return null;
+            }
+        }
+    }
+
+    // ================================
+    // Animations
+    // ================================
+
+    public IEnumerator PlayFaint()
+    {
+        if (currentAnimator == null) yield break;
+
+        currentAnimator.SetTrigger(BattleAnimKeys.Faint);
+
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Faint")
+        );
+
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f
+        );
+
+        yield return new WaitForSeconds(0.4f);
+
+        // Desaparece
+        yield return StartCoroutine(DespawnAnimation());
+    }
+
+    public IEnumerator PlayByTag(string tag, float exitTime = 0.8f, bool waitForExit = true)
+    {
+        if (currentAnimator == null) yield break;
+
+        currentAnimator.SetTrigger(tag);
+
+        // Esperar a entrar al estado
+        yield return new WaitUntil(() =>
+            currentAnimator.GetCurrentAnimatorStateInfo(0).IsTag(tag)
+        );
+
+        if (waitForExit)
+        {
+            // Esperar hasta cierto punto
+            yield return new WaitUntil(() =>
+                currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= exitTime
+            );
+        }
+    }
+
+    public IEnumerator PlayVisualEvents(List<VisualEvent> events, CombatUnit user, CombatUnit target)
+    {
+        foreach (var e in events)
+        {
+            CombatUnit unit = e.onTarget ? target : user;
+
+            if (!string.IsNullOrEmpty(e.animTag))
+                yield return StartCoroutine(unit.PlayByTag(e.animTag));
+
+            if (e.vfx != null)
+                Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
+
+            if (e.sfx != null)
+            {
+                GameObject temp = new GameObject("TempSFX");
+                temp.transform.position = unit.transform.position;
+
+                AudioSource source = temp.AddComponent<AudioSource>();
+                source.clip = e.sfx;
+                source.Play();
+
+                Destroy(temp, e.sfx.length);
+            }
+        }
+    }
+    public IEnumerator PlayVisualPhase(List<VisualEvent> events, VisualPhase phase, CombatUnit user, CombatUnit target)
+    {
+        foreach (var e in events)
+        {
+            if (e.phase != phase)
+                continue;
+
+            CombatUnit unit = e.onTarget ? target : user;
+
+            // Animación
+            if (!string.IsNullOrEmpty(e.animTag))
+            {
+                yield return StartCoroutine(unit.PlayByTag(e.animTag));
+            }
+
+            // VFX
+            if (e.vfx != null)
+            {
+                Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
+            }
+
+            // AUDIO CORREGIDO
+            if (e.sfx != null)
+            {
+                GameObject temp = new GameObject("TempSFX");
+                temp.transform.position = unit.transform.position;
+
+                AudioSource source = temp.AddComponent<AudioSource>();
+                source.clip = e.sfx;
+                source.Play();
+
+                Destroy(temp, e.sfx.length);
+            }
+        }
+    }
 }

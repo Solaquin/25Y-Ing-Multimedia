@@ -66,6 +66,13 @@ public class StarterProfemon : MonoBehaviour
         PlayerPartyManager.Instance.SetStarter(data);
 
         DisableAllStarters();
+        // 🧠 ACTIVA DIÁLOGO DEL NPC DESPUÉS DE ELEGIR STARTER
+        NPCDialogoMovil npc = FindFirstObjectByType<NPCDialogoMovil>();
+
+        if (npc != null)
+        {
+            npc.ActivarDialogoStarter();
+        }
     }
 
     void ResetPosition()

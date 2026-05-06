@@ -7,6 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class NPCDialogo : MonoBehaviour
 {
+    [Header("Audio Interacción")]
+    public AudioInteractivo audioInteractuar;
+
+    [Header("Audio Dialogo (auto)")]
+    public AudioSource audioDialogoSource;
+    public AudioClip audioDialogoClip;
+
     [Header("UI")]
     public GameObject botonHablar;
     public GameObject panelDialogo;
@@ -30,7 +37,7 @@ public class NPCDialogo : MonoBehaviour
     [Header("Detección de mirada")]
     public Transform camaraJugador;
     [Range(0, 1)]
-    public float umbralMirada = 0.7f; // entre más alto, más preciso
+    public float umbralMirada = 0.7f;
 
     void Start()
     {
@@ -44,9 +51,23 @@ public class NPCDialogo : MonoBehaviour
             botonA.action.Enable();
 
         if (camaraJugador == null)
-        {
             camaraJugador = Camera.main.transform;
+
+        // 🔥 AUTO CONFIG AUDIO SOURCE (NO necesitas arrastrarlo)
+        if (audioDialogoSource == null)
+        {
+            audioDialogoSource = GetComponent<AudioSource>();
+
+            if (audioDialogoSource == null)
+            {
+                audioDialogoSource = gameObject.AddComponent<AudioSource>();
+            }
         }
+
+        // 🔧 Configuración
+        audioDialogoSource.loop = true;
+        audioDialogoSource.playOnAwake = false;
+        audioDialogoSource.spatialBlend = 0f; // 2D (mejor para diálogo)
     }
 
     void OnTriggerEnter(Collider other)
@@ -65,6 +86,8 @@ public class NPCDialogo : MonoBehaviour
             jugadorCerca = false;
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
+
+            DetenerAudioDialogo(); // 🔴 importante
         }
     }
 
@@ -74,10 +97,9 @@ public class NPCDialogo : MonoBehaviour
 
         bool mirandoNPC = EstaMirandoAlNPC();
 
-        // Mostrar botón SOLO si está cerca Y mirando
         botonHablar.SetActive(jugadorCerca && mirandoNPC && !panelDialogo.activeSelf);
 
-        // Interacción VR
+        // VR
         if (jugadorCerca && mirandoNPC && botonA != null && botonA.action.WasPressedThisFrame())
         {
             Interactuar();
@@ -107,6 +129,8 @@ public class NPCDialogo : MonoBehaviour
             textoDialogo.text = dialogos[lineaActual];
             escribiendo = false;
             flechaContinuar.SetActive(true);
+
+            DetenerAudioDialogo(); // 🔴 cortar audio si skip
             return;
         }
 
@@ -121,6 +145,8 @@ public class NPCDialogo : MonoBehaviour
             panelDialogo.SetActive(false);
             botonHablar.SetActive(false);
 
+            DetenerAudioDialogo(); // 🔴 fin diálogo
+
             OnDialogoTerminado?.Invoke();
         }
     }
@@ -131,6 +157,13 @@ public class NPCDialogo : MonoBehaviour
         flechaContinuar.SetActive(false);
         textoDialogo.text = "";
 
+        // 🔊 INICIAR AUDIO LOOP
+        if (audioDialogoClip != null)
+        {
+            audioDialogoSource.clip = audioDialogoClip;
+            audioDialogoSource.Play();
+        }
+
         foreach (char letra in dialogos[lineaActual])
         {
             textoDialogo.text += letra;
@@ -139,11 +172,27 @@ public class NPCDialogo : MonoBehaviour
 
         escribiendo = false;
         flechaContinuar.SetActive(true);
+
+        // 🔴 detener al terminar
+        DetenerAudioDialogo();
+    }
+
+    void DetenerAudioDialogo()
+    {
+        if (audioDialogoSource != null && audioDialogoSource.isPlaying)
+        {
+            audioDialogoSource.Stop();
+        }
     }
 
     public void Interactuar()
     {
         if (!jugadorCerca) return;
+
+        if (audioInteractuar != null)
+        {
+            audioInteractuar.ActivarAudio();
+        }
 
         if (!panelDialogo.activeSelf)
         {

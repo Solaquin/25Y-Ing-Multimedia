@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa87128eba584c4190f9c03ef116bdf, type: 3}
+  m_Name: Data_HeliothSanchez
+  m_EditorClassIdentifier: Assembly-CSharp::ProfemonData
+  professorName: Wilman Helioth
+  worldPrefab: {fileID: 7538416110518910619, guid: c76cd342bf8560f458971e245457c4b9, type: 3}
+  battlePrefab: {fileID: 7538416110518910619, guid: 4befdf340b603c8488e04e81ababc4ed, type: 3}
+  phrase: 
+  description: 
+  anecdote: 
+  profile: 
+  whereToFind: 
+  whereToFindImage: {fileID: 0}
+  image: {fileID: 21300000, guid: 676fdede11f793f449191351ff0393db, type: 3}
+  types:
+  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+  baseStats: {fileID: 11400000, guid: dda9c47785dcff64ba67f3da3a8fd86b, type: 2}
+  learnableMoves:
+  - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
+  - {fileID: 11400000, guid: a2d380b42d296bc4691d5766d036ac68, type: 2}
+  captureDifficulty: 50

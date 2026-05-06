@@ -12,3 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71b5e1f3dfd8ff4f852b11175552dd6, type: 3}
   m_Name: DamageEffect
   m_EditorClassIdentifier: Assembly-CSharp::DamageEffectSO
+  visualEvents:
+  - animTag: Attack
+    sfx: {fileID: 0}
+    vfx: {fileID: 0}
+    onTarget: 0
+    phase: 0
+  - animTag: Hit
+    sfx: {fileID: 0}
+    vfx: {fileID: 0}
+    onTarget: 1
+    phase: 1

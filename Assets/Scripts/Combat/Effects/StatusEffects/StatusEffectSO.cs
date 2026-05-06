@@ -1,8 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class StatusEffectSO : ScriptableObject
 {
     public StatusType statusType;
+
+    // 🔊 AUDIO AL APLICAR EL ESTADO
+    [Header("Audio")]
+    public AudioClip sfxOnApply;
 
     public virtual void OnApply(CombatUnit unit) { }
 

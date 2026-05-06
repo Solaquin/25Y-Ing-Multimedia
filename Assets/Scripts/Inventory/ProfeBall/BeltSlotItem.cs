@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BeltSlotItem : MonoBehaviour
 {
     private ProfeBallBeltSlots belt;
-    private XRGrabInteractable grab;
+    private XRSimpleInteractable grab;
     private ProfeBallSO myBall;
 
     public void Init(ProfeBallBeltSlots b)
@@ -20,42 +21,43 @@ public class BeltSlotItem : MonoBehaviour
 
     void Awake()
     {
-        grab = GetComponent<XRGrabInteractable>();
+        grab = GetComponent<XRSimpleInteractable>();
         if (grab != null)
             grab.selectEntered.AddListener(OnGrab);
     }
 
+
+
     void OnGrab(SelectEnterEventArgs args)
     {
-        if (belt == null || belt.hand == null || myBall == null)
-            return;
+        if (belt == null || myBall == null) return;
 
-        // Consumimos del inventario
         ItemInventory.Instance.ConsumeItem(myBall.id);
 
-        // Spawneamos la real exactamente como antes
-        Transform attach = belt.hand;
-        //GameObject real = belt.SpawnRealBall(belt.hand.position,belt.hand.rotation,attach);
-        GameObject real = belt.SpawnRealBall(transform.position, transform.rotation, attach);
+        var interactor = args.interactorObject;
+        Transform handTransform = (interactor as MonoBehaviour)?.transform;
 
+        GameObject real = belt.SpawnRealBall(handTransform.position, handTransform.rotation);
         var realGrab = real.GetComponent<XRGrabInteractable>();
+        var manager = grab.interactionManager;
 
-        // 🔥 TRANSFERENCIA DEL GRAB: la mano ahora agarra la real, no la visual
-        var interactor = args.interactorObject; // la mano/controlador
-        if (interactor != null && realGrab != null)
+        if (manager != null && realGrab != null)
         {
-            var manager = grab.interactionManager; // usamos el manager de la visual (ya está registrado)
-
-            if (manager != null)
-            {
-                // 1. Soltamos la visual
-                manager.SelectExit(interactor, args.interactableObject);
-                // 2. Agarramos la real
-                manager.SelectEnter(interactor, realGrab);
-            }
+            manager.SelectExit(interactor, args.interactableObject);
+            StartCoroutine(DelayedGrab(manager, interactor, realGrab));
+            return;
         }
 
-        // Ocultamos la visual inmediatamente (para que no se vea ni se pueda volver a agarrar)
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator DelayedGrab(
+        UnityEngine.XR.Interaction.Toolkit.XRInteractionManager manager,
+        UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor,
+        XRGrabInteractable realGrab)
+    {
+        yield return null;
+        manager.SelectEnter(interactor, realGrab);
         gameObject.SetActive(false);
     }
 }

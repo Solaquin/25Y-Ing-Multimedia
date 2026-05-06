@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d383963addaf7e48a49237acdb86b3b, type: 3}
   m_Name: HealEffect
   m_EditorClassIdentifier: Assembly-CSharp::HealEffectSO
+  visualEvents:
+  - animTag: Attack
+    sfx: {fileID: 0}
+    vfx: {fileID: 0}
+    onTarget: 0
+    phase: 0
