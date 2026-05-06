@@ -8213,6 +8213,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3ef11f12d0432724da528fe395f7a4d1, type: 3}
   - {fileID: 8300000, guid: d503a79eb0eb4cf4994715ca69431372, type: 3}
   - {fileID: 8300000, guid: a89d9ec66e476fe4fae1b21f6c5bbcd5, type: 3}
+  - {fileID: 8300000, guid: 054ae1af21d6df449a26783caeaa26eb, type: 3}
   pitchMin: 0.9
   pitchMax: 1.1
 --- !u!1001 &227369089
