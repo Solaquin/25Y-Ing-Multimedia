@@ -69463,7 +69463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f7f4881da08e446a599a3b738207ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundMusicManager
-  musicTracks: []
+  musicTracks:
+  - {fileID: 8300000, guid: a2f6d71f9b8dba04cbe21f72f34a5f1c, type: 3}
   minDelay: 30
   maxDelay: 90
 --- !u!82 &1895617540
@@ -78125,7 +78126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioInteractivo
   tipoAudio: 1
   clips:
-  - {fileID: 8300000, guid: f63dee16e49858f44b0fcee8cf055ead, type: 3}
+  - {fileID: 8300000, guid: eca59d4ccf08d3a498e089df43e4e306, type: 3}
   pitchMin: 0.9
   pitchMax: 1.1
 --- !u!82 &2124813153
