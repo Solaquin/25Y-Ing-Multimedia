@@ -16,13 +16,13 @@ public class BackgroundMusicManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        // 🔥 CLAVE 1: evitar que se destruya entre escenas
+        //  evitar que se destruya entre escenas
         DontDestroyOnLoad(gameObject);
 
-        // 🔥 CLAVE 2: asegurar que sea audio 2D (global)
+        //  asegurar que sea audio 2D (global)
         audioSource.spatialBlend = 0f;
 
-        // 🔥 opcional pero recomendado
+        // opcional pero recomendado
         audioSource.playOnAwake = false;
         audioSource.loop = false;
     }
@@ -36,20 +36,20 @@ public class BackgroundMusicManager : MonoBehaviour
     {
         while (true)
         {
-            // ⏳ Espera tiempo random
+            // Espera tiempo random
             float waitTime = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(waitTime);
 
             if (musicTracks == null || musicTracks.Length == 0)
                 yield break;
 
-            // 🎵 Elegir canción random
+            // Elegir canción random
             AudioClip clip = musicTracks[Random.Range(0, musicTracks.Length)];
 
             audioSource.clip = clip;
             audioSource.Play();
 
-            // ⏳ Esperar a que termine
+            // Esperar a que termine
             yield return new WaitForSeconds(clip.length);
         }
     }
