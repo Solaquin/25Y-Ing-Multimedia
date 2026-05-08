@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 2
   displayName: Profe Capsula
   description: Puedes reclutar profes para tu equipo
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 029658ff883968f44b375f6828e7ff69, type: 3}
   precio: 50
   prefabBola: {fileID: 8501296604263620347, guid: 3753aaa8b20c73346aae87a58e3e81c1, type: 3}
   captureBonus: 50
