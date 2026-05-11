@@ -2768,6 +2768,7 @@ MonoBehaviour:
   idleWaitMin: 2
   idleWaitMax: 5
   rotationSpeed: 8
+  captureNotification: {fileID: 0}
 --- !u!54 &471623946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4546,6 +4547,7 @@ MonoBehaviour:
   idleWaitMin: 2
   idleWaitMax: 5
   rotationSpeed: 8
+  captureNotification: {fileID: 0}
 --- !u!54 &792486177
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10292,6 +10294,7 @@ MonoBehaviour:
   idleWaitMin: 2
   idleWaitMax: 5
   rotationSpeed: 8
+  captureNotification: {fileID: 0}
 --- !u!54 &1704360800
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13025,6 +13028,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomizableNPC
       objectReference: {fileID: 0}
+    - target: {fileID: 909742757488021835, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176211392807731122, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594015748786356113, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628123764980435996, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709667395958649424, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304774072486932317, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115444900428163275, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -13063,6 +13090,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7115444900428163275, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062251475686696427, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933240372804802609, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
