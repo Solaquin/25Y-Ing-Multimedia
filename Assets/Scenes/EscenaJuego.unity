@@ -6429,18 +6429,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3776959250291682050, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 5698387391474515064, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7691148970283303227, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 887270932321665041, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -6487,23 +6475,25 @@ PrefabInstance:
       objectReference: {fileID: 107177515}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: dialogos.Array.size
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[0]'
-      value: "\xA1Saludos viajero! Tu mirada refleja valent\xEDa."
+      value: "Cada profemon se enfoca en un \xE1rea de formaci\xF3n espec\xEDfica,
+        as\xED se cubren todos los campos de la Ingenier\xEDa en Multimedia con profundidad."
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[1]'
-      value: "El camino hacia la gloria est\xE1 lleno de peligros."
+      value: "Cuando revises la Profedex ver\xE1s que est\xE1n clasificados seg\xFAn
+        estas \xE1reas de formaci\xF3n."
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[2]'
-      value: "Nunca subestimes a tus enemigos, incluso los m\xE1s peque\xF1os."
+      value: "Si luchas con honor, siempre tendr\xE1s mi respeto."
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[3]'
-      value: "Si luchas con honor, siempre tendr\xE1s mi respeto."
+      value: 'Presiona E para continuar '
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[4]'
@@ -6568,6 +6558,18 @@ PrefabInstance:
     - target: {fileID: 7647586781371630882, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_Name
       value: NPC_Normal_Customizable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3776959250291682050, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5698387391474515064, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691148970283303227, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11456,9 +11458,11 @@ Transform:
   - {fileID: 2124813151}
   - {fileID: 107177517}
   - {fileID: 835152775}
-  - {fileID: 1341159861}
   - {fileID: 350039014}
   - {fileID: 1314372340}
+  - {fileID: 713246128}
+  - {fileID: 1521720239}
+  - {fileID: 524828018}
   - {fileID: 1390237774}
   - {fileID: 1123539310}
   - {fileID: 1196788713}
@@ -12231,7 +12235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c0737749e74d142b755435bdec88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZonaAudio
-  audioZona: {fileID: 1341159862}
+  audioZona: {fileID: 713246129}
 --- !u!82 &350039016
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12245,7 +12249,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -14966,18 +14970,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5698387391474515064, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276653147706096555, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 48cf17e2598aa2642a6cfdf8a0795079, type: 2}
-    - target: {fileID: 7691148970283303227, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 887270932321665041, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -15024,23 +15016,24 @@ PrefabInstance:
       objectReference: {fileID: 107177515}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: dialogos.Array.size
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[0]'
-      value: Bienvenido, buscador de secretos.
+      value: Es bueno que armes un equipo con varios profemones.
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[1]'
-      value: '"La magia no es solo poder, es responsabilidad.'
+      value: "Eso te dar\xE1 m\xE1s oportunidad en los enfrentamientos y podr\xE1s
+        ir conociendo que habilidades posee cada uno."
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[2]'
-      value: Cada hechizo tiene un precio, no lo olvides.
+      value: "Si deseas aprender m\xE1s, deber\xE1s demostrar tu sabidur\xEDa."
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[3]'
-      value: "Si deseas aprender m\xE1s, deber\xE1s demostrar tu sabidur\xEDa."
+      value: Presiona E para continuar
       objectReference: {fileID: 0}
     - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: 'dialogos.Array.data[4]'
@@ -15048,7 +15041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33
+      value: 33.56
       objectReference: {fileID: 0}
     - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15056,7 +15049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 55.4
+      value: 51.06
       objectReference: {fileID: 0}
     - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15113,6 +15106,18 @@ PrefabInstance:
     - target: {fileID: 7647586781371630882, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_Name
       value: NPC_Normal_Customizable (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698387391474515064, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -30.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276653147706096555, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 48cf17e2598aa2642a6cfdf8a0795079, type: 2}
+    - target: {fileID: 7691148970283303227, guid: 0e2b630ba48c2f943a1f5ba399f81540, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17503,6 +17508,27 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 27.7
       objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: dialogos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[0]'
+      value: "En Mito Caf\xE9 encontrar\xE1s art\xEDculos que te ser\xE1n muy \xFAtiles."
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[1]'
+      value: "Pasa por all\xED y revisa que puedes adquirir. No olvides llevar tu
+        dinero."
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[2]'
+      value: "\xBFListo para aplicar lo aprendido en el pr\xF3ximo reto?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[3]'
+      value: Presiona E para continuar
+      objectReference: {fileID: 0}
     - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.66
@@ -18457,6 +18483,153 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522097084}
   m_CullTransparentMesh: 1
+--- !u!1 &524828017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524828018}
+  - component: {fileID: 524828020}
+  - component: {fileID: 524828019}
+  m_Layer: 0
+  m_Name: Sonido Ambiente #3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &524828018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524828017}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.8372498, y: -0.14511001, z: 17.450039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 332873479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &524828019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049776336cb5af64196c69bd031291a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioInteractivo
+  tipoAudio: 0
+  clips:
+  - {fileID: 8300000, guid: df955c87b071c7841b1b1ed8892ae7e4, type: 3}
+  pitchMin: 0.9
+  pitchMax: 1.1
+--- !u!82 &524828020
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524828017}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &528032898
 GameObject:
   m_ObjectHideFlags: 0
@@ -19307,7 +19480,7 @@ MonoBehaviour:
   nombreNPC: {fileID: 708854957}
   flechaContinuar: {fileID: 140023104}
   dialogos:
-  - A pelear!
+  - "Ey, se me ha olvidado hacer el taller de c\xE1lculo diferencial, \xBFme lo pasas?"
   nombreDelNPC: NPC-Lucha
   botonA: {fileID: 2996596592883197285, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   camaraJugador: {fileID: 0}
@@ -25809,6 +25982,153 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713210846}
   m_CullTransparentMesh: 1
+--- !u!1 &713246127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 713246128}
+  - component: {fileID: 713246130}
+  - component: {fileID: 713246129}
+  m_Layer: 0
+  m_Name: 'Sonido Ambiente #1 '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &713246128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713246127}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.8372498, y: -0.14511001, z: 17.450039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 332873479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &713246129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713246127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049776336cb5af64196c69bd031291a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioInteractivo
+  tipoAudio: 0
+  clips:
+  - {fileID: 8300000, guid: 594b87a394d47ae4fa4a0be4c85a58ad, type: 3}
+  pitchMin: 0.9
+  pitchMax: 1.1
+--- !u!82 &713246130
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713246127}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &713881999
 GameObject:
   m_ObjectHideFlags: 0
@@ -47900,7 +48220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c0737749e74d142b755435bdec88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZonaAudio
-  audioZona: {fileID: 1341159862}
+  audioZona: {fileID: 1521720240}
 --- !u!82 &1314372342
 AudioSource:
   m_ObjectHideFlags: 0
@@ -47914,7 +48234,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -48542,153 +48862,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326031627}
   m_CullTransparentMesh: 1
---- !u!1 &1341159860
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1341159861}
-  - component: {fileID: 1341159863}
-  - component: {fileID: 1341159862}
-  m_Layer: 0
-  m_Name: 'Audio_Ambiente '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1341159861
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341159860}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.070719, y: -0.14511001, z: -4.3953705}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 332873479}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1341159862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341159860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 049776336cb5af64196c69bd031291a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioInteractivo
-  tipoAudio: 1
-  clips:
-  - {fileID: 8300000, guid: f74e97b3277813840ba06f9a68b77699, type: 3}
-  pitchMin: 0.9
-  pitchMax: 1.1
---- !u!82 &1341159863
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341159860}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1345219109 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3442674612896815439, guid: 1920305aa2134374aaeb8c21ac04cb0f, type: 3}
@@ -56256,6 +56429,153 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.26962125, y: 3.1118746, z: 0.26962125}
   m_Center: {x: 0, y: 1.5109372, z: -0.00000013411045}
+--- !u!1 &1521720238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1521720239}
+  - component: {fileID: 1521720241}
+  - component: {fileID: 1521720240}
+  m_Layer: 0
+  m_Name: Sonido Ambiente #2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1521720239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521720238}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 25.3, y: -0.14511001, z: 17.450039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 332873479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1521720240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521720238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049776336cb5af64196c69bd031291a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioInteractivo
+  tipoAudio: 0
+  clips:
+  - {fileID: 8300000, guid: df955c87b071c7841b1b1ed8892ae7e4, type: 3}
+  pitchMin: 0.9
+  pitchMax: 1.1
+--- !u!82 &1521720241
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521720238}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1524267165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79744,6 +80064,10 @@ PrefabInstance:
       propertyPath: audioInteractuar
       value: 
       objectReference: {fileID: 107177515}
+    - target: {fileID: 1508834038844948191, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
+      propertyPath: 'dialogos.Array.data[0]'
+      value: "Los huecos entre clases te han servido para descansar un poco, \xBFverdad?"
+      objectReference: {fileID: 0}
     - target: {fileID: 2296202218986525177, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
       propertyPath: audioAlerta
       value: 
@@ -81133,6 +81457,10 @@ PrefabInstance:
       value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: pasosDespuesStarter.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: pasos.Array.data[0].puntoMovimiento
       value: 
       objectReference: {fileID: 1019753095}
@@ -81164,6 +81492,100 @@ PrefabInstance:
       propertyPath: 'pasos.Array.data[3].activarAlTerminar.Array.data[2]'
       value: 
       objectReference: {fileID: 1321423913}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: pasosDespuesStarter.Array.data[0].dialogo.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: pasosDespuesStarter.Array.data[1].dialogo.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: pasosDespuesStarter.Array.data[2].dialogo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[0]'
+      value: "\xA1Hola, estudiante! Te doy la bienvenida al mundo Profemon. Mi nombre
+        es Miguel y soy el laboratorista de este maravilloso campus. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[1]'
+      value: 'Este es un mundo creado por una comunidad de ingenieros y artistas
+        enfocados en la multimedia. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[2]'
+      value: 'Este es un mundo creado por una comunidad de ingenieros y artistas
+        enfocados en la multimedia. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[3]'
+      value: "Ver\xE1s... hace un tiempo se ha venido perdiendo un poco el sentido
+        de comunidad, raz\xF3n por la que los Profemons est\xE1n un poco dispersos. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[4]'
+      value: "Hace parte de tu misi\xF3n formar equipo con ellos y aprender las habilidades
+        de cada uno para luego usarlas con estrategia."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[5]'
+      value: "Hace parte de tu misi\xF3n formar equipo con ellos y aprender las habilidades
+        de cada uno para luego usarlas con estrategia."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[1].dialogo.Array.data[0]'
+      value: " \xA1Hola, estudiante! Te doy la bienvenida al mundo Profemon. Mi nombre
+        es Miguel y soy el laboratorista de este maravilloso campus. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[1].dialogo.Array.data[1]'
+      value: 'Este es un mundo creado por una comunidad de ingenieros y artistas
+        enfocados en la multimedia. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[1].dialogo.Array.data[2]'
+      value: "Por mi parte, me encargo de que todo lo necesario est\xE9 a la mano
+        para estudiantes y profemones. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[1].dialogo.Array.data[3]'
+      value: "Ver\xE1s... hace un tiempo se ha venido perdiendo un poco el sentido
+        de comunidad, raz\xF3n por la que los Profemons est\xE1n un poco dispersos. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[1].dialogo.Array.data[4]'
+      value: "Hace parte de tu misi\xF3n formar equipo con ellos y aprender las habilidades
+        de cada uno para luego usarlas con estrategia."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[2].dialogo.Array.data[0]'
+      value: " Deber\xE1s retar a tus compa\xF1eros y salir victorioso, con cada
+        enfrentamiento superado, desarrollar\xE1s m\xE1s habilidades y estar\xE1s
+        m\xE1s cerca de tu gran meta: Ser Ingeniero en multimedia. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[2].dialogo.Array.data[1]'
+      value: "Ha llegado el momento que escojas a tu primer Profemon, \xE9l te acompa\xF1ar\xE1
+        y con sus habilidades podr\xE1s empezar a asumir esta aventura. \xA1Vamos
+        escoge una de las tres ProfeCapsulas!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[2].dialogo.Array.data[2]'
+      value: "No olvides que en este camino, la historia te dar\xE1 el sentido y
+        ser\xE1s parte de la reconstrucci\xF3n de la identidad de esta gran comunidad."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[2].dialogo.Array.data[3]'
+      value: "Recuerda que en la Profedex puedes conocer m\xE1s de los Profemons
+        que vayas tomando."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[2].dialogo.Array.data[4]'
+      value: "Hace parte de tu misi\xF3n formar equipo con ellos y aprender las habilidades
+        de cada uno para luego usarlas con estrategia."
+      objectReference: {fileID: 0}
     - target: {fileID: 2837756003636357176, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -81575,6 +81997,20 @@ PrefabInstance:
       propertyPath: audioInteractuar
       value: 
       objectReference: {fileID: 107177515}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: dialogos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[0]'
+      value: "Genial!Veo que ya has empezado a equiparte y las ancias de comenzar
+        a recorrer el campus se te ven a kilom\xE9tros de distancia."
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[1]'
+      value: "Recuerda que tienes un mapa que puedes consultar desde el men\xFA y
+        utilizarlo para orientarte."
+      objectReference: {fileID: 0}
     - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.8
