@@ -11,25 +11,43 @@ public class Profebola : MonoBehaviour
     public AudioInteractivo sonidoCaptura;
     public AudioInteractivo sonidoFallo;
 
+    [Header("Auto-destrucción")]
+    public float tiempoEnSuelo = 5f;
+
     private bool isProcessing = false;
+    private bool tocóSuelo = false;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (isProcessing) return;
 
+        // Intento de captura de Profemon
         Profemon professor = collision.collider.GetComponentInParent<Profemon>();
-
         if (professor != null && !professor.isCaptured)
         {
             StartCoroutine(CaptureSequence(professor));
+            return;
         }
+
+        // Tocó el suelo (cualquier cosa que no sea un Profemon)
+        if (!tocóSuelo)
+        {
+            tocóSuelo = true;
+            StartCoroutine(AutoDestruir());
+        }
+    }
+
+    IEnumerator AutoDestruir()
+    {
+        yield return new WaitForSeconds(tiempoEnSuelo);
+        if (!isProcessing)
+            Destroy(gameObject);
     }
 
     IEnumerator CaptureSequence(Profemon professor)
     {
         isProcessing = true;
 
-        // Verificar stock antes de proceder
         if (datos == null || !ItemInventory.Instance.HasItem(datos.id))
         {
             Debug.LogWarning("[Profebola] Sin stock o sin ProfeBallSO asignado.");
@@ -37,13 +55,9 @@ public class Profebola : MonoBehaviour
             yield break;
         }
 
-        // Consumir del inventario
         ItemInventory.Instance.ConsumeItem(datos.id);
-
-        // Ocultar Profemon (entra a la bola)
         professor.HideProfessor();
 
-        // 🔊 SONIDO TEMBLOR
         if (sonidoTemblor != null)
             AudioManager.Play(sonidoTemblor, transform.position);
 
@@ -52,44 +66,34 @@ public class Profebola : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
 
-        // Simular temblor
         float shakeTime = 2f;
         float elapsed = 0f;
         Vector3 originalPos = transform.position;
-
         while (elapsed < shakeTime)
         {
             transform.position = originalPos + Random.insideUnitSphere * 0.05f;
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         transform.position = originalPos;
 
-        // Probabilidad de captura
         int dificultad = datos != null
             ? Mathf.Max(0, professor.data.captureDifficulty - datos.captureBonus)
             : professor.data.captureDifficulty;
 
         int roll = Random.Range(0, 100);
-
         if (roll > dificultad)
         {
-            // 🔊 SONIDO ÉXITO
             if (sonidoCaptura != null)
                 AudioManager.Play(sonidoCaptura, transform.position);
-
             professor.ConfirmCapture();
             Destroy(gameObject);
         }
         else
         {
             Debug.Log("[Profebola] El profesor escapó!");
-
-            // 🔊 SONIDO FALLO
             if (sonidoFallo != null)
                 AudioManager.Play(sonidoFallo, transform.position);
-
             professor.ShowProfessor();
             Destroy(gameObject);
         }
