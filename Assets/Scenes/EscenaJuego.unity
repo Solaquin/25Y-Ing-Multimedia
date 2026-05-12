@@ -16614,7 +16614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18341,7 +18341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8649036976082946881, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8649036976082946881, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -46233,7 +46233,7 @@ PrefabInstance:
     - target: {fileID: 5705066274568766284, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1fac8de55dbc9594488a79df6f8c7e54, type: 2}
+      objectReference: {fileID: 2100000, guid: 151863a38a5e14640a14e34c6d5b39b1, type: 2}
     - target: {fileID: 5705066274568766284, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
@@ -93749,7 +93749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5143846364727488387, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.479
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 5529226829102964725, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_fontAsset
