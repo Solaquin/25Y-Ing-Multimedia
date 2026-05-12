@@ -56603,7 +56603,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 3.16
-  m_NavMeshData: {fileID: 23800000, guid: d8aa9b7b82c86254d8b8d55232be4da3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b6843f195de789648868c2480992f405, type: 2}
   m_BuildHeightMesh: 0
 --- !u!65 &1382454875
 BoxCollider:
@@ -83608,6 +83608,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.12289
       objectReference: {fileID: 0}
+    - target: {fileID: -5509019543601507745, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.070756406
+      objectReference: {fileID: 0}
+    - target: {fileID: -5509019543601507745, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.031509966
+      objectReference: {fileID: 0}
+    - target: {fileID: -5509019543601507745, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.008599977
+      objectReference: {fileID: 0}
     - target: {fileID: -5379595378632516940, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -86124,6 +86136,18 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 9158966829959536446, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0708
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158966829959536446, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0108
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158966829959536446, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0086
+      objectReference: {fileID: 0}
     - target: {fileID: 9183338483531643722, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.33472493
@@ -86188,6 +86212,7 @@ PrefabInstance:
     - {fileID: -2863475628933985682, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
     - {fileID: 1796384055211142429, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
     - {fileID: -7514626543796824445, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
+    - {fileID: -7626537530782596908, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1cc788e69d434794d9ed57945542d36c, type: 3}
       insertIndex: 25

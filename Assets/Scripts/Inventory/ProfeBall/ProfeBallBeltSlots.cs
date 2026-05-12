@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class ProfeBallBeltSlots : MonoBehaviour
 {
@@ -73,8 +74,22 @@ public class ProfeBallBeltSlots : MonoBehaviour
         }
     }
 
-    public GameObject SpawnRealBall(Vector3 position, Quaternion rotation)
+    public GameObject SpawnRealBall(Vector3 position, Quaternion rotation, Transform attachTransform)
     {
-        return Instantiate(realPrefab, position, rotation);
+        GameObject real = Instantiate(realPrefab, position, rotation);
+        Rigidbody rb = real.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+        }
+        var grab = real.GetComponent<XRGrabInteractable>();
+        if (grab != null && attachTransform != null)
+        {
+            grab.attachTransform = attachTransform;
+            grab.throwOnDetach = true;
+        }
+
+return real; // ← Nuevo retorno
     }
 }
