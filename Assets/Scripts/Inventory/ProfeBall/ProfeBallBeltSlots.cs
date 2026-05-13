@@ -90,6 +90,6 @@ public class ProfeBallBeltSlots : MonoBehaviour
             grab.throwOnDetach = true;
         }
 
-return real; // ← Nuevo retorno
+        return real; // ← Nuevo retorno
     }
 }

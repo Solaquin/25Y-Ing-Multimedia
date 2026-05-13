@@ -4,7 +4,7 @@ public static class BattleEvents
 {
     public static Action OnBattleStarted;
 
-    public static Action<bool> OnBattleEnded;
+    public static Action OnBattleEnded;
 
     public static Action OnTurnStart;
 
@@ -16,5 +16,5 @@ public static class BattleEvents
 
     public static Action OnPlayerSwitchRequired;
 
-    public static Action OnActiveUnitChanged;
+    public static Action<BattleUnitSide> OnActiveUnitChanged;
 }

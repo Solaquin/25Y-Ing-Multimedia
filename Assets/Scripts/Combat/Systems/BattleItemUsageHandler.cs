@@ -47,7 +47,7 @@ public class BattleItemUsageHandler : MonoBehaviour
 
         yield return StartCoroutine(BattleMessenger.Show(resultMessage));
 
-        BattleEvents.OnActiveUnitChanged?.Invoke();
+        BattleEvents.OnHPChanged?.Invoke();
 
         yield return new WaitForSeconds(0.3f);
     }

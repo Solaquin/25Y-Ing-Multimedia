@@ -4,6 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum BattleUnitSide
+{
+    Player,
+    Enemy
+}
+
 public class BattleUIController : MonoBehaviour
 {
     public BattleSystem battleSystem;
@@ -11,12 +17,6 @@ public class BattleUIController : MonoBehaviour
     // NUEVO
     [Header("Audio UI")]
     public AudioInteractivo audioUI;
-
-    [Header("General")]
-    public TextMeshProUGUI playerProfemonName;
-    public TextMeshProUGUI enemyProfemonName;
-    public TextMeshProUGUI playerHP;
-    public TextMeshProUGUI enemyHP;
 
     [Header("Panels")]
     public GameObject mainPanel;
@@ -81,6 +81,7 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnBattleStarted += InitializeUI;
         BattleEvents.OnActiveUnitChanged += RefreshUI;
         BattleEvents.OnPlayerSwitchRequired += OnSwitchPressed;
+        BattleEvents.OnBattleEnded += ClearWorldBars;
     }
 
     void OnDisable()
@@ -89,24 +90,36 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnBattleStarted -= InitializeUI;
         BattleEvents.OnActiveUnitChanged -= RefreshUI;
         BattleEvents.OnPlayerSwitchRequired -= OnSwitchPressed;
+        BattleEvents.OnBattleEnded -= ClearWorldBars;
     }
 
     void InitializeUI()
     {
-        SetupNames();
         SetupMoves();
-        UpdateHP();
         UpdateProfemonIcon();
+
         CrearBarrasWorld();
+        UpdateHP();
+
         ShowPanel(BattleUIState.Main);
     }
 
-    void RefreshUI()
+    void RefreshUI(BattleUnitSide unitSide)
     {
-        SetupNames();
-        SetupMoves();
+        switch (unitSide)
+        {
+            case BattleUnitSide.Player:
+                RebuildPlayerBar();
+                SetupMoves();
+                UpdateProfemonIcon();
+                break;
+
+            case BattleUnitSide.Enemy:
+                RebuildEnemyBar();
+                break;
+        }
+
         UpdateHP();
-        UpdateProfemonIcon();
         ShowPanel(BattleUIState.Main);
     }
 
@@ -147,12 +160,6 @@ public class BattleUIController : MonoBehaviour
         pendingItem = null;
         ShowPanel(BattleUIState.Party);
         partyMenu.Open();
-    }
-
-    void SetupNames()
-    {
-        playerProfemonName.text = battleSystem.playerUnit.Instance.data.professorName;
-        enemyProfemonName.text = battleSystem.enemyUnit.Instance.data.professorName;
     }
 
     // 🔥 MÉTODO PARA OBTENER ICONO SEGÚN TIPO
@@ -281,10 +288,6 @@ public class BattleUIController : MonoBehaviour
         int currentEnemy = battleSystem.enemyUnit.GetCurrentHP();
         int maxEnemy = battleSystem.enemyUnit.GetMaxHP();
 
-        // TEXTO original
-        playerHP.text = $"HP: {currentPlayer} / {maxPlayer}";
-        enemyHP.text = $"HP: {currentEnemy} / {maxEnemy}";
-
         //WORLD UI
         if (playerBar != null)
             playerBar.UpdateHP(currentPlayer, maxPlayer);
@@ -322,31 +325,113 @@ public class BattleUIController : MonoBehaviour
 
     void CrearBarrasWorld()
     {
-        if (playerBar != null || enemyBar != null) return;
-        // 🔵 PLAYER
-        GameObject pBar = Instantiate(hpBarPrefab);
+        if (playerBar != null)
+            Destroy(playerBar.gameObject);
+
+        if (enemyBar != null)
+            Destroy(enemyBar.gameObject);
+
+        // PLAYER
+
+        Transform pCombatUnitTransform = battleSystem.playerUnit.transform;
+
+        GameObject pBar = Instantiate(
+            hpBarPrefab,
+            pCombatUnitTransform
+        );
+
         WorldHPBar pFollow = pBar.GetComponent<WorldHPBar>();
-        pFollow.target = battleSystem.playerUnit.transform;
+        pFollow.target = pCombatUnitTransform;
 
         playerBar = pBar.GetComponent<HPBarUI>();
+
         playerBar.Setup(
             battleSystem.playerUnit.Instance.data.professorName,
             battleSystem.playerUnit.GetCurrentHP(),
             battleSystem.playerUnit.GetMaxHP()
         );
 
-        // 🔴 ENEMY
-        GameObject eBar = Instantiate(hpBarPrefab);
-        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+        // ENEMY
 
-        
-        eFollow.target = battleSystem.enemyUnit.transform;
+        Transform eCombatUnitTransform = battleSystem.enemyUnit.transform;
+
+        GameObject eBar = Instantiate(
+            hpBarPrefab,
+            eCombatUnitTransform
+        );
+
+        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+        eFollow.target = eCombatUnitTransform;
 
         enemyBar = eBar.GetComponent<HPBarUI>();
+
         enemyBar.Setup(
             battleSystem.enemyUnit.Instance.data.professorName,
             battleSystem.enemyUnit.GetCurrentHP(),
             battleSystem.enemyUnit.GetMaxHP()
         );
+    }
+
+    void RebuildPlayerBar()
+    {
+        if (playerBar != null)
+            Destroy(playerBar.gameObject);
+
+        Transform pCombatUnitTransform = battleSystem.playerUnit.transform;
+
+        GameObject pBar = Instantiate(
+            hpBarPrefab,
+            pCombatUnitTransform
+        );
+
+        WorldHPBar pFollow = pBar.GetComponent<WorldHPBar>();
+        pFollow.target = battleSystem.playerUnit.transform;
+
+        playerBar = pBar.GetComponent<HPBarUI>();
+
+        playerBar.Setup(
+            battleSystem.playerUnit.Instance.data.professorName,
+            battleSystem.playerUnit.GetCurrentHP(),
+            battleSystem.playerUnit.GetMaxHP()
+        );
+    }
+
+    void RebuildEnemyBar()
+    {
+        if (enemyBar != null)
+            Destroy(enemyBar.gameObject);
+
+        Transform eCombatUnitTransform = battleSystem.enemyUnit.transform;
+
+        GameObject eBar = Instantiate(
+            hpBarPrefab,
+            eCombatUnitTransform
+        );
+
+        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+        eFollow.target = battleSystem.enemyUnit.transform;
+
+        enemyBar = eBar.GetComponent<HPBarUI>();
+
+        enemyBar.Setup(
+            battleSystem.enemyUnit.Instance.data.professorName,
+            battleSystem.enemyUnit.GetCurrentHP(),
+            battleSystem.enemyUnit.GetMaxHP()
+        );
+    }
+
+    void ClearWorldBars()
+    {
+        if (playerBar != null)
+        {
+            Destroy(playerBar.gameObject);
+            playerBar = null;
+        }
+
+        if (enemyBar != null)
+        {
+            Destroy(enemyBar.gameObject);
+            enemyBar = null;
+        }
     }
 }

@@ -367,13 +367,19 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        BattleUnitSide side =
+            unit == playerUnit
+            ? BattleUnitSide.Player
+            : BattleUnitSide.Enemy;
+
+        BattleEvents.OnActiveUnitChanged?.Invoke(side);
+
         yield return StartCoroutine(unit.SwapProfemon(newInstance));
 
         yield return StartCoroutine(
             BattleMessenger.Show($"{newInstance.data.professorName} entra al combate.")
         );
 
-        BattleEvents.OnActiveUnitChanged?.Invoke();
 
         yield return new WaitForSeconds(0.5f);
     }
@@ -495,6 +501,7 @@ public class BattleSystem : MonoBehaviour
             BattleMessenger.Show(playerWon ? "Player wins" : "Enemy wins")
         );
 
+        BattleEvents.OnBattleEnded?.Invoke();
 
         StopAllCoroutines();
 
@@ -512,13 +519,13 @@ public class BattleSystem : MonoBehaviour
 
         unit.MarkAsKO();
 
+        // Animación de derrota
+        yield return StartCoroutine(unit.PlayFaint());
+
         // Mensaje KO
         yield return StartCoroutine(
             BattleMessenger.Show($"{unit.Instance.data.professorName} se debilitó")
         );
-
-        // Animación de derrota
-        yield return StartCoroutine(unit.PlayFaint());
 
         // =========================
         // PLAYER
@@ -548,12 +555,14 @@ public class BattleSystem : MonoBehaviour
                 BattleMessenger.Show($"{switchAction.switchTarget.data.professorName} entra al combate")
             );
 
+            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Player);
+
             // SIEMPRE SwapProfemon
             yield return StartCoroutine(
                 playerUnit.SwapProfemon(switchAction.switchTarget)
             );
 
-            BattleEvents.OnActiveUnitChanged?.Invoke();
+            
         }
 
         // =========================
@@ -574,12 +583,12 @@ public class BattleSystem : MonoBehaviour
                 BattleMessenger.Show($"El enemigo envía a {next.data.professorName}")
             );
 
+            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Enemy);
+
             // CAMBIO IMPORTANTE (antes era InitializeFromInstance)
             yield return StartCoroutine(
                 enemyUnit.SwapProfemon(next)
             );
-
-            BattleEvents.OnActiveUnitChanged?.Invoke();
         }
     }
 

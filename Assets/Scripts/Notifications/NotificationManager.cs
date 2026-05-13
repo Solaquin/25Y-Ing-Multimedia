@@ -6,11 +6,17 @@ public class NotificationManager : MonoBehaviour
 {
     public static NotificationManager Instance;
 
+    [Header("Default Notification")]
+    [SerializeField]
+    private NotificationSO defaultNotification;
+
     [SerializeField]
     private NotificationUIController uiController;
 
     private Queue<NotificationData> queue =
         new Queue<NotificationData>();
+
+
 
     private bool isShowing;
 
@@ -31,6 +37,21 @@ public class NotificationManager : MonoBehaviour
     {
         if (Instance == null)
             return;
+
+        Instance.Enqueue(data);
+    }
+
+    public static void Send(string message)
+    {
+        if (Instance == null)
+            return;
+
+        NotificationData data =
+            new NotificationData(
+                Instance.defaultNotification
+            );
+
+        data.customBody = message;
 
         Instance.Enqueue(data);
     }
