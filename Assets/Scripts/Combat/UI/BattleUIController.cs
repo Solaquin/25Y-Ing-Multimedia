@@ -24,6 +24,11 @@ public class BattleUIController : MonoBehaviour
     public GameObject itemsPanel;
     public GameObject partyPanel;
 
+    [Header("Buttons")]
+    public GameObject movesButton;
+    public GameObject itemsButton;
+    public GameObject partyButton;
+
     [Header("Movements")]
     public Button[] moveButtons;
     public TextMeshProUGUI[] moveTexts;
@@ -82,6 +87,7 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnActiveUnitChanged += RefreshUI;
         BattleEvents.OnPlayerSwitchRequired += OnSwitchPressed;
         BattleEvents.OnBattleEnded += ClearWorldBars;
+        BattleEvents.OnBattleStateChanged += OnBattleStateChanged;
     }
 
     void OnDisable()
@@ -91,6 +97,7 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnActiveUnitChanged -= RefreshUI;
         BattleEvents.OnPlayerSwitchRequired -= OnSwitchPressed;
         BattleEvents.OnBattleEnded -= ClearWorldBars;
+        BattleEvents.OnBattleStateChanged -= OnBattleStateChanged;
     }
 
     void InitializeUI()
@@ -255,6 +262,16 @@ public class BattleUIController : MonoBehaviour
                 OnItemSelected(captured);
             });
         }
+    }
+
+    void OnBattleStateChanged(BattleState state)
+    {
+        bool canInteract =
+            state == BattleState.PlayerInput;
+
+        movesButton.SetActive(canInteract);
+        itemsButton.SetActive(canInteract);
+        partyButton.SetActive(canInteract);
     }
 
     void OnItemSelected(BattleItemSO item)
@@ -433,5 +450,7 @@ public class BattleUIController : MonoBehaviour
             Destroy(enemyBar.gameObject);
             enemyBar = null;
         }
+
+        mainPanel.SetActive(false);
     }
 }

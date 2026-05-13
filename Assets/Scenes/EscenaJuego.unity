@@ -32225,6 +32225,9 @@ MonoBehaviour:
   movesPanel: {fileID: 1417074238}
   itemsPanel: {fileID: 1731923097}
   partyPanel: {fileID: 1216609948}
+  movesButton: {fileID: 1216901261}
+  itemsButton: {fileID: 2109635187}
+  partyButton: {fileID: 1937697145}
   moveButtons:
   - {fileID: 1309082985}
   - {fileID: 1985762468}
@@ -32241,7 +32244,6 @@ MonoBehaviour:
   partyMenu: {fileID: 1216609949}
   playerProfemonIcon: {fileID: 981208333}
   hpBarPrefab: {fileID: 2845361228357057775, guid: 37216489a11242c48bf5a008b2358008, type: 3}
-  hpBarContainer: {fileID: 1792916833}
   iconosMovimiento:
   - tipo: {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
     icono: {fileID: 21300000, guid: dc64a13e2b3b1124d91b40eee09bcf72, type: 3}
@@ -37429,7 +37431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &913106096
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39248,7 +39250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &969749895
 RectTransform:
   m_ObjectHideFlags: 0

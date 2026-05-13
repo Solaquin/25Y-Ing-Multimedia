@@ -85,7 +85,8 @@ public class BattleSystem : MonoBehaviour
 
         BattleEvents.OnBattleStarted?.Invoke();
 
-        currentState = BattleState.StartBattle;
+        SetState(BattleState.StartBattle);
+
 
         StartCoroutine(BattleLoop());
     }
@@ -112,7 +113,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerInputPhase()
     {
-        currentState = BattleState.PlayerInput;
+        SetState(BattleState.PlayerInput);
 
         playerCommandSelected = false;
 
@@ -125,7 +126,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyInputPhase()
     {
-        currentState = BattleState.EnemyInput;
+        SetState(BattleState.EnemyInput);
 
         CombatUnit enemy = enemyUnit;
         CombatUnit player = playerUnit;
@@ -140,7 +141,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ResolveTurnPhase()
     {
-        currentState = BattleState.ResolvingTurn;
+        SetState(BattleState.ResolvingTurn);
 
         List<BattleCommand> commands =
             new List<BattleCommand>()
@@ -367,14 +368,14 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        yield return StartCoroutine(unit.SwapProfemon(newInstance));
+
         BattleUnitSide side =
             unit == playerUnit
             ? BattleUnitSide.Player
             : BattleUnitSide.Enemy;
 
         BattleEvents.OnActiveUnitChanged?.Invoke(side);
-
-        yield return StartCoroutine(unit.SwapProfemon(newInstance));
 
         yield return StartCoroutine(
             BattleMessenger.Show($"{newInstance.data.professorName} entra al combate.")
@@ -489,7 +490,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EndBattle()
     {
-        currentState = BattleState.EndBattle;
+        SetState(BattleState.EndBattle);   
 
         bool playerWon = allUnits[0].IsAlive();
 
@@ -515,7 +516,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator HandleUnitKO(CombatUnit unit)
     {
-        currentState = BattleState.Busy;
+        SetState(BattleState.Busy);
 
         unit.MarkAsKO();
 
@@ -540,13 +541,13 @@ public class BattleSystem : MonoBehaviour
 
             BattleEvents.OnPlayerSwitchRequired?.Invoke();
 
-            currentState = BattleState.PlayerInput;
+            SetState(BattleState.PlayerInput);
 
             playerCommandSelected = false;
 
             yield return new WaitUntil(() => playerCommandSelected);
 
-            currentState = BattleState.Busy;
+            SetState(BattleState.Busy);
 
             TurnAction switchAction = CommandResolver.CreateAction(playerCommand);
 
@@ -555,14 +556,14 @@ public class BattleSystem : MonoBehaviour
                 BattleMessenger.Show($"{switchAction.switchTarget.data.professorName} entra al combate")
             );
 
-            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Player);
-
             // SIEMPRE SwapProfemon
             yield return StartCoroutine(
                 playerUnit.SwapProfemon(switchAction.switchTarget)
             );
 
-            
+            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Player);
+
+
         }
 
         // =========================
@@ -583,12 +584,12 @@ public class BattleSystem : MonoBehaviour
                 BattleMessenger.Show($"El enemigo envía a {next.data.professorName}")
             );
 
-            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Enemy);
-
             // CAMBIO IMPORTANTE (antes era InitializeFromInstance)
             yield return StartCoroutine(
                 enemyUnit.SwapProfemon(next)
             );
+
+            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Enemy);
         }
     }
 
@@ -667,5 +668,11 @@ public class BattleSystem : MonoBehaviour
             unit.ResetStages();
             unit.ClearVisual();
         }
+    }
+
+    void SetState(BattleState newState)
+    {
+        currentState = newState;
+        BattleEvents.OnBattleStateChanged?.Invoke(newState);
     }
 }
