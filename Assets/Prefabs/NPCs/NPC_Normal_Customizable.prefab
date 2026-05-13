@@ -5562,6 +5562,7 @@ MonoBehaviour:
   botonA: {fileID: 2996596592883197285, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   camaraJugador: {fileID: 0}
   umbralMirada: 0.7
+  animator: {fileID: 7866574649703811959}
 --- !u!82 &7455877262532640910
 AudioSource:
   m_ObjectHideFlags: 0

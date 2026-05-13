@@ -684,6 +684,7 @@ MonoBehaviour:
   botonA: {fileID: 2996596592883197285, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   camaraJugador: {fileID: 0}
   umbralMirada: 0.85
+  animator: {fileID: 7578552341926581069}
 --- !u!114 &2021957266168798474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1633,5 +1634,10 @@ PrefabInstance:
 --- !u!4 &6292801176400039416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7115444900428163275, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
+  m_PrefabInstance: {fileID: 3885381778254243123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7578552341926581069 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6685535475687732862, guid: 9077b5f5cb993d04bafed0004a275294, type: 3}
   m_PrefabInstance: {fileID: 3885381778254243123}
   m_PrefabAsset: {fileID: 0}

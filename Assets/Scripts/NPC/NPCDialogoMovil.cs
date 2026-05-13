@@ -99,6 +99,7 @@ public class NPCDialogoMovil : MonoBehaviour
             jugadorCerca = false;
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
+            SetTalking(false);
         }
     }
 
@@ -226,6 +227,8 @@ public class NPCDialogoMovil : MonoBehaviour
         }
         else
         {
+            SetTalking(false);
+
             panelDialogo.SetActive(false);
 
             bloqueadoPorMovimiento = true;
@@ -239,6 +242,9 @@ public class NPCDialogoMovil : MonoBehaviour
 
     IEnumerator EscribirTexto()
     {
+        SetWalking(false);
+        SetTalking(true);
+
         escribiendo = true;
 
         flechaContinuar.SetActive(false);
@@ -296,7 +302,8 @@ public class NPCDialogoMovil : MonoBehaviour
         // 🔹 Movimiento hacia el punto
         if (paso.puntoMovimiento != null)
         {
-            if (animator != null) animator.SetBool("IsWalking", true);
+            SetTalking(false);
+            SetWalking(true);
 
             while (Vector3.Distance(transform.position, paso.puntoMovimiento.position) > 0.05f)
             {
@@ -309,7 +316,7 @@ public class NPCDialogoMovil : MonoBehaviour
                 yield return null;
             }
 
-            if (animator != null) animator.SetBool("IsWalking", false);
+            SetWalking(false);
         }
 
         // 🔹 Rotación al llegar
@@ -389,6 +396,21 @@ public class NPCDialogoMovil : MonoBehaviour
 
         secuenciaTerminada = true; // 👈 IMPORTANTE
 
+        SetTalking(false);
+        SetWalking(false);
+
         OnDialogoTerminado?.Invoke();
+    }
+
+    void SetTalking(bool value)
+    {
+        if (animator != null)
+            animator.SetBool("IsTalking", value);
+    }
+
+    void SetWalking(bool value)
+    {
+        if (animator != null)
+            animator.SetBool("IsWalking", value);
     }
 }

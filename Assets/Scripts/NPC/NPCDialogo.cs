@@ -39,6 +39,9 @@ public class NPCDialogo : MonoBehaviour
     [Range(0, 1)]
     public float umbralMirada = 0.7f;
 
+    [Header("Animator")]
+    public Animator animator;
+
     void Start()
     {
         botonHablar.SetActive(false);
@@ -87,6 +90,7 @@ public class NPCDialogo : MonoBehaviour
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
 
+            SetTalking(false);
             DetenerAudioDialogo(); // 🔴 importante
         }
     }
@@ -114,6 +118,7 @@ public class NPCDialogo : MonoBehaviour
 
     void IniciarDialogo()
     {
+        SetTalking(true);
         botonHablar.SetActive(false);
         panelDialogo.SetActive(true);
         lineaActual = 0;
@@ -130,7 +135,7 @@ public class NPCDialogo : MonoBehaviour
             escribiendo = false;
             flechaContinuar.SetActive(true);
 
-            DetenerAudioDialogo(); // 🔴 cortar audio si skip
+            DetenerAudioDialogo(); // cortar audio si skip
             return;
         }
 
@@ -145,7 +150,8 @@ public class NPCDialogo : MonoBehaviour
             panelDialogo.SetActive(false);
             botonHablar.SetActive(false);
 
-            DetenerAudioDialogo(); // 🔴 fin diálogo
+            DetenerAudioDialogo(); // fin diálogo
+            SetTalking(false);
 
             OnDialogoTerminado?.Invoke();
         }
@@ -210,5 +216,11 @@ public class NPCDialogo : MonoBehaviour
         float dot = Vector3.Dot(camaraJugador.forward, direccionAlNPC);
 
         return dot > umbralMirada;
+    }
+
+    void SetTalking(bool value)
+    {
+        if (animator != null)
+            animator.SetBool("IsTalking", value);
     }
 }
