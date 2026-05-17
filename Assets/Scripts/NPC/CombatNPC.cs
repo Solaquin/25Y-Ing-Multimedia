@@ -10,11 +10,11 @@ public class CombatNPC : MonoBehaviour
 
     private NPCDialogo npcDialogo;
     private bool yaFueDerrotado = false;
+    private bool enCombate = false; //bandera anti-spam
 
     void Awake()
     {
         npcDialogo = GetComponent<NPCDialogo>();
-
         if (npcDialogo == null)
             Debug.LogError("CombatNPC necesita un NPCDialogo en el mismo GameObject: " + gameObject.name);
     }
@@ -31,12 +31,14 @@ public class CombatNPC : MonoBehaviour
 
     private void HandleDialogoTerminado()
     {
-        // Si ya fue derrotado, el diálogo termina normalmente sin iniciar combate
         if (yaFueDerrotado)
         {
             npcDialogo.botonHablar.SetActive(true);
             return;
         }
+
+        // Si ya hay una batalla en curso, ignorar
+        if (enCombate) return;
 
         if (BattleTransitionManager.Instance == null)
         {
@@ -50,18 +52,22 @@ public class CombatNPC : MonoBehaviour
             return;
         }
 
+        enCombate = true; //bloquear antes de iniciar
         BattleTransitionManager.Instance.StartBattleTransition(enemyParty, this);
     }
 
-    /// <summary>
-    /// Llamado por BattleTransitionManager cuando el jugador gana.
-    /// </summary>
     public void MarcarComoDerrotado()
     {
         yaFueDerrotado = true;
+        enCombate = false; // resetear por si acaso
 
-        // Cambiar a diálogos post-derrota si están asignados
         if (dialogosPostDerrota != null && dialogosPostDerrota.Length > 0)
             npcDialogo.dialogos = dialogosPostDerrota;
+    }
+
+    // Llamar esto si la batalla se cancela o falla, para no quedar bloqueado
+    public void CancelarCombate()
+    {
+        enCombate = false;
     }
 }
