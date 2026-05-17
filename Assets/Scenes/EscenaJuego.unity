@@ -18921,6 +18921,7 @@ Transform:
   - {fileID: 1665181955}
   - {fileID: 297645899}
   - {fileID: 702434628}
+  - {fileID: 2081154290}
   - {fileID: 1574873551}
   - {fileID: 1435784892}
   - {fileID: 1360189530}
@@ -89177,6 +89178,196 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078959960}
   m_CullTransparentMesh: 1
+--- !u!1001 &2081154289
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 476225267}
+    m_Modifications:
+    - target: {fileID: 19868010307605925, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435506509597515145, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 850664577983422257, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 850664577983422257, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 850664577983422257, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.19369832
+      objectReference: {fileID: 0}
+    - target: {fileID: 850664577983422257, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278240049
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: nombreDelNPC
+      value: Enfermera
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: audioInteractuar
+      value: 
+      objectReference: {fileID: 107177515}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: dialogos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[0]'
+      value: "Te puedo ayudar a recuperar a tus profemones para tu proxima batalla,
+        \xBFEstas de acuerdo?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[1]'
+      value: Bien!!, Tus profemones se han recuperado
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[2]'
+      value: "\xBFListo para aplicar lo aprendido en el pr\xF3ximo reto?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 936131304321204275, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'dialogos.Array.data[3]'
+      value: Presiona E para continuar
+      objectReference: {fileID: 0}
+    - target: {fileID: 982504313454222161, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 74.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205557550949464303, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1287758841933524617, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 48cf17e2598aa2642a6cfdf8a0795079, type: 2}
+    - target: {fileID: 1287758841933524617, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 48cf17e2598aa2642a6cfdf8a0795079, type: 2}
+    - target: {fileID: 1287758841933524617, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 48cf17e2598aa2642a6cfdf8a0795079, type: 2}
+    - target: {fileID: 2085508371773337032, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438027705269964126, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489962280718493369, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212229848763370888, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508551570551125263, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3953626218513466005, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: audioAlerta
+      value: 
+      objectReference: {fileID: 107177515}
+    - target: {fileID: 6733304553912005382, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532951352435778394, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647586781371630882, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      propertyPath: m_Name
+      value: NPC_ENFERMERIA(14)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7647586781371630882, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 2081154292}
+    - targetCorrespondingSourceObject: {fileID: 3842039966102040229, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+--- !u!4 &2081154290 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1173384877233857954, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+  m_PrefabInstance: {fileID: 2081154289}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2081154291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7647586781371630882, guid: 4e05af4dd6e7a1c41855cfa75ffbdd64, type: 3}
+  m_PrefabInstance: {fileID: 2081154289}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2081154292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081154291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99235c7534e1a04c90fad7270299760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealNPC
 --- !u!1001 &2086907406
 PrefabInstance:
   m_ObjectHideFlags: 0
