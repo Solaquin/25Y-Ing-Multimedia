@@ -1085,7 +1085,7 @@ RectTransform:
   m_GameObject: {fileID: 1682910525179588084}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1445982, y: 0.25448444, z: 0.4}
+  m_LocalScale: {x: 1.1, y: 0.25, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3177751374876416575}
@@ -3626,7 +3626,7 @@ MonoBehaviour:
   m_MinDistanceAllowed: 0.01
   m_MaxDistanceAllowed: 0.3
   m_TimeUntilThresholdReachesMaxDistance: 3
-  m_RotationFollowMode: 3
+  m_RotationFollowMode: 2
   m_MinAngleAllowed: 0.1
   m_MaxAngleAllowed: 5
   m_TimeUntilThresholdReachesMaxAngle: 3
@@ -5562,6 +5562,7 @@ MonoBehaviour:
   botonA: {fileID: 2996596592883197285, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   camaraJugador: {fileID: 0}
   umbralMirada: 0.7
+  animator: {fileID: 7866574649703811959}
 --- !u!82 &7455877262532640910
 AudioSource:
   m_ObjectHideFlags: 0

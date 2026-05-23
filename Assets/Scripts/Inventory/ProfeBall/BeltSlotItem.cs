@@ -52,14 +52,4 @@ public class BeltSlotItem : MonoBehaviour
 
         gameObject.SetActive(false);
     }
-
-    IEnumerator DelayedGrab(
-        UnityEngine.XR.Interaction.Toolkit.XRInteractionManager manager,
-        UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor,
-        XRGrabInteractable realGrab)
-    {
-        yield return null;
-        manager.SelectEnter(interactor, realGrab);
-        gameObject.SetActive(false);
-    }
 }

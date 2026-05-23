@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quitar Gafas
   m_EditorClassIdentifier: Assembly-CSharp::MoveSO
   moveName: Quitar Gafas
-  moveType: {fileID: 0}
+  moveType: {fileID: 11400000, guid: bf75f44c9eb85b642af05ab88ebf9355, type: 2}
   power: 0
   accuracy: 100
   maxPP: 5
@@ -23,3 +23,5 @@ MonoBehaviour:
   affectedStat: 4
   stageChange: 1
   healAmount: 0
+  statusEffect: {fileID: 0}
+  duration: 0

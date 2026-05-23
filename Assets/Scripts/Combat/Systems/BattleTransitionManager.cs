@@ -11,6 +11,8 @@ public class BattleTransitionManager : MonoBehaviour
     public Transform worldSpawnPoint;       // Punto fijo donde vuelve el jugador al salir del combate
     public GameObject xrRig;               // Tu XR Origin / XR Rig
 
+    public GameObject canchaLimite;
+
     public GameObject battleCanva;
 
     [Header("Fade")]
@@ -45,6 +47,8 @@ public class BattleTransitionManager : MonoBehaviour
         // 1. Fade a negro
         yield return StartCoroutine(Fade(0f, 1f));
 
+        canchaLimite.SetActive(true);
+
         // 2. Teletransportar XR Rig a la zona de combate
         xrRig.transform.position = battleZoneSpawnPoint.position;
         xrRig.transform.rotation = battleZoneSpawnPoint.rotation;
@@ -71,6 +75,8 @@ public class BattleTransitionManager : MonoBehaviour
     IEnumerator TransitionToWorld(bool playerWon)
     {
         yield return StartCoroutine(Fade(0f, 1f));
+
+        canchaLimite.SetActive(false);
 
         if (battleSystem != null)
         {

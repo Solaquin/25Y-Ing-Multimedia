@@ -39,6 +39,9 @@ public class NPCDialogo : MonoBehaviour
     [Range(0, 1)]
     public float umbralMirada = 0.7f;
 
+    [Header("Animator")]
+    public Animator animator;
+
     void Start()
     {
         botonHablar.SetActive(false);
@@ -87,6 +90,7 @@ public class NPCDialogo : MonoBehaviour
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
 
+            SetTalking(false);
             DetenerAudioDialogo(); // 🔴 importante
         }
     }
@@ -114,6 +118,7 @@ public class NPCDialogo : MonoBehaviour
 
     void IniciarDialogo()
     {
+        SetTalking(true);
         botonHablar.SetActive(false);
         panelDialogo.SetActive(true);
         lineaActual = 0;
@@ -125,12 +130,11 @@ public class NPCDialogo : MonoBehaviour
     {
         if (escribiendo)
         {
+            escribiendo = false; // ✅ señal para que la coroutine vieja se autodestruya
             StopAllCoroutines();
             textoDialogo.text = dialogos[lineaActual];
-            escribiendo = false;
             flechaContinuar.SetActive(true);
-
-            DetenerAudioDialogo(); // 🔴 cortar audio si skip
+            DetenerAudioDialogo();
             return;
         }
 
@@ -144,9 +148,8 @@ public class NPCDialogo : MonoBehaviour
         {
             panelDialogo.SetActive(false);
             botonHablar.SetActive(false);
-
-            DetenerAudioDialogo(); // 🔴 fin diálogo
-
+            DetenerAudioDialogo();
+            SetTalking(false);
             OnDialogoTerminado?.Invoke();
         }
     }
@@ -157,23 +160,24 @@ public class NPCDialogo : MonoBehaviour
         flechaContinuar.SetActive(false);
         textoDialogo.text = "";
 
-        // 🔊 INICIAR AUDIO LOOP
+        string lineaAEscribir = dialogos[lineaActual]; // ✅ captura la línea al inicio
+
         if (audioDialogoClip != null)
         {
             audioDialogoSource.clip = audioDialogoClip;
             audioDialogoSource.Play();
         }
 
-        foreach (char letra in dialogos[lineaActual])
+        foreach (char letra in lineaAEscribir)
         {
+            if (!escribiendo) yield break; // ✅ si se canceló, salir limpio
+
             textoDialogo.text += letra;
             yield return new WaitForSeconds(0.03f);
         }
 
         escribiendo = false;
         flechaContinuar.SetActive(true);
-
-        // 🔴 detener al terminar
         DetenerAudioDialogo();
     }
 
@@ -210,5 +214,11 @@ public class NPCDialogo : MonoBehaviour
         float dot = Vector3.Dot(camaraJugador.forward, direccionAlNPC);
 
         return dot > umbralMirada;
+    }
+
+    void SetTalking(bool value)
+    {
+        if (animator != null)
+            animator.SetBool("IsTalking", value);
     }
 }

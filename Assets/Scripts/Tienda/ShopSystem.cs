@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShopSystem : MonoBehaviour
 {
-    [Header("Items que vende esta tienda")]
-    [Tooltip("IDs de los items disponibles. Deben existir en ItemDatabase.")]
-    [SerializeField] private List<string> itemsEnVenta = new List<string>();
+    [Header("Items Database")]
+    [SerializeField]
+    private ItemDatabase itemDatabase;
 
     [Header("UI")]
     [SerializeField] private GameObject shopItemButtonPrefab;
@@ -39,7 +39,7 @@ public class ShopSystem : MonoBehaviour
     void ActualizarDineroUI(int dineroActual)
     {
         if (dineroText != null)
-            dineroText.text = "$ " + dineroActual.ToString();
+            dineroText.text = dineroActual.ToString();
     }
 
     public void AbrirTienda()
@@ -56,22 +56,39 @@ public class ShopSystem : MonoBehaviour
     {
         LimpiarBotones();
 
-        foreach (string itemId in itemsEnVenta)
+        List<BattleItemSO> battleItems =
+            itemDatabase.GetAllBattleItems();
+
+        List<ProfeBallSO> profeBalls =
+            itemDatabase.GetAllProfeBalls();
+
+        foreach (ItemSO item in battleItems)
         {
-            ItemSO item = ItemDatabase.Instance.Get(itemId);
-
-            if (item == null)
-            {
-                Debug.LogWarning($"[ShopSystem] Item no encontrado en ItemDatabase: {itemId}");
-                continue;
-            }
-
-            GameObject buttonGO = Instantiate(shopItemButtonPrefab, contenedorBotones);
-            ShopItemButton button = buttonGO.GetComponent<ShopItemButton>();
-
-            if (button != null)
-                button.Setup(item, this);
+            CrearBoton(item);
         }
+
+        foreach (ItemSO item in profeBalls)
+        {
+            CrearBoton(item);
+        }
+    }
+
+    void CrearBoton(ItemSO item)
+    {
+        if (item == null)
+            return;
+
+        GameObject buttonGO =
+            Instantiate(
+                shopItemButtonPrefab,
+                contenedorBotones
+            );
+
+        ShopItemButton button =
+            buttonGO.GetComponent<ShopItemButton>();
+
+        if (button != null)
+            button.Setup(item, this);
     }
 
     void LimpiarBotones()

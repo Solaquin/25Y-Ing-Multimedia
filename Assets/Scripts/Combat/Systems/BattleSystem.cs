@@ -85,7 +85,8 @@ public class BattleSystem : MonoBehaviour
 
         BattleEvents.OnBattleStarted?.Invoke();
 
-        currentState = BattleState.StartBattle;
+        SetState(BattleState.StartBattle);
+
 
         StartCoroutine(BattleLoop());
     }
@@ -112,7 +113,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerInputPhase()
     {
-        currentState = BattleState.PlayerInput;
+        SetState(BattleState.PlayerInput);
 
         playerCommandSelected = false;
 
@@ -125,7 +126,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyInputPhase()
     {
-        currentState = BattleState.EnemyInput;
+        SetState(BattleState.EnemyInput);
 
         CombatUnit enemy = enemyUnit;
         CombatUnit player = playerUnit;
@@ -140,7 +141,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ResolveTurnPhase()
     {
-        currentState = BattleState.ResolvingTurn;
+        SetState(BattleState.ResolvingTurn);
 
         List<BattleCommand> commands =
             new List<BattleCommand>()
@@ -369,11 +370,17 @@ public class BattleSystem : MonoBehaviour
 
         yield return StartCoroutine(unit.SwapProfemon(newInstance));
 
+        BattleUnitSide side =
+            unit == playerUnit
+            ? BattleUnitSide.Player
+            : BattleUnitSide.Enemy;
+
+        BattleEvents.OnActiveUnitChanged?.Invoke(side);
+
         yield return StartCoroutine(
             BattleMessenger.Show($"{newInstance.data.professorName} entra al combate.")
         );
 
-        BattleEvents.OnActiveUnitChanged?.Invoke();
 
         yield return new WaitForSeconds(0.5f);
     }
@@ -483,7 +490,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EndBattle()
     {
-        currentState = BattleState.EndBattle;
+        SetState(BattleState.EndBattle);   
 
         bool playerWon = allUnits[0].IsAlive();
 
@@ -495,6 +502,7 @@ public class BattleSystem : MonoBehaviour
             BattleMessenger.Show(playerWon ? "Player wins" : "Enemy wins")
         );
 
+        BattleEvents.OnBattleEnded?.Invoke();
 
         StopAllCoroutines();
 
@@ -508,17 +516,17 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator HandleUnitKO(CombatUnit unit)
     {
-        currentState = BattleState.Busy;
+        SetState(BattleState.Busy);
 
         unit.MarkAsKO();
+
+        // Animación de derrota
+        yield return StartCoroutine(unit.PlayFaint());
 
         // Mensaje KO
         yield return StartCoroutine(
             BattleMessenger.Show($"{unit.Instance.data.professorName} se debilitó")
         );
-
-        // Animación de derrota
-        yield return StartCoroutine(unit.PlayFaint());
 
         // =========================
         // PLAYER
@@ -533,13 +541,13 @@ public class BattleSystem : MonoBehaviour
 
             BattleEvents.OnPlayerSwitchRequired?.Invoke();
 
-            currentState = BattleState.PlayerInput;
+            SetState(BattleState.PlayerInput);
 
             playerCommandSelected = false;
 
             yield return new WaitUntil(() => playerCommandSelected);
 
-            currentState = BattleState.Busy;
+            SetState(BattleState.Busy);
 
             TurnAction switchAction = CommandResolver.CreateAction(playerCommand);
 
@@ -553,7 +561,9 @@ public class BattleSystem : MonoBehaviour
                 playerUnit.SwapProfemon(switchAction.switchTarget)
             );
 
-            BattleEvents.OnActiveUnitChanged?.Invoke();
+            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Player);
+
+
         }
 
         // =========================
@@ -579,7 +589,7 @@ public class BattleSystem : MonoBehaviour
                 enemyUnit.SwapProfemon(next)
             );
 
-            BattleEvents.OnActiveUnitChanged?.Invoke();
+            BattleEvents.OnActiveUnitChanged?.Invoke(BattleUnitSide.Enemy);
         }
     }
 
@@ -658,5 +668,11 @@ public class BattleSystem : MonoBehaviour
             unit.ResetStages();
             unit.ClearVisual();
         }
+    }
+
+    void SetState(BattleState newState)
+    {
+        currentState = newState;
+        BattleEvents.OnBattleStateChanged?.Invoke(newState);
     }
 }

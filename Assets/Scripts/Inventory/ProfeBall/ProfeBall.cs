@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Profebola : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Profebola : MonoBehaviour
 
     private bool isProcessing = false;
     private bool tocóSuelo = false;
+
+    [SerializeField]
+    private NotificationSO captureNotification;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -48,14 +52,13 @@ public class Profebola : MonoBehaviour
     {
         isProcessing = true;
 
-        if (datos == null || !ItemInventory.Instance.HasItem(datos.id))
+        if (datos == null)
         {
-            Debug.LogWarning("[Profebola] Sin stock o sin ProfeBallSO asignado.");
+            Debug.LogWarning("[Profebola] Sin ProfeBallSO asignado.");
             Destroy(gameObject);
             yield break;
         }
 
-        ItemInventory.Instance.ConsumeItem(datos.id);
         professor.HideProfessor();
 
         if (sonidoTemblor != null)
@@ -69,6 +72,7 @@ public class Profebola : MonoBehaviour
         float shakeTime = 2f;
         float elapsed = 0f;
         Vector3 originalPos = transform.position;
+
         while (elapsed < shakeTime)
         {
             transform.position = originalPos + Random.insideUnitSphere * 0.05f;
@@ -86,14 +90,17 @@ public class Profebola : MonoBehaviour
         {
             if (sonidoCaptura != null)
                 AudioManager.Play(sonidoCaptura, transform.position);
+
             professor.ConfirmCapture();
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("[Profebola] El profesor escapó!");
+
+            NotificationManager.Send("¡El profesor escapó!");
             if (sonidoFallo != null)
                 AudioManager.Play(sonidoFallo, transform.position);
+
             professor.ShowProfessor();
             Destroy(gameObject);
         }
