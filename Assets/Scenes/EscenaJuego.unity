@@ -39842,9 +39842,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CartasInspectorVR
   inventario: {fileID: 1155693190}
-  cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
+  cartaPrefab: {fileID: 919132149155446097, guid: b0f0ada40a9cfcc429634ddda468e75a, type: 3}
   camaraVR: {fileID: 978402769}
-  distancia: 0.2
+  distancia: 0.08
   alturaOffset: 0
   separacion: 0.04
   rotacionAbanico: 0
@@ -46215,7 +46215,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 84d64521775bef547adab554564c7d14, type: 2}
   - {fileID: 11400000, guid: 1ec03276d831722428475dc33dbd94d6, type: 2}
   - {fileID: 11400000, guid: 091dd77e90803e444a28fd498fae2f3b, type: 2}
-  - {fileID: 11400000, guid: 33df89c222ffe39438068b4498888b78, type: 2}
+  - {fileID: 11400000, guid: ea169bb71a82fd94299d15b18fae9ca1, type: 2}
+  - {fileID: 11400000, guid: 581562d22c7632346b9ab489a8aeeed7, type: 2}
+  - {fileID: 11400000, guid: a873ee56cf458c74bb7564346c42cb42, type: 2}
+  - {fileID: 11400000, guid: 08828aa641a8b9d43b08a98344203e3f, type: 2}
+  - {fileID: 11400000, guid: 3a846e8fc3580ba4fab84c3dab1d8beb, type: 2}
+  - {fileID: 11400000, guid: 95c9bc4540b833642a7a8d81358e45a2, type: 2}
 --- !u!114 &1155693190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56905,7 +56910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5f70aee2cb8f443bd24dbb7df42189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CajaCartasVisual
-  cartaPrefab: {fileID: 1078091335768443936, guid: 7d5a3fc02585ee04c82a76a395316062, type: 3}
+  cartaPrefab: {fileID: 919132149155446097, guid: b0f0ada40a9cfcc429634ddda468e75a, type: 3}
   puntoInicio: {fileID: 294579645}
   offsetX: 0.001
   maxCards: 10

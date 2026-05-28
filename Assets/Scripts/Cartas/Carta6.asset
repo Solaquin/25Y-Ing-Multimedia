@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee1fbe67935d0184eb20ed7f4598316b, type: 3}
-  m_Name: Carta4
+  m_Name: Carta6
   m_EditorClassIdentifier: Assembly-CSharp::CartaSO
   nombreCarta: Carta3
-  materialCarta: {fileID: 2100000, guid: cb2e7185a3a08254aa63588b7fca837a, type: 2}
+  materialCarta: {fileID: 2100000, guid: e7f1ebef86e5d7244a3547f5ce11317b, type: 2}
