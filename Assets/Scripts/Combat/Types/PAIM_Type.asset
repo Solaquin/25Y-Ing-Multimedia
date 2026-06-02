@@ -16,7 +16,7 @@ MonoBehaviour:
   fullName: "PROCESAMIENTO Y AN\xC1LISIS DE INFORMACI\xD3N MULTIMEDIA"
   shortName: PAIM
   icon: {fileID: 0}
-  typeColor: {r: 0, g: 1, b: 0.9424863, a: 0}
+  typeColor: {r: 0.9607843, g: 0.67058825, b: 0.043137256, a: 0}
   effectiveness:
-  - targetType: {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
+  - targetType: {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
     multiplier: 1.5

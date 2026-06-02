@@ -16,5 +16,7 @@ MonoBehaviour:
   fullName: SISTEMAS INTERACTIVOS
   shortName: SI
   icon: {fileID: 0}
-  typeColor: {r: 1, g: 0.1462264, b: 0.15323034, a: 0}
-  effectiveness: []
+  typeColor: {r: 0.14509805, g: 0.3882353, b: 0.92156863, a: 0}
+  effectiveness:
+  - targetType: {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
+    multiplier: 1.5
