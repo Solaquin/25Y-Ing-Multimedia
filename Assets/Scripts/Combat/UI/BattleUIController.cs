@@ -32,6 +32,7 @@ public class BattleUIController : MonoBehaviour
     [Header("Movements")]
     public Button[] moveButtons;
     public TextMeshProUGUI[] moveTexts;
+    public MoveInfoPanel moveInfoPanel;
 
     [Header("Items")]
     public Transform itemButtonContainer;
@@ -185,6 +186,9 @@ public class BattleUIController : MonoBehaviour
         CombatUnit playerUnit = battleSystem.playerUnit;
         List<MoveSO> moves = playerUnit.GetMoves();
 
+        if (moveInfoPanel != null)
+            moveInfoPanel.Hide();
+
         for (int i = 0; i < moveButtons.Length; i++)
         {
             bool hasMove = i < moves.Count;
@@ -215,6 +219,13 @@ public class BattleUIController : MonoBehaviour
                 PlayClick();
                 OnMoveSelected(moves[index]);
             });
+
+            MoveButtonHover hover = moveButtons[i].GetComponent<MoveButtonHover>();
+
+            if (hover != null)
+            {
+                hover.Setup(move, moveInfoPanel);
+            }
         }
     }
 

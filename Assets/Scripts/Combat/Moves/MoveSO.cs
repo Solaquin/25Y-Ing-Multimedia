@@ -6,6 +6,8 @@ public class MoveSO : ScriptableObject
     [Header("Basic Info")]
     public string moveName;
     public TypeSO moveType;
+    [TextArea]
+    public string moveDescription;
 
     [Header("Combat")]
     public int power;
@@ -26,7 +28,7 @@ public class MoveSO : ScriptableObject
     public int stageChange;
 
     [Header("Healing")]
-    public int healAmount;
+    public int healPercent;
 
     [Header("Status Effect")]
     public StatusEffectSO statusEffect;
