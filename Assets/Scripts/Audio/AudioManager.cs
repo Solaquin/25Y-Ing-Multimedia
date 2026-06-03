@@ -21,7 +21,9 @@ public static class AudioManager
         PlayClip(clip, posicion, audio);
     }
 
-    //  MÉTODO NUEVO (CLAVE)
+    // ---------------------------
+    // REPRODUCIR CLIP
+    // ---------------------------
     public static void PlayClip(AudioClip clip, Vector3 posicion, AudioInteractivo config = null)
     {
         if (clip == null) return;
@@ -31,6 +33,12 @@ public static class AudioManager
 
         AudioSource source = temp.AddComponent<AudioSource>();
         source.clip = clip;
+
+        // Volumen configurado en AudioInteractivo
+        if (config != null)
+        {
+            source.volume = config.volumen;
+        }
 
         // Pitch opcional
         if (config != null &&
@@ -62,6 +70,10 @@ public static class AudioManager
 
         source.clip = audio.clips[0];
         source.loop = true;
+
+        // Volumen configurado en AudioInteractivo
+        source.volume = audio.volumen;
+
         source.Play();
 
         Object.DontDestroyOnLoad(obj);
