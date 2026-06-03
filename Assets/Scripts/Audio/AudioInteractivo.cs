@@ -14,6 +14,10 @@ public class AudioInteractivo : MonoBehaviour
     [Header("Configuración")]
     public TipoAudio tipoAudio;
 
+    [Header("Volumen")]
+    [Range(0f, 1f)]
+    public float volumen = 1f;
+
     [Header("Clips de audio")]
     public AudioClip[] clips;
 
@@ -30,16 +34,20 @@ public class AudioInteractivo : MonoBehaviour
 
     private void Start()
     {
+        audioSource.volume = volumen;
+
         if (tipoAudio == TipoAudio.Loop)
         {
             audioSource.loop = true;
         }
     }
 
-   
     public void ActivarAudio()
     {
-        if (clips.Length == 0) return;
+        if (clips == null || clips.Length == 0)
+            return;
+
+        audioSource.volume = volumen;
 
         AudioClip clipSeleccionado = clips[0];
 
@@ -72,5 +80,11 @@ public class AudioInteractivo : MonoBehaviour
         {
             audioSource.Stop();
         }
+    }
+
+    public void SetVolume(float nuevoVolumen)
+    {
+        volumen = Mathf.Clamp01(nuevoVolumen);
+        audioSource.volume = volumen;
     }
 }
