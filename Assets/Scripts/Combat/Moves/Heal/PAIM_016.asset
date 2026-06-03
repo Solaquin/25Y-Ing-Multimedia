@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ebbec4cb94f7a409c633c462947d52, type: 3}
-  m_Name: Quitar Gafas
+  m_Name: PAIM_016
   m_EditorClassIdentifier: Assembly-CSharp::MoveSO
-  moveName: Quitar Gafas
-  moveType: {fileID: 11400000, guid: bf75f44c9eb85b642af05ab88ebf9355, type: 2}
+  moveName: Limpieza de Datos
+  moveType: {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
+  moveDescription: "Eliminar informaci\xF3n irrelevante mejora el rendimiento general.
+    Recupera 40% del HP m\xE1ximo."
   power: 0
   accuracy: 100
   maxPP: 5
   priority: 0
   baseCritChance: 0
-  effect: {fileID: 11400000, guid: e03b4682d80e1aa46834904ddaa56f33, type: 2}
-  affectedStat: 4
-  stageChange: 1
-  healAmount: 0
+  effect: {fileID: 11400000, guid: 60a161d8821c62a4f83b8e35cd4e05de, type: 2}
+  affectedStat: 0
+  stageChange: 0
+  healPercent: 40
   statusEffect: {fileID: 0}
   duration: 0

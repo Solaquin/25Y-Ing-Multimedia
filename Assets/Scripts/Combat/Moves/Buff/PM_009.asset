@@ -10,16 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ebbec4cb94f7a409c633c462947d52, type: 3}
-  m_Name: Preparar Clase
+  m_Name: PM_009
   m_EditorClassIdentifier: Assembly-CSharp::MoveSO
-  moveName: Preparar Clase
-  moveType: {fileID: 11400000, guid: bf75f44c9eb85b642af05ab88ebf9355, type: 2}
+  moveName: "Correci\xF3n de Color"
+  moveType: {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
+  moveDescription: "Cada detalle es ajustado con precisi\xF3n. Aumenta la precisi\xF3n."
   power: 0
   accuracy: 100
   maxPP: 5
   priority: 0
-  baseCritChance: 5
+  baseCritChance: 0
   effect: {fileID: 11400000, guid: 53b2bd302a1cee1448328a3e24041463, type: 2}
-  affectedStat: 1
+  affectedStat: 4
   stageChange: 1
-  healAmount: 0
+  healPercent: 0
+  statusEffect: {fileID: 0}
+  duration: 0

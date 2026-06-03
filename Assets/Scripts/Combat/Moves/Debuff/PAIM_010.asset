@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ebbec4cb94f7a409c633c462947d52, type: 3}
-  m_Name: Quiz Sorpresa
+  m_Name: PAIM_010
   m_EditorClassIdentifier: Assembly-CSharp::MoveSO
-  moveName: Quiz Sorpresa
-  moveType: {fileID: 11400000, guid: bf75f44c9eb85b642af05ab88ebf9355, type: 2}
+  moveName: "Detecci\xF3n de Anomal\xEDas"
+  moveType: {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
+  moveDescription: Los fallos identificados dejan expuestas las debilidades del objetivo.
+    Reduce la defensa del rival.
   power: 0
   accuracy: 100
   maxPP: 5
   priority: 0
-  baseCritChance: 5
+  baseCritChance: 0
   effect: {fileID: 11400000, guid: e03b4682d80e1aa46834904ddaa56f33, type: 2}
-  affectedStat: 1
+  affectedStat: 2
   stageChange: 1
-  healAmount: 0
+  healPercent: 0
+  statusEffect: {fileID: 0}
+  duration: 0
