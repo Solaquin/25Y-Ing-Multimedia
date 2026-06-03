@@ -16,7 +16,7 @@ MonoBehaviour:
   worldPrefab: {fileID: 2698734512118810298, guid: ec6950d424e1eb543b2864e7a430c6ec, type: 3}
   battlePrefab: {fileID: 2698734512118810298, guid: 8fc280ec6f2cd834a827955c950f979a, type: 3}
   phrase: 
-  description: 
+  description: Sexo
   anecdote: 
   profile: 
   whereToFind: 
