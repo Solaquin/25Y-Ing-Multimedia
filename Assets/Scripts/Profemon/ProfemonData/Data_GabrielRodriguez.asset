@@ -25,5 +25,9 @@ MonoBehaviour:
   types:
   - {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
   baseStats: {fileID: 11400000, guid: cbeba17f74234dc46ad8bb790bdfe925, type: 2}
-  learnableMoves: []
+  learnableMoves:
+  - {fileID: 11400000, guid: f25cc551d3a97fa4383d78e81b1c800f, type: 2}
+  - {fileID: 11400000, guid: c4353c1542728c747a7ddc2b2489c611, type: 2}
+  - {fileID: 11400000, guid: 02d6c4a16489b9945912393dd1636a3f, type: 2}
+  - {fileID: 11400000, guid: daaa5c67aa76b1c41895ec6352009b6b, type: 2}
   captureDifficulty: 50
