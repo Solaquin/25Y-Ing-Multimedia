@@ -20,3 +20,5 @@ MonoBehaviour:
   effectiveness:
   - targetType: {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
     multiplier: 1.5
+  - targetType: {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
+    multiplier: 0.5

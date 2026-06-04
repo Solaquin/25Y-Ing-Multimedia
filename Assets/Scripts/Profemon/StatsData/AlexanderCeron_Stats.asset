@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatBlockSO
   baseHealth:
     stat: 0
-    value: 90
+    value: 170
   baseAttack:
     stat: 1
     value: 85
@@ -23,7 +23,7 @@ MonoBehaviour:
     value: 80
   baseSpeed:
     stat: 3
-    value: 45
+    value: 65
   baseAccuracy:
     stat: 4
     value: 100
