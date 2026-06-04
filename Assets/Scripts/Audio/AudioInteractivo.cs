@@ -11,12 +11,24 @@ public class AudioInteractivo : MonoBehaviour
         AleatorioConPitch
     }
 
+    public enum CategoriaAudio
+    {
+        FX,
+        Musica
+    }
+
     [Header("Configuración")]
     public TipoAudio tipoAudio;
+
+    [Header("Categoría")]
+    public CategoriaAudio categoria = CategoriaAudio.FX;
 
     [Header("Volumen")]
     [Range(0f, 1f)]
     public float volumen = 1f;
+
+    public static float GlobalFXVolume = 1f;
+    public static float GlobalMusicVolume = 1f;
 
     [Header("Clips de audio")]
     public AudioClip[] clips;
@@ -34,11 +46,31 @@ public class AudioInteractivo : MonoBehaviour
 
     private void Start()
     {
-        audioSource.volume = volumen;
+        ActualizarVolumen();
 
         if (tipoAudio == TipoAudio.Loop)
-        {
             audioSource.loop = true;
+    }
+
+    private void Update()
+    {
+        ActualizarVolumen();
+    }
+
+    private void ActualizarVolumen()
+    {
+        if (audioSource == null)
+            return;
+
+        if (categoria == CategoriaAudio.Musica)
+        {
+            audioSource.volume =
+                volumen * GlobalMusicVolume;
+        }
+        else
+        {
+            audioSource.volume =
+                volumen * GlobalFXVolume;
         }
     }
 
@@ -47,28 +79,29 @@ public class AudioInteractivo : MonoBehaviour
         if (clips == null || clips.Length == 0)
             return;
 
-        audioSource.volume = volumen;
-
         AudioClip clipSeleccionado = clips[0];
 
-        if (tipoAudio == TipoAudio.Aleatorio || tipoAudio == TipoAudio.AleatorioConPitch)
+        if (tipoAudio == TipoAudio.Aleatorio ||
+            tipoAudio == TipoAudio.AleatorioConPitch)
         {
-            int index = Random.Range(0, clips.Length);
-            clipSeleccionado = clips[index];
+            clipSeleccionado =
+                clips[Random.Range(0, clips.Length)];
         }
 
         audioSource.clip = clipSeleccionado;
 
         if (tipoAudio == TipoAudio.AleatorioConPitch)
         {
-            audioSource.pitch = Random.Range(pitchMin, pitchMax);
+            audioSource.pitch =
+                Random.Range(pitchMin, pitchMax);
         }
         else
         {
             audioSource.pitch = 1f;
         }
 
-        if (!audioSource.isPlaying || tipoAudio != TipoAudio.Loop)
+        if (!audioSource.isPlaying ||
+            tipoAudio != TipoAudio.Loop)
         {
             audioSource.Play();
         }
@@ -80,11 +113,5 @@ public class AudioInteractivo : MonoBehaviour
         {
             audioSource.Stop();
         }
-    }
-
-    public void SetVolume(float nuevoVolumen)
-    {
-        volumen = Mathf.Clamp01(nuevoVolumen);
-        audioSource.volume = volumen;
     }
 }

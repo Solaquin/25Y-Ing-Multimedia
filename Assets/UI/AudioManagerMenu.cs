@@ -4,15 +4,6 @@ public class AudioManagerMenu : MonoBehaviour
 {
     public static AudioManagerMenu Instance;
 
-    [Header("Música")]
-    public AudioSource[] musicSources;
-
-    [Header("FX")]
-    public AudioSource[] fxSources;
-
-    private float musicVolume = 1f;
-    private float fxVolume = 1f;
-
     void Awake()
     {
         if (Instance == null)
@@ -28,31 +19,27 @@ public class AudioManagerMenu : MonoBehaviour
 
     public void SetMusicVolume(float value)
     {
-        musicVolume = value;
-        foreach (AudioSource src in musicSources)
-        {
-            if (src == null) continue;
-            src.volume = value;
-            Debug.Log($"Música: {src.gameObject.name} volumen = {src.volume}");
+        AudioInteractivo.GlobalMusicVolume = value;
 
-            AudioInteractivo ai = src.GetComponent<AudioInteractivo>();
-            if (ai != null) ai.volumen = value;
-        }
+        AudioManager.RefreshVolumes();
+
+        Debug.Log("Volumen Música = " + value);
     }
 
     public void SetFXVolume(float value)
     {
-        fxVolume = value;
-        foreach (AudioSource src in fxSources)
-        {
-            if (src == null) continue;
-            src.volume = value;
+        AudioInteractivo.GlobalFXVolume = value;
 
-            AudioInteractivo ai = src.GetComponent<AudioInteractivo>();
-            if (ai != null) ai.volumen = value;
-        }
+        Debug.Log("Volumen FX = " + value);
     }
 
-    public float GetMusicVolume() => musicVolume;
-    public float GetFXVolume() => fxVolume;
+    public float GetMusicVolume()
+    {
+        return AudioInteractivo.GlobalMusicVolume;
+    }
+
+    public float GetFXVolume()
+    {
+        return AudioInteractivo.GlobalFXVolume;
+    }
 }
