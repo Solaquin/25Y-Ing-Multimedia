@@ -4,11 +4,12 @@ using System.Collections.Generic;
 public static class AudioManager
 {
     // ---------------------------
-    // SONIDOS NORMALES
+    // SONIDOS NORMALES (FX)
     // ---------------------------
     public static void Play(AudioInteractivo audio, Vector3 posicion = default)
     {
-        if (audio == null || audio.clips.Length == 0) return;
+        if (audio == null || audio.clips.Length == 0)
+            return;
 
         AudioClip clip = audio.clips[0];
 
@@ -24,27 +25,41 @@ public static class AudioManager
     // ---------------------------
     // REPRODUCIR CLIP
     // ---------------------------
-    public static void PlayClip(AudioClip clip, Vector3 posicion, AudioInteractivo config = null)
+    public static void PlayClip(
+        AudioClip clip,
+        Vector3 posicion,
+        AudioInteractivo config = null)
     {
-        if (clip == null) return;
+        if (clip == null)
+            return;
 
         GameObject temp = new GameObject("AudioTemp");
         temp.transform.position = posicion;
 
         AudioSource source = temp.AddComponent<AudioSource>();
-        source.clip = clip;
 
-        // Volumen configurado en AudioInteractivo
+        source.clip = clip;
+        source.spatialBlend = 0f;
+
         if (config != null)
         {
-            source.volume = config.volumen;
+            source.volume =
+                config.volumen *
+                AudioInteractivo.GlobalFXVolume;
+        }
+        else
+        {
+            source.volume =
+                AudioInteractivo.GlobalFXVolume;
         }
 
-        // Pitch opcional
         if (config != null &&
-            config.tipoAudio == AudioInteractivo.TipoAudio.AleatorioConPitch)
+            config.tipoAudio ==
+            AudioInteractivo.TipoAudio.AleatorioConPitch)
         {
-            source.pitch = Random.Range(config.pitchMin, config.pitchMax);
+            source.pitch =
+                Random.Range(config.pitchMin,
+                             config.pitchMax);
         }
 
         source.Play();
@@ -53,26 +68,32 @@ public static class AudioManager
     }
 
     // ---------------------------
-    // LOOPS (MÚSICA / AMBIENTE)
+    // LOOPS
     // ---------------------------
     private static Dictionary<AudioInteractivo, AudioSource> loops =
         new Dictionary<AudioInteractivo, AudioSource>();
 
     public static void PlayLoop(AudioInteractivo audio)
     {
-        if (audio == null || audio.clips.Length == 0) return;
-
-        if (loops.ContainsKey(audio) && loops[audio] != null)
+        if (audio == null || audio.clips.Length == 0)
             return;
 
-        GameObject obj = new GameObject("Loop_" + audio.name);
-        AudioSource source = obj.AddComponent<AudioSource>();
+        if (loops.ContainsKey(audio))
+            return;
+
+        GameObject obj =
+            new GameObject("Loop_" + audio.name);
+
+        AudioSource source =
+            obj.AddComponent<AudioSource>();
 
         source.clip = audio.clips[0];
         source.loop = true;
+        source.spatialBlend = 0f;
 
-        // Volumen configurado en AudioInteractivo
-        source.volume = audio.volumen;
+        source.volume =
+            audio.volumen *
+            AudioInteractivo.GlobalMusicVolume;
 
         source.Play();
 
@@ -83,12 +104,16 @@ public static class AudioManager
 
     public static void StopLoop(AudioInteractivo audio)
     {
-        if (audio == null) return;
+        if (audio == null)
+            return;
 
         if (loops.ContainsKey(audio))
         {
             if (loops[audio] != null)
-                Object.Destroy(loops[audio].gameObject);
+            {
+                Object.Destroy(
+                    loops[audio].gameObject);
+            }
 
             loops.Remove(audio);
         }
@@ -99,9 +124,27 @@ public static class AudioManager
         foreach (var loop in loops.Values)
         {
             if (loop != null)
+            {
                 Object.Destroy(loop.gameObject);
+            }
         }
 
         loops.Clear();
+    }
+
+    // ---------------------------
+    // ACTUALIZAR VOLÚMENES
+    // ---------------------------
+    public static void RefreshVolumes()
+    {
+        foreach (var loop in loops)
+        {
+            if (loop.Key == null || loop.Value == null)
+                continue;
+
+            loop.Value.volume =
+                loop.Key.volumen *
+                AudioInteractivo.GlobalMusicVolume;
+        }
     }
 }

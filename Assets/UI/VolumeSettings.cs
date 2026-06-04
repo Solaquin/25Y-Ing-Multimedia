@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,25 +8,54 @@ public class VolumeSettings : MonoBehaviour
     public Slider musicSlider;
     public Slider fxSlider;
 
-    void Start()
+    private void Start()
     {
-        // Inicializa con el volumen actual del AudioManager
+        if (AudioManagerMenu.Instance == null)
+        {
+            Debug.LogError("No existe AudioManagerMenu en la escena");
+            return;
+        }
+
         if (musicSlider != null)
         {
-            musicSlider.value = AudioManagerMenu.Instance.GetMusicVolume();
-            musicSlider.onValueChanged.AddListener(AudioManagerMenu.Instance.SetMusicVolume);
+            musicSlider.minValue = 0f;
+            musicSlider.maxValue = 1f;
+
+            musicSlider.value =
+                AudioManagerMenu.Instance.GetMusicVolume();
+
+            musicSlider.onValueChanged.AddListener(
+                AudioManagerMenu.Instance.SetMusicVolume);
         }
 
         if (fxSlider != null)
         {
-            fxSlider.value = AudioManagerMenu.Instance.GetFXVolume();
-            fxSlider.onValueChanged.AddListener(AudioManagerMenu.Instance.SetFXVolume);
+            fxSlider.minValue = 0f;
+            fxSlider.maxValue = 1f;
+
+            fxSlider.value =
+                AudioManagerMenu.Instance.GetFXVolume();
+
+            fxSlider.onValueChanged.AddListener(
+                AudioManagerMenu.Instance.SetFXVolume);
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        musicSlider?.onValueChanged.RemoveListener(AudioManagerMenu.Instance.SetMusicVolume);
-        fxSlider?.onValueChanged.RemoveListener(AudioManagerMenu.Instance.SetFXVolume);
+        if (AudioManagerMenu.Instance == null)
+            return;
+
+        if (musicSlider != null)
+        {
+            musicSlider.onValueChanged.RemoveListener(
+                AudioManagerMenu.Instance.SetMusicVolume);
+        }
+
+        if (fxSlider != null)
+        {
+            fxSlider.onValueChanged.RemoveListener(
+                AudioManagerMenu.Instance.SetFXVolume);
+        }
     }
 }
