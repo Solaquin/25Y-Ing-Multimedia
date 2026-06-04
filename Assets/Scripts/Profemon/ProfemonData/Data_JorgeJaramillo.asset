@@ -23,9 +23,11 @@ MonoBehaviour:
   whereToFindImage: {fileID: 0}
   image: {fileID: 21300000, guid: 72c1a07adf24106498386f9de157b7c6, type: 3}
   types:
-  - {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+  - {fileID: 11400000, guid: 1099682adb0eb3a48acf9b9bc3572820, type: 2}
   baseStats: {fileID: 11400000, guid: 37027af4ba1491d449a04c14ff6229ec, type: 2}
   learnableMoves:
-  - {fileID: 11400000, guid: d1abf1c2008408b449d7eae184e0eefd, type: 2}
-  - {fileID: 11400000, guid: dde061b7e9cac264c9f2cf6c385b9a0a, type: 2}
+  - {fileID: 11400000, guid: a0feb44f0663e4148a1f2b2d0aa1dda5, type: 2}
+  - {fileID: 11400000, guid: a5528ead26511e44faf6bcb34b8d2bc2, type: 2}
+  - {fileID: 11400000, guid: 1f91e07188c9bf344b1ab22669d4944d, type: 2}
+  - {fileID: 11400000, guid: abff178b4088f0141bac9d6871246314, type: 2}
   captureDifficulty: 50

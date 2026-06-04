@@ -16,5 +16,9 @@ MonoBehaviour:
   fullName: "TRANSFORMACI\xD3N DIGITAL"
   shortName: TD
   icon: {fileID: 0}
-  typeColor: {r: 1, g: 0.5565599, b: 0, a: 0}
-  effectiveness: []
+  typeColor: {r: 0.0627451, g: 0.8117647, b: 0.4745098, a: 0}
+  effectiveness:
+  - targetType: {fileID: 11400000, guid: b9aa13f308d3e174499f291f5ee04bff, type: 2}
+    multiplier: 1.5
+  - targetType: {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}
+    multiplier: 0.5

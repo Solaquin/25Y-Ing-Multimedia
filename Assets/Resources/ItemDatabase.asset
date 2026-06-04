@@ -16,5 +16,7 @@ MonoBehaviour:
   battleItems:
   - {fileID: 11400000, guid: 52366c53b5c8eab47beb4b9c972691aa, type: 2}
   - {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+  - {fileID: 11400000, guid: 844e651dc2fc3a045aeac0d8363aecd2, type: 2}
+  - {fileID: 11400000, guid: 2f043bd6a7a4cc24cbe72c67f4d587af, type: 2}
   profeBalls:
   - {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}

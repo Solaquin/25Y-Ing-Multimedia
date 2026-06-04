@@ -4,11 +4,12 @@ using UnityEngine;
 public class HealEffectSO : MoveEffectSO
 {
     public override void Execute(
-    CombatUnit user,
-    CombatUnit target,
-    MoveContext context
-)
+        CombatUnit user,
+        CombatUnit target,
+        MoveContext context
+    )
     {
-        user.Heal(context.move.healAmount);
+        int healAmount = Mathf.RoundToInt(user.Instance.maxHP * (context.move.healPercent / 100f));
+        user.Heal(healAmount);
     }
 }

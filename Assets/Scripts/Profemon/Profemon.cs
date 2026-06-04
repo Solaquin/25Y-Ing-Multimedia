@@ -43,8 +43,11 @@ public class Profemon : MonoBehaviour
     private bool initialized = false;
     private bool isDespawning = false;
 
-    // Nombres de los parámetros en tu Animator Controller
+    // Nombres de los parámetros Animator Controller
     private static readonly int AnimIsWalking = Animator.StringToHash("isWalking");
+
+    [SerializeField]
+    private NotificationSO captureNotification;
 
     private void Awake()
     {
@@ -198,7 +201,14 @@ public class Profemon : MonoBehaviour
         PlayerPartyManager.Instance.AddToParty(instance);
 
         StorageMenuManager menu = FindObjectOfType<StorageMenuManager>();
+
         if (menu != null) menu.Refresh();
+
+        NotificationData notification = new NotificationData(captureNotification);
+
+        notification.customBody = $"{data.professorName} nivel {instance.level} capturado.";
+
+        NotificationManager.Send(notification);
 
         Debug.Log(data.professorName + " nivel " + instance.level + " capturado.");
 

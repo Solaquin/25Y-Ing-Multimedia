@@ -4,6 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum BattleUnitSide
+{
+    Player,
+    Enemy
+}
+
 public class BattleUIController : MonoBehaviour
 {
     public BattleSystem battleSystem;
@@ -12,21 +18,21 @@ public class BattleUIController : MonoBehaviour
     [Header("Audio UI")]
     public AudioInteractivo audioUI;
 
-    [Header("General")]
-    public TextMeshProUGUI playerProfemonName;
-    public TextMeshProUGUI enemyProfemonName;
-    public TextMeshProUGUI playerHP;
-    public TextMeshProUGUI enemyHP;
-
     [Header("Panels")]
     public GameObject mainPanel;
     public GameObject movesPanel;
     public GameObject itemsPanel;
     public GameObject partyPanel;
 
+    [Header("Buttons")]
+    public GameObject movesButton;
+    public GameObject itemsButton;
+    public GameObject partyButton;
+
     [Header("Movements")]
     public Button[] moveButtons;
     public TextMeshProUGUI[] moveTexts;
+    public MoveInfoPanel moveInfoPanel;
 
     [Header("Items")]
     public Transform itemButtonContainer;
@@ -81,6 +87,8 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnBattleStarted += InitializeUI;
         BattleEvents.OnActiveUnitChanged += RefreshUI;
         BattleEvents.OnPlayerSwitchRequired += OnSwitchPressed;
+        BattleEvents.OnBattleEnded += ClearWorldBars;
+        BattleEvents.OnBattleStateChanged += OnBattleStateChanged;
     }
 
     void OnDisable()
@@ -89,24 +97,37 @@ public class BattleUIController : MonoBehaviour
         BattleEvents.OnBattleStarted -= InitializeUI;
         BattleEvents.OnActiveUnitChanged -= RefreshUI;
         BattleEvents.OnPlayerSwitchRequired -= OnSwitchPressed;
+        BattleEvents.OnBattleEnded -= ClearWorldBars;
+        BattleEvents.OnBattleStateChanged -= OnBattleStateChanged;
     }
 
     void InitializeUI()
     {
-        SetupNames();
         SetupMoves();
-        UpdateHP();
         UpdateProfemonIcon();
+
         CrearBarrasWorld();
+        UpdateHP();
+
         ShowPanel(BattleUIState.Main);
     }
 
-    void RefreshUI()
+    void RefreshUI(BattleUnitSide unitSide)
     {
-        SetupNames();
-        SetupMoves();
+        switch (unitSide)
+        {
+            case BattleUnitSide.Player:
+                RebuildPlayerBar();
+                SetupMoves();
+                UpdateProfemonIcon();
+                break;
+
+            case BattleUnitSide.Enemy:
+                RebuildEnemyBar();
+                break;
+        }
+
         UpdateHP();
-        UpdateProfemonIcon();
         ShowPanel(BattleUIState.Main);
     }
 
@@ -149,12 +170,6 @@ public class BattleUIController : MonoBehaviour
         partyMenu.Open();
     }
 
-    void SetupNames()
-    {
-        playerProfemonName.text = battleSystem.playerUnit.Instance.data.professorName;
-        enemyProfemonName.text = battleSystem.enemyUnit.Instance.data.professorName;
-    }
-
     // 🔥 MÉTODO PARA OBTENER ICONO SEGÚN TIPO
     Sprite GetIconoMovimiento(TypeSO tipo)
     {
@@ -170,6 +185,9 @@ public class BattleUIController : MonoBehaviour
     {
         CombatUnit playerUnit = battleSystem.playerUnit;
         List<MoveSO> moves = playerUnit.GetMoves();
+
+        if (moveInfoPanel != null)
+            moveInfoPanel.Hide();
 
         for (int i = 0; i < moveButtons.Length; i++)
         {
@@ -201,6 +219,13 @@ public class BattleUIController : MonoBehaviour
                 PlayClick();
                 OnMoveSelected(moves[index]);
             });
+
+            MoveButtonHover hover = moveButtons[i].GetComponent<MoveButtonHover>();
+
+            if (hover != null)
+            {
+                hover.Setup(move, moveInfoPanel);
+            }
         }
     }
 
@@ -250,6 +275,16 @@ public class BattleUIController : MonoBehaviour
         }
     }
 
+    void OnBattleStateChanged(BattleState state)
+    {
+        bool canInteract =
+            state == BattleState.PlayerInput;
+
+        movesButton.SetActive(canInteract);
+        itemsButton.SetActive(canInteract);
+        partyButton.SetActive(canInteract);
+    }
+
     void OnItemSelected(BattleItemSO item)
     {
         pendingItem = item;
@@ -280,10 +315,6 @@ public class BattleUIController : MonoBehaviour
 
         int currentEnemy = battleSystem.enemyUnit.GetCurrentHP();
         int maxEnemy = battleSystem.enemyUnit.GetMaxHP();
-
-        // TEXTO original
-        playerHP.text = $"HP: {currentPlayer} / {maxPlayer}";
-        enemyHP.text = $"HP: {currentEnemy} / {maxEnemy}";
 
         //WORLD UI
         if (playerBar != null)
@@ -322,31 +353,115 @@ public class BattleUIController : MonoBehaviour
 
     void CrearBarrasWorld()
     {
-        if (playerBar != null || enemyBar != null) return;
-        // 🔵 PLAYER
-        GameObject pBar = Instantiate(hpBarPrefab);
+        if (playerBar != null)
+            Destroy(playerBar.gameObject);
+
+        if (enemyBar != null)
+            Destroy(enemyBar.gameObject);
+
+        // PLAYER
+
+        Transform pCombatUnitTransform = battleSystem.playerUnit.transform;
+
+        GameObject pBar = Instantiate(
+            hpBarPrefab,
+            pCombatUnitTransform
+        );
+
         WorldHPBar pFollow = pBar.GetComponent<WorldHPBar>();
-        pFollow.target = battleSystem.playerUnit.transform;
+        pFollow.target = pCombatUnitTransform;
 
         playerBar = pBar.GetComponent<HPBarUI>();
+
         playerBar.Setup(
             battleSystem.playerUnit.Instance.data.professorName,
             battleSystem.playerUnit.GetCurrentHP(),
             battleSystem.playerUnit.GetMaxHP()
         );
 
-        // 🔴 ENEMY
-        GameObject eBar = Instantiate(hpBarPrefab);
-        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+        // ENEMY
 
-        
-        eFollow.target = battleSystem.enemyUnit.transform;
+        Transform eCombatUnitTransform = battleSystem.enemyUnit.transform;
+
+        GameObject eBar = Instantiate(
+            hpBarPrefab,
+            eCombatUnitTransform
+        );
+
+        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+        eFollow.target = eCombatUnitTransform;
 
         enemyBar = eBar.GetComponent<HPBarUI>();
+
         enemyBar.Setup(
             battleSystem.enemyUnit.Instance.data.professorName,
             battleSystem.enemyUnit.GetCurrentHP(),
             battleSystem.enemyUnit.GetMaxHP()
         );
+    }
+
+    void RebuildPlayerBar()
+    {
+        if (playerBar != null)
+            Destroy(playerBar.gameObject);
+
+        Transform pCombatUnitTransform = battleSystem.playerUnit.transform;
+
+        GameObject pBar = Instantiate(
+            hpBarPrefab,
+            pCombatUnitTransform
+        );
+
+        WorldHPBar pFollow = pBar.GetComponent<WorldHPBar>();
+        pFollow.target = battleSystem.playerUnit.transform;
+
+        playerBar = pBar.GetComponent<HPBarUI>();
+
+        playerBar.Setup(
+            battleSystem.playerUnit.Instance.data.professorName,
+            battleSystem.playerUnit.GetCurrentHP(),
+            battleSystem.playerUnit.GetMaxHP()
+        );
+    }
+
+    void RebuildEnemyBar()
+    {
+        if (enemyBar != null)
+            Destroy(enemyBar.gameObject);
+
+        Transform eCombatUnitTransform = battleSystem.enemyUnit.transform;
+
+        GameObject eBar = Instantiate(
+            hpBarPrefab,
+            eCombatUnitTransform
+        );
+
+        WorldHPBar eFollow = eBar.GetComponent<WorldHPBar>();
+        eFollow.target = battleSystem.enemyUnit.transform;
+
+        enemyBar = eBar.GetComponent<HPBarUI>();
+
+        enemyBar.Setup(
+            battleSystem.enemyUnit.Instance.data.professorName,
+            battleSystem.enemyUnit.GetCurrentHP(),
+            battleSystem.enemyUnit.GetMaxHP()
+        );
+    }
+
+    void ClearWorldBars()
+    {
+        if (playerBar != null)
+        {
+            Destroy(playerBar.gameObject);
+            playerBar = null;
+        }
+
+        if (enemyBar != null)
+        {
+            Destroy(enemyBar.gameObject);
+            enemyBar = null;
+        }
+
+        mainPanel.SetActive(false);
     }
 }

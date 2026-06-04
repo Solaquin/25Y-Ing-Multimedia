@@ -41,6 +41,8 @@ public class VRMenuManager : MonoBehaviour
     public Image detalleDonde;
     public TMP_Text detalleDondeTexto;
 
+    public Image detalleTipoImagen;
+
     [Header("Navegación Profedex")]
     public TMP_Text numeroProfesor;
 
@@ -51,6 +53,16 @@ public class VRMenuManager : MonoBehaviour
     [Header("Profedex Unknown")]
     public Sprite unknownSprite;
     public Sprite unknownLocationSprite;
+
+    [Header("Tipos Profemon")]
+    public TypeSO tipo1;
+    public Sprite spriteTipo1;
+    public TypeSO tipo2;
+    public Sprite spriteTipo2;
+    public TypeSO tipo3;
+    public Sprite spriteTipo3;
+    public TypeSO tipo4;
+    public Sprite spriteTipo4;
 
     [Header("Progreso Profedex")]
     public TMP_Text registradosText;
@@ -70,6 +82,7 @@ public class VRMenuManager : MonoBehaviour
     {
         ResetMenu();
     }
+
     void PlayClick()
     {
         if (audioUI != null)
@@ -155,7 +168,7 @@ public class VRMenuManager : MonoBehaviour
         menuRoot.SetActive(false);
     }
 
-    // AREAS PROFEDEx
+    // AREAS PROFEDEX
 
     public void OpenArea1()
     {
@@ -190,7 +203,6 @@ public class VRMenuManager : MonoBehaviour
     }
 
     public void OpenStorage()
-
     {
         PlayClick();
         ResetMenu();
@@ -199,7 +211,6 @@ public class VRMenuManager : MonoBehaviour
 
         if (storageMenuManager != null)
             storageMenuManager.Refresh();
-
     }
 
     public void VolverAreas()
@@ -222,7 +233,6 @@ public class VRMenuManager : MonoBehaviour
 
         bool discovered = ProfedexManager.Instance.IsRegistered(data);
 
-        // Número estilo pokedex
         numeroProfesor.text = "#" + (currentIndex + 1).ToString("000");
 
         if (discovered)
@@ -235,6 +245,18 @@ public class VRMenuManager : MonoBehaviour
 
             detalleDonde.sprite = data.whereToFindImage;
             detalleDondeTexto.text = data.whereToFind;
+
+            // Muestra el sprite del tipo del primer tipo de la lista
+            if (data.types != null && data.types.Count > 0)
+            {
+                Sprite tipoSprite = GetSpritePorTipo(data.types[0]);
+                detalleTipoImagen.sprite = tipoSprite;
+                detalleTipoImagen.gameObject.SetActive(tipoSprite != null);
+            }
+            else
+            {
+                detalleTipoImagen.gameObject.SetActive(false);
+            }
         }
         else
         {
@@ -247,8 +269,20 @@ public class VRMenuManager : MonoBehaviour
 
             detalleDonde.sprite = unknownLocationSprite;
             detalleDondeTexto.text = "????";
+
+            detalleTipoImagen.gameObject.SetActive(false);
         }
     }
+
+    private Sprite GetSpritePorTipo(TypeSO tipo)
+    {
+        if (tipo == tipo1) return spriteTipo1;
+        if (tipo == tipo2) return spriteTipo2;
+        if (tipo == tipo3) return spriteTipo3;
+        if (tipo == tipo4) return spriteTipo4;
+        return null;
+    }
+
     public void NextProfessor()
     {
         PlayClick();
@@ -259,6 +293,7 @@ public class VRMenuManager : MonoBehaviour
 
         OpenProfesorDetalle(database.allProfemons[currentIndex]);
     }
+
     public void PreviousProfessor()
     {
         PlayClick();
@@ -279,7 +314,6 @@ public class VRMenuManager : MonoBehaviour
 
     void UpdateProfedexProgress()
     {
-
         int total = database.allProfemons.Count;
         int registrados = 0;
 

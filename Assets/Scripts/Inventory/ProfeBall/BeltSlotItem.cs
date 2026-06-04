@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -35,29 +36,20 @@ public class BeltSlotItem : MonoBehaviour
         ItemInventory.Instance.ConsumeItem(myBall.id);
 
         var interactor = args.interactorObject;
-        Transform handTransform = (interactor as MonoBehaviour)?.transform;
+        Transform handTransform = (interactor as MonoBehaviour)?.transform; 
 
-        GameObject real = belt.SpawnRealBall(handTransform.position, handTransform.rotation);
+        GameObject real = belt.SpawnRealBall(handTransform.position, handTransform.rotation, handTransform);
         var realGrab = real.GetComponent<XRGrabInteractable>();
         var manager = grab.interactionManager;
 
-        if (manager != null && realGrab != null)
+        if (manager != null)
         {
+            // 1. Soltamos la visual
             manager.SelectExit(interactor, args.interactableObject);
-            StartCoroutine(DelayedGrab(manager, interactor, realGrab));
-            return;
+            // 2. Agarramos la real
+            manager.SelectEnter(interactor, realGrab);
         }
 
-        gameObject.SetActive(false);
-    }
-
-    IEnumerator DelayedGrab(
-        UnityEngine.XR.Interaction.Toolkit.XRInteractionManager manager,
-        UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor,
-        XRGrabInteractable realGrab)
-    {
-        yield return null;
-        manager.SelectEnter(interactor, realGrab);
         gameObject.SetActive(false);
     }
 }

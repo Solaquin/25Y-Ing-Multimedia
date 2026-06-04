@@ -3355,6 +3355,10 @@ MonoBehaviour:
   despawnDistance: 100
   isCaptured: 0
   wanderInterval: 4
+  idleWaitMin: 2
+  idleWaitMax: 5
+  rotationSpeed: 8
+  captureNotification: {fileID: 11400000, guid: b739c18a703b6ab4d860999abf7a70f7, type: 2}
 --- !u!195 &2320590342315427938
 NavMeshAgent:
   m_ObjectHideFlags: 0

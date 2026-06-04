@@ -16,5 +16,9 @@ MonoBehaviour:
   fullName: "PRODUCCI\xD3N MULTIMEDIA"
   shortName: PM
   icon: {fileID: 0}
-  typeColor: {r: 0, g: 1, b: 0.04225135, a: 0}
-  effectiveness: []
+  typeColor: {r: 0.9764706, g: 0.33333334, b: 0.35686275, a: 0}
+  effectiveness:
+  - targetType: {fileID: 11400000, guid: 1099682adb0eb3a48acf9b9bc3572820, type: 2}
+    multiplier: 1.5
+  - targetType: {fileID: 11400000, guid: 99c505489d4f7564fab0dc39d985fc0c, type: 2}
+    multiplier: 0.5

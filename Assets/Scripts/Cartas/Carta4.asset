@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Carta4
   m_EditorClassIdentifier: Assembly-CSharp::CartaSO
   nombreCarta: Carta3
-  materialCarta: {fileID: 2100000, guid: 3e6a7477c2e02bf4f80cae75fe118bbb, type: 2}
+  materialCarta: {fileID: 2100000, guid: cb2e7185a3a08254aa63588b7fca837a, type: 2}
