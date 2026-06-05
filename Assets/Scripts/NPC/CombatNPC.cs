@@ -12,6 +12,14 @@ public class CombatNPC : MonoBehaviour
     private bool yaFueDerrotado = false;
     private bool enCombate = false; //bandera anti-spam
 
+    [Header("Recompensas")]
+    public int dineroOtorgado = 100;
+    public CartaSO cartaRecompensa;
+    private bool recompensaEntregada;
+
+    public int DineroOtorgado => dineroOtorgado;
+    public CartaSO CartaRecompensa => cartaRecompensa;
+
     void Awake()
     {
         npcDialogo = GetComponent<NPCDialogo>();
@@ -69,5 +77,18 @@ public class CombatNPC : MonoBehaviour
     public void CancelarCombate()
     {
         enCombate = false;
+    }
+
+    public void EntregarRecompensas()
+    {
+        if (recompensaEntregada)
+            return;
+
+        recompensaEntregada = true;
+
+        WalletSystem.Instance.Ganar(dineroOtorgado);
+
+        if (cartaRecompensa != null)
+            InventarioCartas.Instance.AgregarCarta(cartaRecompensa);
     }
 }

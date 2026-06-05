@@ -11,8 +11,8 @@ public enum VisualPhase
 public class VisualEvent
 {
     public string animTag;              // "Attack", "Hit", "Cast", etc.
-    public AudioClip sfx;
-    public GameObject vfx;
+    public AudioClip[] sfx;
+    public GameObject[] vfx;
 
     [Tooltip("Se ejecuta sobre user o target")]
     public bool onTarget;

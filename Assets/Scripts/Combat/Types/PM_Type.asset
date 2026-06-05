@@ -15,7 +15,7 @@ MonoBehaviour:
   ProfessorTypeID: 3
   fullName: "PRODUCCI\xD3N MULTIMEDIA"
   shortName: PM
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c4e21419fbe2c10498af4e0bc104a1db, type: 3}
   typeColor: {r: 0.9764706, g: 0.33333334, b: 0.35686275, a: 0}
   effectiveness:
   - targetType: {fileID: 11400000, guid: 1099682adb0eb3a48acf9b9bc3572820, type: 2}
