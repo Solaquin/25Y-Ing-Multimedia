@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class BattleTransitionManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class BattleTransitionManager : MonoBehaviour
     public BattleSystem battleSystem;       // El GameObject del BattleSystem (desactivado al inicio)
     public Transform battleZoneSpawnPoint;  // Punto donde aparece el jugador al entrar al combate
     public Transform worldSpawnPoint;       // Punto fijo donde vuelve el jugador al salir del combate
-    public GameObject xrRig;               // Tu XR Origin / XR Rig
+    public XROrigin xrRig;               // Tu XR Origin / XR Rig
 
     public GameObject canchaLimite;
 
@@ -50,8 +51,11 @@ public class BattleTransitionManager : MonoBehaviour
         canchaLimite.SetActive(true);
 
         // 2. Teletransportar XR Rig a la zona de combate
-        xrRig.transform.position = battleZoneSpawnPoint.position;
-        xrRig.transform.rotation = battleZoneSpawnPoint.rotation;
+        float headHeight = xrRig.CameraInOriginSpaceHeight;
+
+        Vector3 targetPosition = battleZoneSpawnPoint.position + Vector3.up * headHeight;
+
+        xrRig.MoveCameraToWorldLocation(targetPosition);
 
         // 3. Activar BattleSystem y configurar el combate
         battleSystem.gameObject.SetActive(true);
@@ -74,6 +78,9 @@ public class BattleTransitionManager : MonoBehaviour
 
     IEnumerator TransitionToWorld(bool playerWon)
     {
+        int dineroGanado = 0;
+        CartaSO cartaGanada = null;
+
         yield return StartCoroutine(Fade(0f, 1f));
 
         canchaLimite.SetActive(false);
@@ -87,12 +94,21 @@ public class BattleTransitionManager : MonoBehaviour
         battleSystem.gameObject.SetActive(false);
 
         // Volver al mundo (posición fija asignada en el Inspector)
-        xrRig.transform.position = worldSpawnPoint.position;
-        xrRig.transform.rotation = worldSpawnPoint.rotation;
+        float headHeight = xrRig.CameraInOriginSpaceHeight;
+
+        Vector3 targetPosition = worldSpawnPoint.position + Vector3.up * headHeight;
+
+        xrRig.MoveCameraToWorldLocation(targetPosition);
 
         // Si el jugador ganó, marcar el NPC como derrotado
         if (playerWon && pendingCombatNPC != null)
+        {
+            dineroGanado = pendingCombatNPC.DineroOtorgado;
+            cartaGanada = pendingCombatNPC.CartaRecompensa;
+
             pendingCombatNPC.MarcarComoDerrotado();
+            pendingCombatNPC.EntregarRecompensas();
+        }
 
         pendingCombatNPC = null;
 
@@ -100,6 +116,14 @@ public class BattleTransitionManager : MonoBehaviour
 
         yield return StartCoroutine(Fade(1f, 0f));
 
+        if (playerWon)
+        {
+            if (dineroGanado > 0)
+                NotificationManager.Send($"¡Has ganado {dineroGanado} monedas!");
+
+            if (cartaGanada != null)
+                NotificationManager.Send($"¡Has obtenido la carta '{cartaGanada.nombreCarta}'!");
+        }
     }
 
     IEnumerator Fade(float from, float to)

@@ -15,7 +15,7 @@ MonoBehaviour:
   ProfessorTypeID: 2
   fullName: SISTEMAS INTERACTIVOS
   shortName: SI
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: fe07224d0d4c66041b99788ecbb11da9, type: 3}
   typeColor: {r: 0.14509805, g: 0.3882353, b: 0.92156863, a: 0}
   effectiveness:
   - targetType: {fileID: 11400000, guid: b8e65d048f3157649b703fdf58396240, type: 2}

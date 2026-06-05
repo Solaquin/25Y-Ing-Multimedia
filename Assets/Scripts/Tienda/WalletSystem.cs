@@ -52,7 +52,7 @@ public class WalletSystem : MonoBehaviour
 
         if (dinero < cantidad)
         {
-            Debug.Log("[Wallet] Saldo insuficiente.");
+            NotificationManager.Send("¡No tienes sufiente dinero!");
             return false;
         }
 
