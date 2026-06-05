@@ -21,7 +21,7 @@ MonoBehaviour:
     phase: 0
   - animTag: Hit
     sfx:
-    - {fileID: 8300000, guid: c504622ff8561304095f2e74d8ebad72, type: 3}
+    - {fileID: 8300000, guid: 2564ae499325f1b46b5b67f6c6686098, type: 3}
     vfx: []
     onTarget: 1
     phase: 1

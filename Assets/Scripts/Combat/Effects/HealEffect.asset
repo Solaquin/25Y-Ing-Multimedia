@@ -15,7 +15,7 @@ MonoBehaviour:
   visualEvents:
   - animTag: Attack
     sfx:
-    - {fileID: 8300000, guid: 6723a4270d9fd404ea2c07bca98bb9b2, type: 3}
+    - {fileID: 8300000, guid: 054ae1af21d6df449a26783caeaa26eb, type: 3}
     vfx: []
     onTarget: 0
     phase: 0

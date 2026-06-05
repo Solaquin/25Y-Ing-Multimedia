@@ -16,9 +16,9 @@ MonoBehaviour:
   - animTag: Attack
     sfx:
     - {fileID: 8300000, guid: 2ce825d468e0c4947860ec4a56d3cfe9, type: 3}
-    - {fileID: 8300000, guid: 3ef11f12d0432724da528fe395f7a4d1, type: 3}
-    - {fileID: 8300000, guid: d503a79eb0eb4cf4994715ca69431372, type: 3}
-    - {fileID: 8300000, guid: a89d9ec66e476fe4fae1b21f6c5bbcd5, type: 3}
+    - {fileID: 8300000, guid: 21e96a481d659dd47a65fa8115927ea6, type: 3}
+    - {fileID: 8300000, guid: c45e16b5783c3d6449bed38460f29bd8, type: 3}
+    - {fileID: 8300000, guid: fadcb77445aa87243836bcae0d507b83, type: 3}
     vfx: []
     onTarget: 0
     phase: 0
