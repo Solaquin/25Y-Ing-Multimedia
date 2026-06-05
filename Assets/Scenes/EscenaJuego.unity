@@ -395,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 2808281}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.6, y: 0.0005, z: 56.45}
+  m_LocalPosition: {x: 13.93, y: 0.0005, z: 56.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14542,7 +14542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15000,10 +15000,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &431460688
 GameObject:
@@ -16417,10 +16414,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &460480415
 GameObject:
@@ -25505,10 +25499,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &721972810
 GameObject:
@@ -26048,10 +26039,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &742488472
 GameObject:
@@ -42052,10 +42040,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &1151798261
 GameObject:
@@ -42900,10 +42885,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &1192837388
 GameObject:
@@ -46012,7 +45994,7 @@ Transform:
   m_GameObject: {fileID: 1295502455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0.102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62737,7 +62719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1716846506
 Transform:
   m_ObjectHideFlags: 0
@@ -78865,10 +78847,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!1 &2017566486
 GameObject:
@@ -84473,10 +84452,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7433956962493292726, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f3d9ca0cd139045a5429fe150a4a3c, type: 3}
 --- !u!224 &538180018747561609
 RectTransform:
@@ -84655,7 +84631,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1599459300564187038, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.35
+      value: 0.238
       objectReference: {fileID: 0}
     - target: {fileID: 1945880261778183009, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_text
@@ -84752,6 +84728,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 54464831}
     - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: pasosDespuesStarter.Array.data[0].dialogo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[0]'
+      value: Excelente, ahora ve a explorar el maravilloso mundo de los Profemon.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[1]'
+      value: "Y ahora ten cuidado, habr\xE1 estudiantes que querr\xE1n retarte."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: 'pasosDespuesStarter.Array.data[0].dialogo.Array.data[2]'
+      value: "Yo estar\xE9 aca un tiempo."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505290358948404366, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: pasosDespuesStarter.Array.data[0].activarAlTerminar.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -84762,6 +84754,10 @@ PrefabInstance:
     - target: {fileID: 2837756003636357176, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276565986103854676, guid: 87626a79508ddd843b375886526a32b3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 3276565986103854676, guid: 87626a79508ddd843b375886526a32b3, type: 3}
       propertyPath: m_AnchoredPosition.y
