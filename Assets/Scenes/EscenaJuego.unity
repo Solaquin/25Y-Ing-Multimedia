@@ -9916,7 +9916,7 @@ Transform:
   m_GameObject: {fileID: 287310639}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.196}
+  m_LocalPosition: {x: 0, y: 0, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36243,7 +36243,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 8275859971367427353, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
+    m_Reference: {fileID: -8525429354371678379, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   umbral: 0.5
   moveProvider: {fileID: 659492248}
   turnProvider: {fileID: 899799448}
@@ -41155,7 +41155,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b6843f195de789648868c2480992f405, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1135274778
 MonoBehaviour:
@@ -51195,6 +51195,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1431079332}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1431079335}
   m_SourcePrefab: {fileID: 100100000, guid: 409c224f2eefe5e45a7ee1649d7ec3e9, type: 3}
 --- !u!4 &1431079324 stripped
 Transform:
@@ -51338,6 +51341,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CajaInteractuableVR
   inspector: {fileID: 978402768}
+--- !u!114 &1431079335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358878398}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a041a69a555f4a74499ac037468c0fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestCartas
+  inventario: {fileID: 1155693190}
+  cartasDePrueba:
+  - {fileID: 11400000, guid: 33df89c222ffe39438068b4498888b78, type: 2}
+  - {fileID: 11400000, guid: 84d64521775bef547adab554564c7d14, type: 2}
+  - {fileID: 11400000, guid: 1ec03276d831722428475dc33dbd94d6, type: 2}
+  - {fileID: 11400000, guid: 091dd77e90803e444a28fd498fae2f3b, type: 2}
+  - {fileID: 11400000, guid: ea169bb71a82fd94299d15b18fae9ca1, type: 2}
 --- !u!1 &1432717523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7333870905098747789, guid: 1920305aa2134374aaeb8c21ac04cb0f, type: 3}

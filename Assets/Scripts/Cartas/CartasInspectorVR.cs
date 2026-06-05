@@ -49,8 +49,8 @@ public class CartasInspectorVR : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) ToggleInspeccion();
         if (!abierto) return;
-        if (Input.GetKeyDown(KeyCode.D)) Siguiente();
-        if (Input.GetKeyDown(KeyCode.A)) Anterior();
+        //if (Input.GetKeyDown(KeyCode.D)) Siguiente();
+        //if (Input.GetKeyDown(KeyCode.A)) Anterior();
 
         if (joystickDerecho.action == null) return;
         Vector2 stick = joystickDerecho.action.ReadValue<Vector2>();
