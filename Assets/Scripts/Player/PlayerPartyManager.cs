@@ -179,6 +179,7 @@ public class PlayerPartyManager : MonoBehaviour
         foreach (var p in party)
         {
             p.currentHP = p.maxHP;
+            p.CureStatusCondition();
         }
     }
 }

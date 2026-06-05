@@ -44,5 +44,6 @@ public class HealNPC : MonoBehaviour
     {
         curando = false;
         npcDialogo.botonHablar.SetActive(false); // ocultar botón al terminar
+        NotificationManager.Send("¡Tus profemon han sido curados y están listos para seguir dándola toda!");
     }
 }
