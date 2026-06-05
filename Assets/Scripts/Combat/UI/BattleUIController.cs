@@ -38,6 +38,7 @@ public class BattleUIController : MonoBehaviour
     public Transform itemButtonContainer;
     public GameObject itemButtonPrefab;
     public TextMeshProUGUI itemDescriptionText;
+    public ItemInfoPanel itemInfoPanel;
 
     [Header("Party")]
     public PartyMenuBattleController partyMenu;
@@ -272,6 +273,13 @@ public class BattleUIController : MonoBehaviour
                 PlayClick();
                 OnItemSelected(captured);
             });
+
+            ItemButtonHover hover = btn.GetComponent<ItemButtonHover>();
+
+            if (hover != null)
+            {
+                hover.Setup(item, itemInfoPanel);
+            }
         }
     }
 

@@ -613,6 +613,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator StartBattleRoutine(ProfemonInstance playerInstance, ProfemonInstance enemyInstance)
     {
+        BattleEvents.OnBattleIntroStarted?.Invoke();
+
         yield return StartCoroutine(
             BattleIntro(playerInstance, enemyInstance)
         );

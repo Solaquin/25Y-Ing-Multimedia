@@ -16,13 +16,13 @@ public class AmbientMusicBattleListener : MonoBehaviour
 
     private void OnEnable()
     {
-        BattleEvents.OnBattleStarted += HandleBattleStarted;
+        BattleEvents.OnBattleIntroStarted += HandleBattleStarted;
         BattleEvents.OnBattleEnded += HandleBattleEnded;
     }
 
     private void OnDisable()
     {
-        BattleEvents.OnBattleStarted -= HandleBattleStarted;
+        BattleEvents.OnBattleIntroStarted -= HandleBattleStarted;
         BattleEvents.OnBattleEnded -= HandleBattleEnded;
     }
 

@@ -2,6 +2,8 @@ using System;
 
 public static class BattleEvents
 {
+    public static Action OnBattleIntroStarted;
+
     public static Action OnBattleStarted;
 
     public static Action OnBattleEnded;
