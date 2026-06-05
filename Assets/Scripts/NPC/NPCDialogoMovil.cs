@@ -70,6 +70,8 @@ public class NPCDialogoMovil : MonoBehaviour
 
     private bool starterElegido = false;
 
+    private bool siguiendoJugador = false;
+
     void Start()
     {
         starterElegido = false;
@@ -97,6 +99,9 @@ public class NPCDialogoMovil : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jugadorCerca = false;
+            siguiendoJugador = false;
+
+
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
             SetTalking(false);
@@ -105,6 +110,12 @@ public class NPCDialogoMovil : MonoBehaviour
 
     void Update()
     {
+
+        if (siguiendoJugador)
+        {
+            SeguirMirandoJugador();
+        }
+
         // VR input
         if (jugadorCerca && botonA != null && botonA.action.WasPressedThisFrame())
             Interactuar();
@@ -196,6 +207,8 @@ public class NPCDialogoMovil : MonoBehaviour
         dialogos = pasos[pasoActual].dialogo;
         lineaActual = 0;
 
+        siguiendoJugador = true;
+
         panelDialogo.SetActive(true);
 
         // 🚫 evita spam de escritura
@@ -228,6 +241,8 @@ public class NPCDialogoMovil : MonoBehaviour
         else
         {
             SetTalking(false);
+
+            siguiendoJugador = false;
 
             panelDialogo.SetActive(false);
 
@@ -276,6 +291,8 @@ public class NPCDialogoMovil : MonoBehaviour
 
     IEnumerator MoverYContinuar()
     {
+        siguiendoJugador = false;
+
         PasoNPC paso = pasos[pasoActual];
 
         // 🔹 Rotación antes de moverse
@@ -412,5 +429,29 @@ public class NPCDialogoMovil : MonoBehaviour
     {
         if (animator != null)
             animator.SetBool("IsWalking", value);
+    }
+
+    void SeguirMirandoJugador()
+    {
+        if (Camera.main == null)
+            return;
+
+        Vector3 direccion =
+            Camera.main.transform.position - transform.position;
+
+        direccion.y = 0f;
+
+        if (direccion.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion objetivo =
+            Quaternion.LookRotation(direccion)
+            * Quaternion.Euler(0f, 180f, 0f);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            objetivo,
+            5f * Time.deltaTime
+        );
     }
 }

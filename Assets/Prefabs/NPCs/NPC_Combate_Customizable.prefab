@@ -174,7 +174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -22.7}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1894434055498082323
@@ -399,7 +399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -22.294935}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 250.89008, y: 226.98999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6748588000181602722
@@ -700,6 +700,8 @@ MonoBehaviour:
   enemyParty: {fileID: 3333062083401011551}
   dialogosPostDerrota:
   - JOA MANIN NO ME TOCABA
+  dineroOtorgado: 100
+  cartaRecompensa: {fileID: 0}
 --- !u!114 &3333062083401011551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -893,7 +895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.7}
+  m_AnchoredPosition: {x: 0, y: 1.3}
   m_SizeDelta: {x: 565, y: 315}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8290203907185595067
@@ -1176,7 +1178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.81}
+  m_AnchoredPosition: {x: 0, y: 2.8}
   m_SizeDelta: {x: 1, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8736280268833799903

@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProfedexDatabase
   allProfemons:
   - {fileID: 11400000, guid: 6c2ab46bd2b6fd643aed7fb3277020b1, type: 2}
-  - {fileID: 11400000, guid: 8cb4d8ffa2ce19844ac2559991ce3207, type: 2}
-  - {fileID: 11400000, guid: a21d965ee0117d94dbcbcf68937edd6d, type: 2}
-  - {fileID: 11400000, guid: 95fb06a7c4061ee43a6cc54772a85140, type: 2}
+  - {fileID: 11400000, guid: aeadcd61c2e46d74a86ab2852fef2a40, type: 2}
   - {fileID: 11400000, guid: 1221ece12d1b3f94b9f55ed0dce6ab7a, type: 2}
+  - {fileID: 11400000, guid: a21d965ee0117d94dbcbcf68937edd6d, type: 2}
   - {fileID: 11400000, guid: 25ebffda14622f644935cae8841e9481, type: 2}
   - {fileID: 11400000, guid: 891546a7d1ee9c5448dfe0a29a32ff47, type: 2}
   - {fileID: 11400000, guid: 7e51a7689eb582840a734c2aa7607178, type: 2}
   - {fileID: 11400000, guid: 634629b4e46c7c54cb7781734e12a370, type: 2}
   - {fileID: 11400000, guid: 738a28948e01bc440b53e16a2bf2fa06, type: 2}
   - {fileID: 11400000, guid: cd29da2f5f7b1834689132b11418397b, type: 2}
+  - {fileID: 11400000, guid: 95fb06a7c4061ee43a6cc54772a85140, type: 2}
+  - {fileID: 11400000, guid: 22492275c28564e40917810cf2cba4b9, type: 2}
+  - {fileID: 11400000, guid: 8cb4d8ffa2ce19844ac2559991ce3207, type: 2}
   - {fileID: 11400000, guid: ee96ff64b56bcf1429165d18290f05fa, type: 2}

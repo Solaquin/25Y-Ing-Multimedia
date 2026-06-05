@@ -31,6 +31,11 @@ public class NPCDialogo : MonoBehaviour
     private bool escribiendo = false;
     private bool jugadorCerca = false;
 
+    private Quaternion rotacionOriginal;
+    private bool rotacionGuardada = false;
+    private bool siguiendoJugador = false;
+    private bool volviendoRotacion = false;
+
     [Header("Input VR")]
     public InputActionReference botonA;
 
@@ -41,6 +46,8 @@ public class NPCDialogo : MonoBehaviour
 
     [Header("Animator")]
     public Animator animator;
+
+
 
     void Start()
     {
@@ -90,6 +97,9 @@ public class NPCDialogo : MonoBehaviour
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
 
+            siguiendoJugador = false;
+            volviendoRotacion = true;
+
             SetTalking(false);
             DetenerAudioDialogo(); // 🔴 importante
         }
@@ -98,6 +108,29 @@ public class NPCDialogo : MonoBehaviour
     void Update()
     {
         if (camaraJugador == null) return;
+
+        if (siguiendoJugador)
+        {
+            SeguirMirandoJugador();
+        }
+
+
+        if (volviendoRotacion)
+        {
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                rotacionOriginal,
+                5f * Time.deltaTime
+            );
+
+            if (Quaternion.Angle(
+                transform.rotation,
+                rotacionOriginal) < 1f)
+            {
+                transform.rotation = rotacionOriginal;
+                volviendoRotacion = false;
+            }
+        }
 
         bool mirandoNPC = EstaMirandoAlNPC();
 
@@ -118,6 +151,11 @@ public class NPCDialogo : MonoBehaviour
 
     void IniciarDialogo()
     {
+        rotacionOriginal = transform.rotation;
+        rotacionGuardada = true;
+        siguiendoJugador = true;
+        volviendoRotacion = false;
+
         SetTalking(true);
         botonHablar.SetActive(false);
         panelDialogo.SetActive(true);
@@ -147,6 +185,10 @@ public class NPCDialogo : MonoBehaviour
         else
         {
             panelDialogo.SetActive(false);
+
+            siguiendoJugador = false;
+            volviendoRotacion = true;
+
             botonHablar.SetActive(false);
             DetenerAudioDialogo();
             SetTalking(false);
@@ -220,5 +262,37 @@ public class NPCDialogo : MonoBehaviour
     {
         if (animator != null)
             animator.SetBool("IsTalking", value);
+    }
+
+    void SeguirMirandoJugador()
+    {
+        if (camaraJugador == null)
+            return;
+
+        Vector3 direccion =
+            camaraJugador.position - transform.position;
+
+        direccion.y = 0f;
+
+        if (direccion.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion objetivo =
+            Quaternion.LookRotation(direccion) * Quaternion.Euler(0f, 180f, 0f);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            objetivo,
+            5f * Time.deltaTime
+        );
+    }
+
+    void RestaurarRotacion()
+    {
+        if (!rotacionGuardada)
+            return;
+
+        transform.rotation = rotacionOriginal;
+        rotacionGuardada = false;
     }
 }
