@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageEffectSO
   visualEvents:
   - animTag: Attack
-    sfx: {fileID: 0}
-    vfx: {fileID: 0}
+    sfx:
+    - {fileID: 8300000, guid: 2ce825d468e0c4947860ec4a56d3cfe9, type: 3}
+    - {fileID: 8300000, guid: 3ef11f12d0432724da528fe395f7a4d1, type: 3}
+    - {fileID: 8300000, guid: d503a79eb0eb4cf4994715ca69431372, type: 3}
+    - {fileID: 8300000, guid: a89d9ec66e476fe4fae1b21f6c5bbcd5, type: 3}
+    vfx: []
     onTarget: 0
     phase: 0
   - animTag: Hit
-    sfx: {fileID: 0}
-    vfx: {fileID: 0}
+    sfx: []
+    vfx: []
     onTarget: 1
     phase: 1

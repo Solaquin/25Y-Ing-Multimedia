@@ -17,7 +17,6 @@ public class BattleSystem : MonoBehaviour
 {
     [Header("Audio Combate")]
     public AudioInteractivo musicaCombate;
-    public AudioInteractivo audioGolpe;
     public TurnOrderDebugUI debugUI;
     public BattleState currentState;
     public int turnNumber = 0;
@@ -329,9 +328,6 @@ public class BattleSystem : MonoBehaviour
 
         // LÓGICA
         move.effect.Execute(user, target, context);
-
-        if (audioGolpe != null)
-            AudioManager.Play(audioGolpe);
 
         // AFTER (impacto / hit / efectos)
         yield return StartCoroutine(

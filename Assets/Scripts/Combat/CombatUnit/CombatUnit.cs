@@ -489,31 +489,6 @@ public class CombatUnit : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayVisualEvents(List<VisualEvent> events, CombatUnit user, CombatUnit target)
-    {
-        foreach (var e in events)
-        {
-            CombatUnit unit = e.onTarget ? target : user;
-
-            if (!string.IsNullOrEmpty(e.animTag))
-                yield return StartCoroutine(unit.PlayByTag(e.animTag));
-
-            if (e.vfx != null)
-                Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
-
-            if (e.sfx != null)
-            {
-                GameObject temp = new GameObject("TempSFX");
-                temp.transform.position = unit.transform.position;
-
-                AudioSource source = temp.AddComponent<AudioSource>();
-                source.clip = e.sfx;
-                source.Play();
-
-                Destroy(temp, e.sfx.length);
-            }
-        }
-    }
     public IEnumerator PlayVisualPhase(List<VisualEvent> events, VisualPhase phase, CombatUnit user, CombatUnit target)
     {
         foreach (var e in events)
@@ -530,22 +505,27 @@ public class CombatUnit : MonoBehaviour
             }
 
             // VFX
-            if (e.vfx != null)
+            if (e.vfx != null && e.vfx.Length > 0)
             {
-                Instantiate(e.vfx, unit.transform.position, Quaternion.identity);
+                GameObject prefab = e.vfx[Random.Range(0, e.vfx.Length)];
+
+                Instantiate(
+                    prefab,
+                    transform.position,
+                    Quaternion.identity
+                );
             }
 
             // AUDIO CORREGIDO
-            if (e.sfx != null)
+            if (e.sfx != null && e.sfx.Length > 0)
             {
-                GameObject temp = new GameObject("TempSFX");
-                temp.transform.position = unit.transform.position;
+                AudioClip clip =
+                    e.sfx[Random.Range(0, e.sfx.Length)];
 
-                AudioSource source = temp.AddComponent<AudioSource>();
-                source.clip = e.sfx;
-                source.Play();
-
-                Destroy(temp, e.sfx.length);
+                AudioSource.PlayClipAtPoint(
+                    clip,
+                    transform.position
+                );
             }
         }
     }
