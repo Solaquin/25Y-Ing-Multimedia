@@ -62,12 +62,12 @@ public class ShopSystem : MonoBehaviour
         List<ProfeBallSO> profeBalls =
             itemDatabase.GetAllProfeBalls();
 
-        foreach (ItemSO item in battleItems)
+        foreach (ItemSO item in profeBalls)
         {
             CrearBoton(item);
         }
 
-        foreach (ItemSO item in profeBalls)
+        foreach (ItemSO item in battleItems)
         {
             CrearBoton(item);
         }

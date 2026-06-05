@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc95455135e58049976c31d1b78fa76, type: 3}
   m_Name: ProfeBall Basica
   m_EditorClassIdentifier: Assembly-CSharp::ProfeBallSO
-  id: 2
+  id: 1
   displayName: Profe Capsula
   description: Puedes reclutar profes para tu equipo
   icon: {fileID: 21300000, guid: 029658ff883968f44b375f6828e7ff69, type: 3}

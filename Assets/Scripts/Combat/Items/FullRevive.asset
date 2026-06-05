@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 762a9eac2eaeba849a4b53a2358dc486, type: 3}
-  m_Name: "Caf\xE9 Cargado"
+  m_Name: FullRevive
   m_EditorClassIdentifier: Assembly-CSharp::BattleItemSO
-  id: 3
-  displayName: "Caf\xE9 Cargado"
-  description: Preparado para sobrevivir una semana de entregas y parciales. Cura
-    60 HP.
+  id: 10
+  displayName: "Fondo de Investigaci\xF3n"
+  description: "Un impulso extraordinario para cualquier proyecto acad\xE9mico. Saca
+    al profe del colapso total. Cura todos sus HP."
   icon: {fileID: 21300000, guid: 30a8c9454f34ece42bf6be962cbd088b, type: 3}
-  precio: 40
-  effect: 0
-  effectValue: 60
+  precio: 120
+  effect: 4
+  effectValue: 0
   targetStatus: 0
   battleOnly: 0

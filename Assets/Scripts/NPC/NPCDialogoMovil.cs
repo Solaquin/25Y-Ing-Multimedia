@@ -56,6 +56,10 @@ public class NPCDialogoMovil : MonoBehaviour
 
     string[] dialogos;
 
+    [Header("Audio Dialogo (auto)")]
+    public AudioSource audioDialogoSource;
+    public AudioClip audioDialogoClip;
+
     // =========================
     // (FIX SISTEMA)
     // =========================
@@ -83,6 +87,16 @@ public class NPCDialogoMovil : MonoBehaviour
 
         if (botonA != null)
             botonA.action.Enable();
+
+        if (audioDialogoSource == null)
+        {
+            audioDialogoSource = GetComponent<AudioSource>();
+
+            if (audioDialogoSource == null)
+            {
+                audioDialogoSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -105,6 +119,7 @@ public class NPCDialogoMovil : MonoBehaviour
             botonHablar.SetActive(false);
             panelDialogo.SetActive(false);
             SetTalking(false);
+            DetenerAudioDialogo();
         }
     }
 
@@ -129,6 +144,8 @@ public class NPCDialogoMovil : MonoBehaviour
     {
         if (!jugadorCerca) return;
 
+        botonHablar.SetActive(false);
+
         if (bloqueadoPorMovimiento) return;
 
         // 🎯 SI está escribiendo → SKIP INSTANTÁNEO
@@ -140,6 +157,7 @@ public class NPCDialogoMovil : MonoBehaviour
             textoDialogo.text = dialogos[lineaActual];
             escribiendo = false;
             flechaContinuar.SetActive(true);
+            DetenerAudioDialogo();
             return;
         }
 
@@ -209,6 +227,7 @@ public class NPCDialogoMovil : MonoBehaviour
 
         siguiendoJugador = true;
 
+        botonHablar.SetActive(false);
         panelDialogo.SetActive(true);
 
         // 🚫 evita spam de escritura
@@ -245,7 +264,6 @@ public class NPCDialogoMovil : MonoBehaviour
             siguiendoJugador = false;
 
             panelDialogo.SetActive(false);
-
             bloqueadoPorMovimiento = true;
 
             if (movimientoCoroutine != null)
@@ -265,6 +283,12 @@ public class NPCDialogoMovil : MonoBehaviour
         flechaContinuar.SetActive(false);
         textoDialogo.text = "";
 
+        if (audioDialogoClip != null)
+        {
+            audioDialogoSource.clip = audioDialogoClip;
+            audioDialogoSource.Play();
+        }
+
         foreach (char c in dialogos[lineaActual])
         {
             textoDialogo.text += c;
@@ -273,6 +297,7 @@ public class NPCDialogoMovil : MonoBehaviour
 
         escribiendo = false;
         flechaContinuar.SetActive(true);
+        DetenerAudioDialogo();
 
         // 🔓 desbloqueo del primer diálogo si aplica
         if (esperandoPrimerDialogo)
@@ -415,6 +440,11 @@ public class NPCDialogoMovil : MonoBehaviour
 
         SetTalking(false);
         SetWalking(false);
+        if (jugadorCerca)
+        {
+            botonHablar.SetActive(true);
+        }
+        DetenerAudioDialogo();
 
         OnDialogoTerminado?.Invoke();
     }
@@ -453,5 +483,13 @@ public class NPCDialogoMovil : MonoBehaviour
             objetivo,
             5f * Time.deltaTime
         );
+    }
+
+    void DetenerAudioDialogo()
+    {
+        if (audioDialogoSource != null && audioDialogoSource.isPlaying)
+        {
+            audioDialogoSource.Stop();
+        }
     }
 }

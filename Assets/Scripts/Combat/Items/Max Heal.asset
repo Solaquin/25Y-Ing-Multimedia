@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 762a9eac2eaeba849a4b53a2358dc486, type: 3}
-  m_Name: "Caf\xE9 Cargado"
+  m_Name: Max Heal
   m_EditorClassIdentifier: Assembly-CSharp::BattleItemSO
-  id: 3
-  displayName: "Caf\xE9 Cargado"
-  description: Preparado para sobrevivir una semana de entregas y parciales. Cura
-    60 HP.
+  id: 8
+  displayName: Paquete de Bienestar
+  description: "Un conjunto de recursos dise\xF1ado para recuperar completamente
+    el rendimiento acad\xE9mico. Cura por completo la vida y cura estados."
   icon: {fileID: 21300000, guid: 30a8c9454f34ece42bf6be962cbd088b, type: 3}
-  precio: 40
-  effect: 0
-  effectValue: 60
-  targetStatus: 0
+  precio: 100
+  effect: 2
+  effectValue: 0
+  targetStatus: 4
   battleOnly: 0

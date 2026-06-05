@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd657943d9c77cb4592234bef2c1f138, type: 3}
   m_Name: ItemDatabase
   m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
-  totalItems: 3
+  totalItems: 10
   battleItems:
-  - {fileID: 11400000, guid: 52366c53b5c8eab47beb4b9c972691aa, type: 2}
-  - {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
   - {fileID: 11400000, guid: 844e651dc2fc3a045aeac0d8363aecd2, type: 2}
   - {fileID: 11400000, guid: 2f043bd6a7a4cc24cbe72c67f4d587af, type: 2}
+  - {fileID: 11400000, guid: 247c3ecb47bad87428432de49d7a671b, type: 2}
+  - {fileID: 11400000, guid: b2a4d2b9840b2d6499612fb19c853bd8, type: 2}
+  - {fileID: 11400000, guid: 0bc2e7898b6cc6e4b9a2c4aa9def8e40, type: 2}
+  - {fileID: 11400000, guid: 268c1c51cecfbe74bab6b4e92a6b1b89, type: 2}
+  - {fileID: 11400000, guid: 7367f48ce78172a4c999564e7e611f43, type: 2}
+  - {fileID: 11400000, guid: fb5ba8b92ea7b924babf40661453a229, type: 2}
+  - {fileID: 11400000, guid: 4b9c8c2e8a10ba14097587241ec2f9b6, type: 2}
   profeBalls:
   - {fileID: 11400000, guid: 5a7c44585a8d7db4d863081c69d60e35, type: 2}

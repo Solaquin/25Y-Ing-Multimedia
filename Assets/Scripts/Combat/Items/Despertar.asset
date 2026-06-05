@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762a9eac2eaeba849a4b53a2358dc486, type: 3}
   m_Name: Despertar
   m_EditorClassIdentifier: Assembly-CSharp::BattleItemSO
-  id: 1
-  displayName: Despertar
-  description: Despierta al profesor de inmediato
+  id: 5
+  displayName: Despertador Digital
+  description: Un recordatorio de entrega inminente que levanta a cualquiera. Despierta
+    al profe de inmediato.
   icon: {fileID: 21300000, guid: 30a8c9454f34ece42bf6be962cbd088b, type: 3}
-  precio: 50
+  precio: 30
   effect: 1
   effectValue: 0
   targetStatus: 3

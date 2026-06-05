@@ -80,7 +80,13 @@ public class VRSceneChanger : MonoBehaviour
 
             // Activar escena cuando está lista
             if (operation.progress >= 0.9f && displayedProgress >= 1f)
+            {
                 operation.allowSceneActivation = true;
+                yield return new WaitForSeconds(0.5f);
+            }
+                
+
+
 
             yield return null;
         }
