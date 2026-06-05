@@ -4,11 +4,28 @@ using UnityEngine;
 public class BuffSelfEffectSO : MoveEffectSO
 {
     public override void Execute(
-        CombatUnit user,
-        CombatUnit target,
-        MoveContext context
-    )
+    CombatUnit user,
+    CombatUnit target,
+    MoveContext context
+)
     {
-        user.AddStageModifier(context.move.affectedStat, context.move.stageChange);
+        bool changed = user.AddStageModifier(
+            context.move.affectedStat,
+            Mathf.Abs(context.move.stageChange)
+        );
+
+        if (changed)
+        {
+            int amount = Mathf.Abs(context.move.stageChange);
+
+            string intensity =
+                amount >= 2
+                ? "drásticamente"
+                : "";
+
+            context.AddMessage(
+                $"{user.Instance.data.professorName} aumentó {intensity} su {context.move.affectedStat}."
+            );
+        }
     }
 }

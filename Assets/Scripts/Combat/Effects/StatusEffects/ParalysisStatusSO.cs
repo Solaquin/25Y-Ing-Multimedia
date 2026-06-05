@@ -12,4 +12,14 @@ public class ParalysisStatusSO : StatusEffectSO
 
         return Random.value < skipChance;
     }
+
+    public override string GetApplyMessage(CombatUnit unit)
+    {
+        return $"{unit.Instance.data.professorName} se bloqueo creativamente.";
+    }
+
+    public override string GetPreventActionMessage(CombatUnit unit)
+    {
+        return $"¡El bloqueo creativo impidió actuar a {unit.Instance.data.professorName}!";
+    }
 }

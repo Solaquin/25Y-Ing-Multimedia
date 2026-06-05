@@ -14,4 +14,9 @@ public class StressStatusSO : StatusEffectSO
 
         Debug.Log($"{unit.name} sufrió daño por estrés");
     }
+
+    public override string GetApplyMessage(CombatUnit unit)
+    {
+        return $"{unit.Instance.data.professorName} ahora esta estresado.";
+    }
 }

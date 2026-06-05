@@ -167,17 +167,19 @@ public class CombatUnit : MonoBehaviour
         return Mathf.RoundToInt(baseValue * multiplier);
     }
 
-    public void AddStageModifier(StatType stat, int amount)
+    public bool AddStageModifier(StatType stat, int amount)
     {
-        int currentStage = statStages[stat];
+        int oldStage = statStages[stat];
 
-        currentStage += amount;
+        int newStage = Mathf.Clamp(
+            oldStage + amount,
+            -6,
+            6
+        );
 
-        currentStage = Mathf.Clamp(currentStage, -6, 6);
+        statStages[stat] = newStage;
 
-        statStages[stat] = currentStage;
-
-        Debug.Log($"{name} {stat} stage ahora es {currentStage}");
+        return oldStage != newStage;
     }
 
     public int GetStage(StatType stat)
@@ -215,36 +217,21 @@ public class CombatUnit : MonoBehaviour
     // ================================
     // ESTADOS
     // ================================
-    public void ApplyStatus(StatusEffectSO status, int duration)
+    public bool ApplyStatus(StatusEffectSO status, int duration)
     {
         if (status == null)
-        {
-            Debug.LogError("Intento de aplicar status null");
-            return;
-        }
+            return false;
 
         instance.ValidateStatus();
 
         if (instance.ActiveStatus != null)
-        {
-            Debug.Log($"{name} ya tiene un estado.");
-            return;
-        }
+            return false;
 
         instance.TrySetStatus(status, duration);
 
         status.OnApply(this);
 
-        // 🔊 =========================
-        // 🔥 SONIDO BUFF / DEBUFF
-        // =========================
-        if (status.sfxOnApply != null)
-        {
-            AudioSource.PlayClipAtPoint(status.sfxOnApply, transform.position);
-        }
-        // 🔊 =========================
-
-        Debug.Log($"{name} ahora tiene {status.statusType}");
+        return true;
     }
 
     public bool TryPreventAction(BattleActionType actionType, out string message)
@@ -258,8 +245,7 @@ public class CombatUnit : MonoBehaviour
 
         if (instance.ActiveStatus.effect.PreventAction(actionType))
         {
-            message =
-                $"{name} está {instance.ActiveStatus.effect.statusType} y no puede moverse.";
+            message = instance.ActiveStatus.effect.GetPreventActionMessage(this);
 
             return true;
         }
@@ -267,38 +253,64 @@ public class CombatUnit : MonoBehaviour
         return false;
     }
 
-    public void TickStatus()
+    public List<string> TickStatus()
     {
+        List<string> messages = new();
+
         instance.ValidateStatus();
 
-        if (instance.ActiveStatus == null) return;
+        if (instance.ActiveStatus == null)
+            return messages;
+
+        int hpBefore = GetCurrentHP();
 
         instance.ActiveStatus.effect.OnTurnEnd(this);
 
-        // -1 = persistente, no cuenta turnos
-        if (instance.ActiveStatus.remainingTurns == -1) return;
+        int hpAfter = GetCurrentHP();
+
+        if (hpAfter < hpBefore)
+        {
+            messages.Add(
+                $"{Instance.data.professorName} sufrió daño por {instance.ActiveStatus.effect.statusType}."
+            );
+        }
+
+        // -1 = persistente
+        if (instance.ActiveStatus.remainingTurns == -1)
+            return messages;
 
         instance.ActiveStatus.remainingTurns--;
 
         if (instance.ActiveStatus.remainingTurns <= 0)
         {
-            Debug.Log($"{name} ya no está {instance.ActiveStatus.effect.statusType}");
-            CureStatus();
+            messages.AddRange(CureStatus());
         }
+
+        return messages;
     }
 
-    public void CureStatus()
+    public List<string> CureStatus()
     {
+        List<string> messages = new();
+
         instance.ValidateStatus();
 
-        if (instance.ActiveStatus == null) return;
+        if (instance.ActiveStatus == null)
+            return messages;
+
+        string statusName =
+            instance.ActiveStatus.effect.statusType.ToString();
 
         if (instance.ActiveStatus.effect != null)
             instance.ActiveStatus.effect.OnRemove(this);
 
-        Debug.Log($"{name} se curó de {instance.ActiveStatus.effect?.statusType}");
+        messages.Add(
+            $"{Instance.data.professorName} ya no está {statusName}."
+        );
 
         instance.CureStatusCondition();
+
+        return messages;
     }
 
     // ================================

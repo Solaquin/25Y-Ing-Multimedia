@@ -15,4 +15,14 @@ public class SleepStatusSO : StatusEffectSO
     {
         Debug.Log($"{unit.name} está dormido...");
     }
+
+    public override string GetApplyMessage(CombatUnit unit)
+    {
+        return $"{unit.Instance.data.professorName} se quedó dormido.";
+    }
+
+    public override string GetPreventActionMessage(CombatUnit unit)
+    {
+        return $"{unit.Instance.data.professorName} está dormido y no puede actuar.";
+    }
 }

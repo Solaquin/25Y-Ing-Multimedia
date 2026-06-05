@@ -4,10 +4,6 @@ public abstract class StatusEffectSO : ScriptableObject
 {
     public StatusType statusType;
 
-    // 🔊 AUDIO AL APLICAR EL ESTADO
-    [Header("Audio")]
-    public AudioClip sfxOnApply;
-
     public virtual void OnApply(CombatUnit unit) { }
 
     public virtual void OnTurnStart(CombatUnit unit) { }
@@ -19,5 +15,15 @@ public abstract class StatusEffectSO : ScriptableObject
     public virtual bool PreventAction(BattleActionType actionType)
     {
         return false;
+    }
+
+    public virtual string GetApplyMessage(CombatUnit unit)
+    {
+        return $"{unit.Instance.data.professorName} quedó {statusType}.";
+    }
+
+    public virtual string GetPreventActionMessage(CombatUnit unit)
+    {
+        return $"{unit.Instance.data.professorName} no puede actuar.";
     }
 }

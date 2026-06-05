@@ -9,7 +9,24 @@ public class DebuffTargetEffectSO : MoveEffectSO
         CombatUnit target,
         MoveContext context
     )
-    {
-        target.AddStageModifier(context.move.affectedStat, -Mathf.Abs(context.move.stageChange));
+    {   
+        bool changed = target.AddStageModifier(
+            context.move.affectedStat,
+            -Mathf.Abs(context.move.stageChange)
+        );
+
+        if (changed)
+        {
+            int amount = Mathf.Abs(context.move.stageChange);
+
+            string intensity =
+                amount >= 2
+                ? "drásticamente"
+                : "";
+
+            context.AddMessage(
+                $"{target.Instance.data.professorName} redujo {intensity} su {context.move.affectedStat}."
+            );
+        }
     }
 }

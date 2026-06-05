@@ -5,10 +5,22 @@ using UnityEngine;
 public class ApplyStatusSO : MoveEffectSO
 {
     public override void Execute(
-        CombatUnit user,
-        CombatUnit target,
-        MoveContext context)
+    CombatUnit user,
+    CombatUnit target,
+    MoveContext context)
     {
-        target.ApplyStatus(context.move.statusEffect, context.move.duration);
+        bool applied = target.ApplyStatus(
+            context.move.statusEffect,
+            context.move.duration
+        );
+
+        if (applied)
+        {
+            context.AddMessage(context.move.statusEffect.GetApplyMessage(target));
+        }
+        else
+        {
+            context.AddMessage("Pero no tuvo efecto.");
+        }
     }
 }

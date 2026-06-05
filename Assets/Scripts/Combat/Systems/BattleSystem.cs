@@ -154,6 +154,18 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EndTurnPhase()
     {
+        foreach (var unit in allUnits)
+        {
+            List<string> messages = unit.TickStatus();
+
+            foreach (string msg in messages)
+            {
+                yield return StartCoroutine(
+                    BattleMessenger.Show(msg)
+                );
+            }
+        }
+
         EndTurn();
 
         if (!playerUnit.IsAlive() && !playerUnit.HasBeenKO)
@@ -202,11 +214,6 @@ public class BattleSystem : MonoBehaviour
     public void EndTurn()
     {
         Debug.Log($"---- TURN {turnNumber} END ----");
-
-        foreach (var unit in allUnits)
-        {
-            unit.TickStatus();
-        }
 
         BattleEvents.OnTurnEnd?.Invoke();
     }
@@ -328,6 +335,13 @@ public class BattleSystem : MonoBehaviour
 
         // LÓGICA
         move.effect.Execute(user, target, context);
+
+        foreach (string msg in context.messages)
+        {
+            yield return StartCoroutine(
+                BattleMessenger.Show(msg)
+            );
+        }
 
         // AFTER (impacto / hit / efectos)
         yield return StartCoroutine(
